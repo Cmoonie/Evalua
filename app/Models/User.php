@@ -23,6 +23,16 @@ class User extends Authenticatable
         'password',
     ];
 
+    // Een gebruiker kan meerdere formulieren maken (1-op-veel relatie)
+    public function forms() {
+        return $this->hasMany(Form::class);
+    }
+
+    // Een gebruiker kan meerdere formulieren invullen (1-op-veel relatie)
+    public function filledForms() {
+        return $this->hasMany(FilledForm::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

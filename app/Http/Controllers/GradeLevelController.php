@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\grade_level;
+use App\Models\GradeLevel;
 use Illuminate\Http\Request;
 
 class GradeLevelController extends Controller
@@ -34,7 +34,7 @@ class GradeLevelController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(grade_level $grade_level)
+    public function show(GradeLevel $grade_level)
     {
         //
     }
@@ -42,7 +42,7 @@ class GradeLevelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(grade_level $grade_level)
+    public function edit(GradeLevel $grade_level)
     {
         //
     }
@@ -50,7 +50,7 @@ class GradeLevelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, grade_level $grade_level)
+    public function update(Request $request, GradeLevel $grade_level)
     {
         //
     }
@@ -58,7 +58,7 @@ class GradeLevelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(grade_level $grade_level)
+    public function destroy(GradeLevel $grade_level)
     {
         //
     }
