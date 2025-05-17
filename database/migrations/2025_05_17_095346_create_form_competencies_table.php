@@ -10,9 +10,11 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    { // TUSSENTABEL
         Schema::create('form_competencies', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Primary Key
+            $table->foreignId('form_id')->constrained()->onDelete('cascade'); // FK van het formulier
+            $table->foreignId('competency_id')->constrained()->onDelete('cascade'); // FK van comtetentie
             $table->timestamps();
         });
     }

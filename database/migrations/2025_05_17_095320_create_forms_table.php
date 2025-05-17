@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('forms', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); // Primary key natuurlijk
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // De FK van user
+            $table->string('title', 32); // De titel van het formulier
+            $table->string('subject', 32); // Het vak waar het formulier over gaat
+            $table->text('description'); // Beschrijving van het formulier
+            $table->timestamps(); // Datums etc
         });
     }
 

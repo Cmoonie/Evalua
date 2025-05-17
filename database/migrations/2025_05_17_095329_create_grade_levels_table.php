@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('grade_levels', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); // Primary key
+            $table->string('name', 32); // Naam van het beoordelingsniveau (bijv goed, voldoende, onvoldoende)
+            $table->integer('points'); // Het aantal punten wat daar aan vast hangt
+            $table->timestamps(); // Tijd en datum
         });
     }
 

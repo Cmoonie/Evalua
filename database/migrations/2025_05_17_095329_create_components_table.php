@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('components', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); // Primary keyyyy
+            $table->foreignId('competency_id')->constrained()->onDelete('cascade'); // FK van competentie
+            $table->string('name', 32); // Naam van de component
+            $table->text('description'); // Beschrijving (niet nullable want vul maar in hoor, geef de docenten extra werk)
+            $table->timestamps(); // Datum en tijd enzo
         });
     }
 
