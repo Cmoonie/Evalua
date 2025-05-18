@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 // TUSSENTABEL!!!
 class ComponentLevel extends Model
 {
+    // Om allemaal in te vullen
+    protected $fillable = [
+        'component_id',
+        'grade_level_id',
+        'description',
+    ];
+
     // Hoort bij meerdere componenten (1-op-veel relatie)
     public function component() {
         return $this->belongsTo(Component::class);

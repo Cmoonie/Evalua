@@ -10,6 +10,14 @@ class Form extends Model
     /** @use HasFactory<\Database\Factories\FormFactory> */
     use HasFactory;
 
+    // Deze mogen ingevuld worden
+    protected $fillable = [
+        'user_id',
+        'title',
+        'subject',
+        'description',
+    ];
+
     // Veel formulieren kunnen aan 1 gebruiker toebehoren  (veel-op-1 relatie)
     public function user() {
         return $this->belongsTo(User::class);
@@ -24,5 +32,4 @@ class Form extends Model
     public function filledForms() {
         return $this->hasMany(FilledForm::class);
     }
-
 }

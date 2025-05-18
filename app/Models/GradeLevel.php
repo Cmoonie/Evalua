@@ -10,6 +10,12 @@ class GradeLevel extends Model
     /** @use HasFactory<\Database\Factories\GradeLevelFactory> */
     use HasFactory;
 
+    // Mag ingevuld worden
+    protected $fillable = [
+        'name',
+        'points',
+    ];
+
     // Dit is de relatie met de tussentabel (1-op-veel relatie)
     public function componentLevels() {
         return $this->hasMany(ComponentLevel::class);

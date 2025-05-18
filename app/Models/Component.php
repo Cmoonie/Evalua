@@ -10,6 +10,13 @@ class Component extends Model
     /** @use HasFactory<\Database\Factories\ComponentFactory> */
     use HasFactory;
 
+    // Deze mogen ingevuld worden
+    protected $fillable = [
+        'competency_id',
+        'name',
+        'description',
+    ];
+
     // Meerdere componenten kunnen bij 1 competentie horen (veel-op-1 relatie)
     public function competency() {
         return $this->belongsTo(Competency::class);
