@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 // TUSSENTABEL!!!
 class ComponentLevel extends Model
 {
+    /** @use HasFactory<\Database\Factories\ComponentLevelFactory> */
+    use HasFactory;
+
     // Om allemaal in te vullen
     protected $fillable = [
         'component_id',

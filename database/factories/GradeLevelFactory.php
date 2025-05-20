@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\GradeLevel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,6 +15,7 @@ class GradeLevelFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = GradeLevel::class;
     public function definition(): array
     {
         return [
