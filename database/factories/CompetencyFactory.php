@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\competency>
@@ -14,10 +15,14 @@ class CompetencyFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = Competency::class;
+
     public function definition(): array
     {
         return [
-            //
+            'domain_description' => fake()->paragraph(),
+            'rating_scale' => fake()->paragraph(),
+            'complexity' => fake()->paragraph(),
         ];
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('competencies', function (Blueprint $table) {
             $table->id(); // Primary key
-            $table->string('name', 32); // Naam van de competencie
+            $table->string('name', 32); // Naam van de competentie
             $table->text('domain_description'); // Domeinbeschrijving (deze en die eronder wil de Stakeholder laten zien bij elke competentie)
             $table->text('rating_scale'); // Beoordelingsschaal
             $table->text('complexity'); // Complexiteit
