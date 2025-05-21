@@ -18,6 +18,7 @@ export default {
                 primary: '#4594D3', // Primary colour
                 secondary: '#1EBCC5', // Secondary colour
                 tertiary: '#84D0D9',
+                bg: '#f3f4f6',
                 windy: '#FFCB05',
                 neutral: '#e2e8f0', // Neutral background colour
             }

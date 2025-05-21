@@ -22,13 +22,11 @@
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+            @if(isset($header))
+                <x-header>
+                    {{ $header }}
+                </x-header>
+            @endif
 
             <!-- Page Content -->
             <main>
@@ -36,7 +34,7 @@
             </main>
 
             <!-- Footer -->
-{{--            @include('layouts.footer')--}}
+            @include('layouts.footer')
 
         </div>
     </body>
