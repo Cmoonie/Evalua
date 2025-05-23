@@ -21,6 +21,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Formulierenbeheer (aanmaken, bekijken, bewerken, verwijderen)
+Route::resource('forms', FormController::class);
+
+
 // CRUD routes voor onze controllers, misschien niet nodig?
 Route::resource('competencies', CompetencyController::class);
 Route::resource('components', ComponentController::class);
