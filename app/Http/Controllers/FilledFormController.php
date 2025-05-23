@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FilledForm;
 use Illuminate\Http\Request;
 
 class FilledFormController extends Controller
