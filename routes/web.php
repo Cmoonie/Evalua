@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CompetencyController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\FilledFormController;
 use App\Http\Controllers\GradeLevelController;
 
 Route::get('/', function () {
@@ -21,10 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// CRUD routes voor onze controllers, misschien niet nodig?
+// CRUD routes voor onze controllers
 Route::resource('competencies', CompetencyController::class);
 Route::resource('components', ComponentController::class);
 Route::resource('forms', FormController::class);
+Route::resource('filledforms', FilledFormController::class);
 Route::resource('gradelevels', GradeLevelController::class);
 
 
