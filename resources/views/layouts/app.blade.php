@@ -29,7 +29,18 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            {{--
+    De hoofdinhoud van de pagina wordt hier weergegeven.
+    Tailwind-klassen zorgen voor:
+    - max-w-4xl: maximale breedte (±960px)
+    - mx-auto: centrering op het scherm
+    - px-4: horizontale padding (ruimte links/rechts)
+    - py-6: verticale padding (ruimte boven/onder)
+
+    Dit geeft een nette, luchtige layout op alle schermgroottes.
+--}}
+            <main class="max-w-4xl mx-auto px-4 py-6">
+
                 @yield('content')
             </main>
 

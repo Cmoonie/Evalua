@@ -6,16 +6,19 @@
 
     <h1 class="text-2xl font-bold mb-6">Nieuwe beoordeling invullen</h1>
     {{--
-        filled_forms/create.blade.php
+        forms/fill.blade.php
 
         Dit is het formulier voor het invullen van een bestaande beoordelingsmatrix (Form).
         Een docent selecteert of kiest een student, vult per component een score in (0, 3, 5),
-        en eventueel opmerkingen. De gegevens worden opgeslagen als een nieuwe FilledForm.
+        en eventueel opmerkingen. De gegevens worden opgeslagen via FormController.
 
-        Dit is géén formulierstructuur (die zit in 'forms/'), maar een ingevulde versie (beoordeling).
+        Dit is géén formulierstructuur (die zit in 'forms/create'), maar een ingevulde versie (beoordeling).
     --}}
-    <form action="#" method="POST" class="space-y-6">
+    <form action="{{ route('forms.submit', $form) }}" method="POST" class="space-y-6">
         @csrf
+
+        <!-- Verborgen formulier-ID -->
+        <input type="hidden" name="form_id" value="{{ $form->id }}">
 
         <!-- Studentgegevens -->
         <div>
@@ -33,13 +36,13 @@
 
         <h2 class="text-xl font-semibold">Competentie: Samenwerken</h2>
 
-        @include('filled_forms._component', ['label' => 'Werkt effectief samen met anderen'])
-        @include('filled_forms._component', ['label' => 'Neemt verantwoordelijkheid in de groep'])
+        @include('forms._component', ['label' => 'Werkt effectief samen met anderen'])
+        @include('forms._component', ['label' => 'Neemt verantwoordelijkheid in de groep'])
 
         <h2 class="text-xl font-semibold mt-6">Competentie: Communicatie</h2>
 
-        @include('filled_forms._component', ['label' => 'Drukt zich duidelijk uit'])
-        @include('filled_forms._component', ['label' => 'Luistert actief naar feedback'])
+        @include('forms._component', ['label' => 'Drukt zich duidelijk uit'])
+        @include('forms._component', ['label' => 'Luistert actief naar feedback'])
 
         <!-- Verzenden -->
         <div>

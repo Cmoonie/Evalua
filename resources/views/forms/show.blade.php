@@ -1,24 +1,43 @@
-@if (session('success'))
-    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded shadow">
-        {{ session('success') }}
-    </div>
-@endif
-
 @extends('layouts.app')
 
 @section('title', 'Ingevulde beoordeling')
-
+@php
+    $filledForm = (object) [
+        'student_name' => 'Chrystella Agyemang',
+        'subject' => 'Web Development',
+        'filledComponents' => [
+            (object) [
+                'component_name' => 'Samenwerken',
+                'score' => 5,
+                'comment' => 'Toont veel initiatief en goede samenwerking'
+            ],
+            (object) [
+                'component_name' => 'Communicatie',
+                'score' => 3,
+                'comment' => 'Soms onduidelijk in uitleg'
+            ],
+            (object) [
+                'component_name' => 'Reflectie',
+                'score' => 0,
+                'comment' => null
+            ],
+        ],
+    ];
+@endphp
 @section('content')
     {{--
-    filled_forms/show.blade.php
+    forms/show.blade.php
 
-    Toont een ingevuld beoordelingsformulier (FilledForm).
+    Toont een ingevuld beoordelingsformulier (Forms).
     Dit bevat de naam van de student, het vak, en per component:
     - de ingevulde score (0/3/5)
     - een eventuele opmerking
 
     Deze view is alleen-lezen en wordt aangeroepen na het opslaan of via een aparte route.
 --}}
+    {{-- Succesmelding na invullen --}}
+    <x-alert-success />
+
     <h1 class="text-2xl font-bold mb-4">Beoordeling van {{ $filledForm->student_name }}</h1>
     <p><strong>Vak:</strong> {{ $filledForm->subject }}</p>
 
