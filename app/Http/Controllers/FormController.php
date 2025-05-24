@@ -6,6 +6,7 @@ use App\Models\Competency;
 use App\Models\Form;
 use App\Models\GradeLevel;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreFormRequest; // Echt super gaaf dit
 use Illuminate\Support\Facades\DB;
 
 class FormController extends Controller
@@ -34,31 +35,10 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) // De informatie die echt opgeslagen wordt als we op "opslaan" drukken
+    public function store(StoreFormRequest $request) // De informatie die echt opgeslagen wordt als we op "opslaan" drukken
     {
-        $validatedData = $request->validate([ // Data die door docenten ingevuld moet worden
-            // Formulier zelf
-            'title'                    => 'required|string|max:32',
-            'subject'                  => 'required|string|max:32',
-            'description'              => 'required|string',
-
-            // Competenties
-            'competencies'                     => 'required|array',
-            'competencies.*.name'              => 'required|string|max:32',
-            'competencies.*.domain_description'=> 'required|string',
-            'competencies.*.rating_scale'      => 'required|string',
-            'competencies.*.complexity'        => 'required|string',
-
-            // Componenten
-            'competencies.*.components'               => 'required|array',
-            'competencies.*.components.*.name'        => 'required|string|max:32',
-            'competencies.*.components.*.description' => 'required|string',
-
-            // Beoordelingsniveau's
-            'competencies.*.components.*.levels'                  => 'required|array',
-            'competencies.*.components.*.levels.*.grade_level_id' => 'required|exists:grade_levels,id',
-            'competencies.*.components.*.levels.*.description'    => 'required|string',
-        ]);
+        // Deze haalt hij op uit de FormRequest!
+        $validatedData = $request->validated();
 
         // DB transactie zodat als het niet lukt, we geen half-opgeslagen formulieren in de db hebben
         DB::transaction(function () use ($validatedData) {
@@ -103,7 +83,7 @@ class FormController extends Controller
         });
         // Als het is gelukt!
         return redirect()
-            ->route('forms.index')
+            ->route('forms.index') // Terug naar de lijst van formulieren
             ->with('success', 'Formulier is aangemaakt!');
     }
 
@@ -136,31 +116,9 @@ class FormController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Form $form)
+    public function update(StoreFormRequest $request, Form $form)
     {
-        $validatedData = $request->validate([ // Dit is precies hetzelfde als bij store()
-            // Formulier zelf
-            'title'                    => 'required|string|max:32',
-            'subject'                  => 'required|string|max:32',
-            'description'              => 'required|string',
-
-            // Competenties
-            'competencies'                     => 'required|array',
-            'competencies.*.name'              => 'required|string|max:32',
-            'competencies.*.domain_description'=> 'required|string',
-            'competencies.*.rating_scale'      => 'required|string',
-            'competencies.*.complexity'        => 'required|string',
-
-            // Componenten
-            'competencies.*.components'               => 'required|array',
-            'competencies.*.components.*.name'        => 'required|string|max:32',
-            'competencies.*.components.*.description' => 'required|string',
-
-            // Levels
-            'competencies.*.components.*.levels'                  => 'required|array',
-            'competencies.*.components.*.levels.*.grade_level_id' => 'required|exists:grade_levels,id',
-            'competencies.*.components.*.levels.*.description'    => 'required|string',
-        ]);
+        $validatedData = $request->validated();
 
         DB::transaction(function () use ($validatedData, $form) {
             // Stap 1: update het formulier zelf
