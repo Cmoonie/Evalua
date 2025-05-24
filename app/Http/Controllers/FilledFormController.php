@@ -57,7 +57,7 @@ class FilledFormController extends Controller
                     'filled_form_id' => $filledForm->id,
                     'component_id'   => $compo['component_id'],
                     'grade_level_id' => $compo['grade_level_id'],
-                    'comment'        => $compo['comment'] ?? null,
+                    'comment'        => $compo['comment'],
                 ]);
             }
         });

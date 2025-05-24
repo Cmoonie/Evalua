@@ -31,7 +31,7 @@ class StoreFilledFormRequest extends FormRequest
             'components'                   => ['required', 'array'],
             'components.*.component_id'    => ['required', Rule::exists('components', 'id')],
             'components.*.grade_level_id'  => ['required', Rule::exists('grade_levels', 'id')],
-            'components.*.comment'         => ['nullable', 'string'],
+            'components.*.comment'         => ['required', 'string'],
         ];
     }
 }
