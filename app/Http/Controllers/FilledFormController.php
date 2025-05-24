@@ -7,6 +7,7 @@ use App\Models\FilledComponent;
 use App\Models\Form;
 use App\Http\Requests\StoreFilledFormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FilledFormController extends Controller
 {
@@ -40,6 +41,7 @@ class FilledFormController extends Controller
      */
     public function store(StoreFilledFormRequest $request)
     {
+        // We pakken de data van de request
         $validatedData = $request->validated();
 
         // Alles zit in de transactie zodat we geen half ingevulde formulieren hebben als er iets mis gaat
@@ -47,20 +49,14 @@ class FilledFormController extends Controller
             // Stap 1: Maak het ingevulde formulier aan
             $filledForm = FilledForm::create([
                 'form_id'      => $validatedData['form_id'],
-                'user_id'      => auth()->id(), // Gebruiker automatisch
+                'user_id'      => auth()->id(),
                 'student_name' => $validatedData['student_name'],
             ]);
 
-            // Stap 2: Voeg de ingevulde componenten toe
-            foreach ($validatedData['components'] as $compo) {
-                FilledComponent::create([
-                    'filled_form_id' => $filledForm->id,
-                    'component_id'   => $compo['component_id'],
-                    'grade_level_id' => $compo['grade_level_id'],
-                    'comment'        => $compo['comment'],
-                ]);
-            }
+            // Stap 2: Voeg de ingevulde componenten toe met helper methode
+            $this->saveFilledData($filledForm, $validatedData);
         });
+
         // Gelukt!
         return redirect()
             ->route('filled_forms.index') // Terug naar de lijst van formulieren
@@ -99,9 +95,10 @@ class FilledFormController extends Controller
      */
     public function update(StoreFilledFormRequest $request, FilledForm $filledForm)
     {
+        // De data van de request
         $validatedData = $request->validated();
 
-        // Weer op dezelfde manier met DB transactie om onvolledige formulieren te voorkomen
+        // Weer op dezelfde manier met DB-transactie om onvolledige formulieren te voorkomen
         DB::transaction(function () use ($validatedData, $filledForm) {
             // Stap 1: Update hoofdformulier
             $filledForm->update([
@@ -112,15 +109,10 @@ class FilledFormController extends Controller
             // Stap 2: Verwijder oude componenten uit tussentabel
             $filledForm->filledComponents()->delete();
 
-            // STap 3: Maak nieuwe filled components aan
-            foreach ($validatedData['components'] as $compo) {
-                $filledForm->filledComponents()->create([
-                    'component_id' => $compo['component_id'],
-                    'grade_level_id' => $compo['grade_level_id'],
-                    'comment' => $compo['comment'] ?? null,
-                ]);
-            }
+            // Stap 3: Maak nieuwe filled components aan met helper methode
+            $this->saveFilledData($filledForm, $validatedData);
         });
+
         // Gelukt!
         return redirect()->route('filled_forms.show', $filledForm) // Gelijk naar het geupdate formulier
             ->with('success', 'Formulier is bijgewerkt!');
@@ -136,4 +128,17 @@ class FilledFormController extends Controller
         return redirect()->route('filled_forms.index') // Terug naar de lijst van formulieren
             ->with('success', 'Invulling succesvol verwijderd!');
     }
+
+    // Helper methode
+    private function saveFilledData(FilledForm $filledForm, array $validatedData): void
+    {
+        foreach ($validatedData['components'] as $compo) {
+            $filledForm->filledComponents()->create([
+                'component_id'   => $compo['component_id'],
+                'grade_level_id' => $compo['grade_level_id'],
+                'comment'        => $compo['comment'],
+            ]);
+        }
+    }
+
 }

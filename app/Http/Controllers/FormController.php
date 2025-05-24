@@ -40,7 +40,7 @@ class FormController extends Controller
         // Deze haalt hij op uit de FormRequest!
         $validatedData = $request->validated();
 
-        // DB transactie zodat als het niet lukt, we geen half-opgeslagen formulieren in de db hebben
+        // DB-transactie zodat als het niet lukt, we geen half-opgeslagen formulieren in de db hebben
         DB::transaction(function () use ($validatedData) {
             // Stap 1: Formulier opslaan
             $form = Form::create([
@@ -49,38 +49,10 @@ class FormController extends Controller
                 'description' => $validatedData['description'],
                 'subject'     => $validatedData['subject'],
             ]);
-
-            // Stap 2: Competenties opslaan
-            foreach ($validatedData['competencies'] as $comptData) {
-                $competency = Competency::create([
-                        'name' => $comptData['name'],
-                        'domain_description' => $comptData['domain_description'],
-                        'rating_scale' => $comptData['rating_scale'],
-                        'complexity' => $comptData['complexity'],
-                ]);
-
-                // Stap 3: De tussentabel linken
-                $form->formCompetencies()->create([
-                    'competency_id' => $competency->id,
-                ]);
-
-                // Stap 4: Componenten die bij de competenties horen opslaan
-                foreach ($comptData['components'] as $compoData) {
-                    $component = $competency->components()->create([
-                        'name'        => $compoData['name'],
-                        'description' => $compoData['description'],
-                    ]);
-
-                    // Stap 5: Beoordelingsniveau's die bij de componenten horen opslaan
-                    foreach ($compoData['levels'] as $lvlData) {
-                        $component->levels()->create([
-                            'grade_level_id' => $lvlData['grade_level_id'],
-                            'description'    => $lvlData['description'],
-                        ]);
-                    }
-                }
-            }
+            // Stap 2: Helper methode gebruiken om de rest van de data op te slaan
+            $this->saveData($form, $validatedData);
         });
+
         // Als het is gelukt!
         return redirect()
             ->route('forms.index') // Terug naar de lijst van formulieren
@@ -131,37 +103,10 @@ class FormController extends Controller
             // Stap 2: verwijder alle gelinkte data uit de tussentabel
             $form->formCompetencies()->delete();
 
-            // Stap 3: Sla alles opnieuw op! Beginnend met de competenties
-            foreach ($validatedData['competencies'] as $comptData) {
-                $competency = Competency::create([
-                    'name'               => $comptData['name'],
-                    'domain_description' => $comptData['domain_description'],
-                    'rating_scale'       => $comptData['rating_scale'],
-                    'complexity'         => $comptData['complexity'],
-                ]);
-
-                // STap 4: Opnieuw de tussentabel linken
-                $form->formCompetencies()->create([
-                    'competency_id' => $competency->id,
-                ]);
-
-                // Stap 5: De componenten opslaan
-                foreach ($comptData['components'] as $compoData) {
-                    $component = $competency->components()->create([
-                        'name'        => $compoData['name'],
-                        'description' => $compoData['description'],
-                    ]);
-
-                    // Stap 6: De beoordelingsniveau's opslaan
-                    foreach ($compoData['levels'] as $lvlData) {
-                        $component->levels()->create([
-                            'grade_level_id' => $lvlData['grade_level_id'],
-                            'description'    => $lvlData['description'],
-                        ]);
-                    }
-                }
-            }
+            // Stap 3: Nieuwe data opslaan met behulp van helper methode
+            $this->saveData($form, $validatedData);
         });
+
         // Gelukt!
         return redirect()
             ->route('forms.index')
@@ -181,4 +126,40 @@ class FormController extends Controller
             ->route('forms.index')
             ->with('success', 'Formulier is verwijderd!');
     }
+
+    // Helper methode om de code DRY te maken!
+    private function saveData(Form $form, array $validatedData) : void
+    {
+        // Stap 1: Competenties opslaan
+        foreach ($validatedData['competencies'] as $comptData) {
+            $competency = Competency::create([
+                'name'               => $comptData['name'],
+                'domain_description' => $comptData['domain_description'],
+                'rating_scale'       => $comptData['rating_scale'],
+                'complexity'         => $comptData['complexity'],
+            ]);
+
+            // Stap 2: tussentabel linken
+            $form->formCompetencies()->create([
+                'competency_id' => $competency->id,
+            ]);
+
+            // Stap 3: Componenten opslaan
+            foreach ($comptData['components'] as $compoData) {
+                $component = $competency->components()->create([
+                    'name'        => $compoData['name'],
+                    'description' => $compoData['description'],
+                ]);
+
+                // Stap 4: beoordelingsniveau's opslaan
+                foreach ($compoData['levels'] as $lvlData) {
+                    $component->levels()->create([
+                        'grade_level_id' => $lvlData['grade_level_id'],
+                        'description'    => $lvlData['description'],
+                    ]);
+                }
+            }
+        }
+    }
+
 }
