@@ -50,4 +50,7 @@
             </div>
         @endforeach
     </div>
+    {{-- Beoordelingstabel overzicht als partial --}}
+    @include('forms.partials.score-table', ['filledForm' => $filledForm])
+
 @endsection
