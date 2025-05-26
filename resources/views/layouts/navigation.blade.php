@@ -17,9 +17,10 @@
                     </x-nav-link>
                 </div>
 
+                <!-- Navigatielink naar formulier-overzichtspagina -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                        {{ __('Formulier') }}
+                    <x-nav-link :href="route('forms.index')" :active="request()->routeIs('forms.*')">
+                        {{ __('Formulieren') }}
                     </x-nav-link>
                 </div>
             </div>

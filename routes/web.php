@@ -16,6 +16,32 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+//Route::get('/forms/show-test', function () {
+//    $filledForm = (object) [
+//        'student_name' => 'Chrystella Agyemang',
+//        'subject' => 'Web Development',
+//        'filledComponents' => [
+//            (object) [
+//                'component_name' => 'Samenwerken',
+//                'score' => 5,
+//                'comment' => 'Toont veel initiatief en goede samenwerking'
+//            ],
+//            (object) [
+//                'component_name' => 'Communicatie',
+//                'score' => 3,
+//                'comment' => 'Soms onduidelijk in uitleg'
+//            ],
+//            (object) [
+//                'component_name' => 'Reflectie',
+//                'score' => 0,
+//                'comment' => null
+//            ],
+//        ],
+//    ];
+//
+//    return view('forms.show', compact('filledForm'));
+//});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
