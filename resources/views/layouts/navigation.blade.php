@@ -19,10 +19,19 @@
 
                 <!-- Navigatielink naar formulier-overzichtspagina -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('forms.index')" :active="request()->routeIs('forms.*')">
+                    <x-nav-link :href="route('forms.index')" :active="request()->routeIs('forms.index')">
                         {{ __('Formulieren') }}
                     </x-nav-link>
                 </div>
+
+                <!-- Navigatielink naar formulier-overzichtspagina -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('filled_forms.index')" :active="request()->routeIs('filled_forms.index')">
+                        {{ __('Beoordelingen') }}
+                    </x-nav-link>
+                </div>
+
+
             </div>
 
             <!-- Settings Dropdown -->

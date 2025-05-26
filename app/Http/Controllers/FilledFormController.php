@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\FilledForm;
 use App\Models\FilledComponent;
+use App\Models\Component;
+use App\Models\GradeLevel;
 use App\Models\Form;
 use App\Http\Requests\StoreFilledFormRequest;
 use Illuminate\Http\Request;
@@ -16,25 +18,29 @@ class FilledFormController extends Controller
      */
     public function index()
     {
+        $forms = Form::latest()->get(); // nieuwste eerst
         // Haal alle formulieren op
         $filledForms = FilledForm::with('form')
             ->where('user_id', auth()->id()) // Je mag alleen de formulieren die bij jouw account horen zien
             ->latest() // Nieuwste eerst
             ->get();
 
-        return view('filled_forms.index', compact('filledForms'));
+        return view('filled_forms.index', compact('filledForms', 'forms'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Form $form)
     {
-        // Haal alle formulieren inclusief formCompetencies -> competency -> components -> levels
-        $forms = Form::with(['formCompetencies.competency.components.levels'])->get();
+        $gradeLevels = GradeLevel::all();
 
-        return view('filled_forms.create', compact('forms'));
+        // Laad competencies en componenten ik word gek
+        $form->load('formCompetencies.competency.components.levels');
+
+        return view('filled_forms.create', compact('form', 'gradeLevels'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -69,10 +75,12 @@ class FilledFormController extends Controller
      */
     public function show(FilledForm $filledForm)
     {
+        $gradeLevels = GradeLevel::all();
+
         // Eager load componenten en beoordelingsniveau's
         $filledForm->load(['form.formCompetencies.competency.components.levels', 'filledComponents.gradeLevel']);
 
-        return view('filled_forms.show', compact('filledForm'));
+        return view('filled_forms.show', compact('filledForm', 'gradeLevels'));
     }
 
     /**

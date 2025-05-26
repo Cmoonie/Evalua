@@ -52,8 +52,9 @@ Route::middleware('auth')->group(function () {
 Route::resource('competencies', CompetencyController::class);
 Route::resource('components', ComponentController::class);
 Route::resource('forms', FormController::class);
-Route::resource('filledforms', FilledFormController::class);
+Route::resource('filled_forms', FilledFormController::class);
 Route::resource('gradelevels', GradeLevelController::class);
-
+Route::get('filled_forms/create/{form}', [FilledFormController::class, 'create'])
+    ->name('filled_forms.create');
 
 require __DIR__.'/auth.php';
