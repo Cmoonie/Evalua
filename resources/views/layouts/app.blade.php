@@ -9,7 +9,7 @@
         <title>{{ config('app.name', 'Evalua') }}</title>
 
         <!-- Favicon-->
-        <link rel="icon" href="{{ asset('favicon.ico') }} type="image/x-icon"">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

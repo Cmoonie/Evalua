@@ -7,34 +7,64 @@
 @section('content')
     <h1 class="text-2xl font-bold mb-4">Beoordeling van {{ $filledForm->student_name }}</h1>
     <p class="mb-4"><strong>Vak:</strong> {{ $filledForm->form->subject }}</p>
+    <p class="mb-4"><strong>Beschrijving:</strong> {{ $filledForm->form->description }}</p>
+    <p class="mb-4"><strong>Datum ingevuld:</strong> {{ $filledForm->created_at->format('Y-m-d H:i') }}</p>
 
     @foreach ($filledForm->form->formCompetencies as $formCompetency)
-
         @php
-            // Bekijken of er 2 of meer nul/onvoldoendes zijn
+            // Bekijken of er 2 of meer nullen/onvoldoendes zijn
             $total = 0;
             $zeroCount = 0;
             foreach ($formCompetency->competency->components as $component) {
                 $filled = $filledForm->filledComponents
                     ->firstWhere('component_id', $component->id);
                 $points = optional($filled->gradeLevel)->points ?? 0;
-                $total += $points; // Totaal punten om te laten zien
+                $total += $points;
                 if ($points === 0) {
                     $zeroCount++;
                 }
             }
-            $isOnvoldoende = $zeroCount >= 2;
+
+            // Dit zijn nu de regels:
+            // - Onvoldoende: 2 of meer nullen OF minder dan 14 punten
+            // - Voldoende: 15–20 punten
+            // - Goed: meer dan 21 punten
+
+            $isOnvoldoende = $zeroCount >= 2 || $total <= 14;
+
+            // Kies de juiste kleur‐klasse
+            if ($isOnvoldoende) {
+                $stateClass = 'bg-red-500 hover:bg-red-600';
+            } elseif ($total <= 20) {
+                $stateClass = 'bg-yellow-500 hover:bg-yellow-600';
+            } else {
+                $stateClass = 'bg-green-500 hover:bg-green-600';
+            }
         @endphp
+
+        {{--        @php--}}
+{{--            // Bekijken of er 2 of meer nul/onvoldoendes zijn--}}
+{{--            $total = 0;--}}
+{{--            $zeroCount = 0;--}}
+{{--            foreach ($formCompetency->competency->components as $component) {--}}
+{{--                $filled = $filledForm->filledComponents--}}
+{{--                    ->firstWhere('component_id', $component->id);--}}
+{{--                $points = optional($filled->gradeLevel)->points ?? 0;--}}
+{{--                $total += $points; // Totaal punten om te laten zien--}}
+{{--                if ($points === 0) {--}}
+{{--                    $zeroCount++;--}}
+{{--                }--}}
+{{--            }--}}
+{{--            $isOnvoldoende = $zeroCount >= 2  || $total <= 14; // Onvoldoende als er meer dan 2 nullen zijn OF er minder dan 14 punten is behaald--}}
+{{--        @endphp--}}
+
 
         <div class="mb-6" x-data="{ open: false }">
             <button
                 @click="open = !open"
 
                 {{-- De competentie roodmaken als er 2 of meer onvoldoendes zijn --}}
-                class="{{ $isOnvoldoende
-                ? 'bg-red-500 hover:bg-red-600'
-                : 'bg-primary hover:bg-secondary'
-                }} py-2 px-4 text-xl font-bold text-white shadow-lg mb-2 flex items-center justify-between w-full rounded-lg transition-colors duration-300">
+                class="{{ $stateClass}} py-2 px-4 text-xl font-bold text-white shadow-lg mb-2 flex items-center justify-between w-full rounded-lg transition-colors duration-300">
 
                 <span>Competentie: {{ $formCompetency->competency->name }}</span>
 
@@ -73,7 +103,7 @@
                         @endphp
                         <tr class="border-b">
                             <td class="p-2">{{ $component->name }}</td>
-                            <td class="p-2 font-bold text-xl text-red-600 text-center">{{ $points === 0 ? '✗' : '' }}</td>
+                            <td class="p-2 font-bold text-xl text-red-500 text-center">{{ $points === 0 ? '✗' : '' }}</td>
                             <td class="p-2 font-bold text-xl text-yellow-500 text-center">{{ $points === 3 ? '✓' : '' }}</td>
                             <td class="p-2 font-bold text-xl text-green-500 text-center">{{ $points === 5 ? '✓' : '' }}</td>
                             <td class="p-2 text-center">{{ $points ?? '—' }}</td>
@@ -117,5 +147,29 @@
         }
     @endphp
     <p class="mb-4"><strong>Totaal aantal punten:</strong> {{ $grandTotal }}</p>
+    <p class="mb-4"><strong>Cijfer:</strong>
+        {{ $isOnvoldoende
+            ? 'Onvoldoende'
+                : (
+                    $grandTotal <= 75
+                        ? 'Onvoldoende'
+                        : ($grandTotal <= 100
+                            ? 'Voldoende'
+                            : 'Goed'
+                        )
+                )
+        }}
+    </p>
+
+
+    <x-primary-button>
+        <a href="{{ route('filled_forms.edit', $filledForm) }}">Bewerk</a>
+    </x-primary-button>
+
+    <form action="{{ route('filled_forms.destroy', $filledForm) }}" method="POST" class="inline" onsubmit="return confirm('Weet je het zeker?');">
+        @csrf
+        @method('DELETE')
+        <x-primary-button type="submit">Verwijder</x-primary-button>
+    </form>
 
 @endsection

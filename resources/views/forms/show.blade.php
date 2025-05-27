@@ -6,11 +6,13 @@
         <p class="mb-2"><strong>Onderwerp:</strong> {{ $form->subject }}</p>
         <p class="mb-4"><strong>Beschrijving:</strong> {{ $form->description }}</p>
 
-        <a href="{{ route('forms.edit', $form) }}" class="text-yellow-500 hover:underline">Bewerk</a>
+        <x-primary-button>
+            <a href="{{ route('forms.edit', $form) }}">Bewerk</a>
+        </x-primary-button>
         <form action="{{ route('forms.destroy', $form) }}" method="POST" class="inline" onsubmit="return confirm('Weet je het zeker?');">
             @csrf
             @method('DELETE')
-            <button type="submit" class="text-red-500 hover:underline">Verwijder</button>
+            <x-primary-button type="submit">Verwijder</x-primary-button>
         </form>
 
         <h2 class="text-xl font-semibold mt-6 mb-2">Competenties</h2>

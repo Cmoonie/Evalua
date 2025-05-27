@@ -51,7 +51,7 @@ class FilledFormController extends Controller
         $validatedData = $request->validated();
 
         // Alles zit in de transactie zodat we geen half ingevulde formulieren hebben als er iets mis gaat
-        DB::transaction(function () use ($validatedData) {
+        $filledForm = DB::transaction(function () use ($validatedData) {
             // Stap 1: Maak het ingevulde formulier aan
             $filledForm = FilledForm::create([
                 'form_id'      => $validatedData['form_id'],
@@ -61,11 +61,14 @@ class FilledFormController extends Controller
 
             // Stap 2: Voeg de ingevulde componenten toe met helper methode
             $this->saveFilledData($filledForm, $validatedData);
+
+            // Return het zo we buiten de closure direct toegang hebben
+            return $filledForm;
         });
 
         // Gelukt!
         return redirect()
-            ->route('filled_forms.index') // Terug naar de lijst van formulieren
+            ->route('filled_forms.show', $filledForm->id)
             ->with('success', 'Formulier ingevuld!');
     }
 
