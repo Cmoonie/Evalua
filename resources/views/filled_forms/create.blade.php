@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container mx-auto p-6">
-        <h1 class="text-3xl font-bold mb-6">Formulier invullen: {{ $form->name }}</h1>
+        <h1 class="text-3xl font-bold mb-6">Formulier invullen: {{ $form->title }}</h1>
 
         <form action="{{ route('filled_forms.store') }}" method="POST">
             @csrf
@@ -26,7 +26,9 @@
                         <span>Competentie: {{ $formCompetency->competency->name }}</span>
                         <div class="flex items-center">
                             <span class="text-sm mr-2" id="competency-points-{{ $formCompetency->competency->id }}">0 pts</span>
-                            <svg :class="{'transform rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 transition-transform duration-300 text-white">
+                            <svg :class="{'transform rotate-180': open}" xmlns="http://www.w3.org/2000/svg"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                 class="w-6 h-6 transition-transform duration-300 text-white">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </div>
@@ -55,17 +57,17 @@
                                         @php
                                             $levels = ['onvoldoende' => 0, 'voldoende' => 3, 'goed' => 5];
                                         @endphp
-                                        @foreach(['onvoldoende','voldoende','goed'] as $gradeKey)
+                                        @foreach(['onvoldoende','voldoende','goed'] as $grade)
                                             <td class="p-2">
                                                 @foreach($component->levels as $level)
-                                                    @if(strtolower($level->gradeLevel->name) === $gradeKey)
+                                                    @if(strtolower($level->gradeLevel->name) === $grade)
                                                         <button type="button"
                                                                 class="grade-button px-3 py-1 rounded-lg border mb-1 hover:opacity-90"
                                                                 data-component-id="{{ $component->id }}"
                                                                 data-competency-id="{{ $formCompetency->competency->id }}"
                                                                 data-grade-id="{{ $level->grade_level_id }}"
-                                                                data-points="{{ $levels[$gradeKey] }}"
-                                                                data-grade-name="{{ $gradeKey }}"
+                                                                data-points="{{ $levels[$grade] }}"
+                                                                data-grade-name="{{ $grade }}"
                                                         >
                                                             <span class="text-sm">{{ Str::limit($level->description, 30) }}</span>
                                                         </button>
