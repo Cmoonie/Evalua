@@ -6,6 +6,7 @@
         <p class="mb-2"><strong>Onderwerp:</strong> {{ $form->subject }}</p>
         <p class="mb-4"><strong>Beschrijving:</strong> {{ $form->description }}</p>
 
+        <div class="flex gap-4 mt-4">
         <x-primary-button>
             <a href="{{ route('forms.edit', $form) }}">Bewerk</a>
         </x-primary-button>
@@ -14,8 +15,11 @@
             @method('DELETE')
             <x-primary-button type="submit">Verwijder</x-primary-button>
         </form>
+        </div>
 
         <h2 class="text-xl font-semibold mt-6 mb-2">Competenties</h2>
+
+        {{--Rijen met twee kolommen--}}
         @foreach($form->formCompetencies as $fc)
             <div class="mb-4 p-4 border rounded">
                 <h3 class="font-semibold">{{ $fc->competency->name }}</h3>
