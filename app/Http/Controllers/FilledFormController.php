@@ -34,11 +34,12 @@ class FilledFormController extends Controller
     public function create(Form $form)
     {
         $gradeLevels = GradeLevel::all();
+        $levels = ['onvoldoende' => 0, 'voldoende' => 3, 'goed' => 5]; // Moet apart anders werkt het niet...
 
         // Laad competencies en componenten ik word gek
         $form->load('formCompetencies.competency.components.levels');
 
-        return view('filled_forms.create', compact('form', 'gradeLevels'));
+        return view('filled_forms.create', compact('form', 'gradeLevels', 'levels'));
     }
 
 
@@ -94,10 +95,12 @@ class FilledFormController extends Controller
         // Haal het ingevulde formulier op
         $filledForm->load('filledComponents');
 
+        $levels = ['onvoldoende' => 0, 'voldoende' => 3, 'goed' => 5];
+
         // Haal de template van het ingevulde formulier op
         $forms = Form::with(['formCompetencies.competency.components.levels'])->get();
 
-        return view('filled_forms.edit', compact('filledForm', 'forms'));
+        return view('filled_forms.edit', compact('filledForm', 'forms', 'levels'));
     }
 
 

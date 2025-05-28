@@ -12,7 +12,6 @@
             @csrf
             <input type="hidden" name="form_id" value="{{ $form->id }}">
 
-            <!-- Student Name -->
             <div class="mb-6">
                 <label for="student_name" class="block text-lg font-semibold mb-2">Naam student</label>
                 <input type="text" name="student_name" id="student_name" class="max-w-80 border border-gray-300 rounded p-2" required>
@@ -54,9 +53,6 @@
                                             <div class="font-semibold">{{ $component->name }}</div>
                                             <div class="text-sm italic text-gray-600">{{ $component->description }}</div>
                                         </td>
-                                        @php
-                                            $levels = ['onvoldoende' => 0, 'voldoende' => 3, 'goed' => 5];
-                                        @endphp
                                         @foreach(['onvoldoende','voldoende','goed'] as $grade)
                                             <td class="p-2">
                                                 @foreach($component->levels as $level)
@@ -106,84 +102,3 @@
         </form>
     </div>
 @endsection
-
-
-{{--@extends('layouts.app')--}}
-
-{{--@php--}}
-{{--    $header = 'Nieuwe beoordeling invullen';--}}
-{{--@endphp--}}
-
-
-
-{{--@section('content')--}}
-{{--    <div class="container">--}}
-{{--        <h1 class="mb-4">Formulier invullen: {{ $form->name }}</h1>--}}
-
-{{--        <form action="{{ route('filled_forms.store') }}" method="POST">--}}
-{{--            @csrf--}}
-
-{{--            <input type="hidden" name="form_id" value="{{ $form->id }}">--}}
-
-{{--            <!-- Student Name -->--}}
-{{--            <div class="mb-3">--}}
-{{--                <label for="student_name" class="form-label">Naam student</label>--}}
-{{--                <input type="text" name="student_name" id="student_name" class="form-control" required>--}}
-{{--            </div>--}}
-
-{{--            @foreach($form->formCompetencies as $formCompetency)--}}
-{{--                <div class="mb-4 border rounded p-3">--}}
-{{--                    <h4><b>Competentie:</b> {{ $formCompetency->competency->name }}</h4>--}}
-
-{{--                    @foreach($formCompetency->competency->components as $component)--}}
-{{--                        <div class="mb-3">--}}
-{{--                            <label class="form-label"><b>Component:</b> {{ $component->name }}</label>--}}
-
-{{--                            <p><b>Beschrijving:</b> {{ $component->description }}</p>--}}
-
-{{--                            <!-- Grade Level -->--}}
-{{--                            <select name="components[{{ $component->id }}][grade_level_id]" class="form-select mb-2" required>--}}
-{{--                                <option value="">Kies niveau</option>--}}
-{{--                                @foreach($gradeLevels as $level)--}}
-{{--                                    <option value="{{ $level->id }}">{{ $level->name }}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-
-{{--                            <p class="list-disc list-inside mt-1">--}}
-{{--                                @foreach($component->levels as $level)--}}
-{{--                                    <x-secondary-button>({{ $level->gradeLevel->points }} pts) {{ $level->description }}</x-secondary-button>--}}
-{{--                                @endforeach--}}
-{{--                            </p>--}}
-
-{{--                            @foreach($component->levels as $level)--}}
-{{--                                <button--}}
-{{--                                    type="button"--}}
-{{--                                    class="grade-button px-4 py-2 rounded border border-gray-300 mb-2 mr-2 hover:bg-gray-100"--}}
-{{--                                    data-component-id="{{ $component->id }}"--}}
-{{--                                    data-grade-id="{{ $level->grade_level_id }}"--}}
-{{--                                >--}}
-{{--                                    <strong>{{ $level->gradeLevel->name }}</strong> ({{ $level->gradeLevel->points }} pts)--}}
-{{--                                    <br>--}}
-{{--                                    <span class="text-sm italic">{{ $level->description }}</span>--}}
-{{--                                </button>--}}
-{{--                            @endforeach--}}
-\
-{{--                            <input type="hidden" name="components[{{ $component->id }}][grade_level_id]" id="grade-level-{{ $component->id }}" required>--}}
-
-
-
-{{--                            <textarea name="components[{{ $component->id }}][comment]" rows="2" class="form-control" placeholder="Typ een opmerking..." required></textarea>--}}
-
-{{--                            <input type="hidden" name="components[{{ $component->id }}][component_id]" value="{{ $component->id }}">--}}
-
-{{--                        </div>--}}
-{{--                    @endforeach--}}
-{{--                </div>--}}
-{{--            @endforeach--}}
-
-{{--            <button type="submit" class="btn btn-primary">Verzenden</button>--}}
-{{--        </form>--}}
-{{--    </div>--}}
-
-
-{{--@endsection--}}

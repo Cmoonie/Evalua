@@ -26,7 +26,6 @@
                         </x-primary-button>
 
                         @if($filledForms->isEmpty())
-{{--                            <p class="text-primary">Geen formulieren gevonden. Tijd om er een te maken!</p>--}}
                             <x-info-card :title="'404'">
                                 <p class="text-gray-600 mb-1">
                                     Geen beoordelingen gevonden. Tijd om er een te maken!
@@ -41,9 +40,6 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 @foreach($filledForms as $filledForm)
                                     <x-info-card :title="$filledForm->student_name">
-{{--                                        <p class="text-gray-600 dark:text-gray-400 mb-1">--}}
-{{--                                            <strong>Student:</strong> {{ $filledForm->student_name }}--}}
-{{--                                        </p>--}}
                                         <p class="text-gray-600 dark:text-gray-400 mb-1">
                                             <strong>Datum ingevuld:</strong> {{ $filledForm->created_at->format('Y-m-d H:i') }}
                                         </p>

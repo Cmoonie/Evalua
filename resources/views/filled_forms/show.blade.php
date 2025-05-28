@@ -42,23 +42,6 @@
             }
         @endphp
 
-        {{--        @php--}}
-{{--            // Bekijken of er 2 of meer nul/onvoldoendes zijn--}}
-{{--            $total = 0;--}}
-{{--            $zeroCount = 0;--}}
-{{--            foreach ($formCompetency->competency->components as $component) {--}}
-{{--                $filled = $filledForm->filledComponents--}}
-{{--                    ->firstWhere('component_id', $component->id);--}}
-{{--                $points = optional($filled->gradeLevel)->points ?? 0;--}}
-{{--                $total += $points; // Totaal punten om te laten zien--}}
-{{--                if ($points === 0) {--}}
-{{--                    $zeroCount++;--}}
-{{--                }--}}
-{{--            }--}}
-{{--            $isOnvoldoende = $zeroCount >= 2  || $total <= 14; // Onvoldoende als er meer dan 2 nullen zijn OF er minder dan 14 punten is behaald--}}
-{{--        @endphp--}}
-
-
         <div class="mb-6" x-data="{ open: false }">
             <button
                 @click="open = !open"
