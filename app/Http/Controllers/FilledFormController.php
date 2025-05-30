@@ -10,6 +10,7 @@ use App\Models\Form;
 use App\Http\Requests\StoreFilledFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\FilledFormHelper;
 
 class FilledFormController extends Controller
 {
@@ -80,11 +81,24 @@ class FilledFormController extends Controller
     public function show(FilledForm $filledForm)
     {
         $gradeLevels = GradeLevel::all();
+        $filledForm->load([ // eager loading
+            'form.formCompetencies.competency.components.levels',
+            'filledComponents.gradeLevel'
+        ]);
 
-        // Eager load componenten en beoordelingsniveau's
-        $filledForm->load(['form.formCompetencies.competency.components.levels', 'filledComponents.gradeLevel']);
+        // Helper!!
+        $grandTotal = FilledFormHelper::calcGrandTotal($filledForm);
+        $grade = FilledFormHelper::calcGrade($grandTotal);
+        $competencies = FilledFormHelper::mapCompetencies($filledForm);
 
-        return view('filled_forms.show', compact('filledForm', 'gradeLevels'));
+
+        return view('filled_forms.show', compact(
+            'filledForm',
+            'gradeLevels',
+            'grade',
+            'grandTotal',
+            'competencies',
+        ));
     }
 
     /**
