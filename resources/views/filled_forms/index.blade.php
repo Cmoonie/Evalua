@@ -41,6 +41,9 @@
                                 @foreach($filledForms as $filledForm)
                                     <x-info-card :title="$filledForm->student_name">
                                         <p class="text-gray-600 dark:text-gray-400 mb-1">
+                                            <strong>Cijfer:</strong> {{ $filledForm->grade ?? '–' }}
+                                        </p>
+                                        <p class="text-gray-600 dark:text-gray-400 mb-1">
                                             <strong>Datum ingevuld:</strong> {{ $filledForm->created_at->format('Y-m-d H:i') }}
                                         </p>
                                         <a href="{{ route('filled_forms.show', $filledForm) }}">
@@ -49,6 +52,7 @@
                                             </x-primary-button>
                                         </a>
                                     </x-info-card>
+
                                 @endforeach
                             </div>
                         @endif

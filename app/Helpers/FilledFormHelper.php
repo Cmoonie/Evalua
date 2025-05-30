@@ -79,18 +79,36 @@ class FilledFormHelper
             $zeroCount = 0;
 
             $components = $fc->competency->components->map(function ($component) use ($filledForm, &$total, &$zeroCount) {
+                // vind ingevulde data
                 $filled = $filledForm->filledComponents
                     ->firstWhere('component_id', $component->id);
+
+                // punten en counters
                 $points = optional($filled->gradeLevel)->points ?? 0;
                 $total += $points;
                 if ($points === 0) {
                     $zeroCount++;
                 }
 
+                // map alle mogelijke levels van dit component
+                $levels = $component
+                    ->levels
+                    ->map(fn($lvl) => [
+                        'id'          => $lvl->gradeLevel->id,
+                        'name'        => strtolower($lvl->gradeLevel->name),
+                        'description' => $lvl->description,
+                        'points'      => $lvl->points,
+                    ])
+                    ->toArray();
+
                 return [
-                    'name'    => $component->name,
-                    'points'  => $points,
-                    'comment' => $filled->comment ?? 'Geen',
+                    'id'           => $component->id,
+                    'name'         => $component->name,
+                    'description'  => $component->description,
+                    'points'       => $points,
+                    'grade_level_id' => $filled->grade_level_id,
+                    'comment'      => $filled->comment ?? 'Geen',
+                    'levels'       => $levels,
                 ];
             });
 

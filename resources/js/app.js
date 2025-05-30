@@ -32,7 +32,6 @@ function updateTotals(compId, pts) {
 
 document.querySelectorAll('.grade-button').forEach(btn => {
     btn.addEventListener('click', () => {
-        const isPrefill = btn.dataset.prefill === 'true';
         const compId = btn.dataset.componentId;
         const pts = parseInt(btn.dataset.points, 10);
         const gradeName = btn.dataset.gradeName;

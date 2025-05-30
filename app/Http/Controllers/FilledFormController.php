@@ -24,7 +24,13 @@ class FilledFormController extends Controller
         $filledForms = FilledForm::with('form')
             ->where('user_id', auth()->id()) // Je mag alleen de formulieren die bij jouw account horen zien
             ->latest() // Nieuwste eerst
-            ->get();
+            ->get()
+            ->map(function($filledForm) {
+            // We gaan meteen het cijfer tonen
+            $points             = FilledFormHelper::calcGrandTotal($filledForm);
+            $filledForm->grade  = FilledFormHelper::calcGrade($points);
+            return $filledForm;
+        });
 
         return view('filled_forms.index', compact('filledForms', 'forms'));
     }
@@ -107,14 +113,26 @@ class FilledFormController extends Controller
     public function edit(FilledForm $filledForm)
     {
         // Haal het ingevulde formulier op
-        $filledForm->load('filledComponents');
+        $filledForm->load([
+            'filledComponents.gradeLevel',
+            'form.formCompetencies.competency.components.levels'
+        ]);
 
         $levels = ['onvoldoende' => 0, 'voldoende' => 3, 'goed' => 5];
 
-        // Haal de template van het ingevulde formulier op
-        $forms = Form::with(['formCompetencies.competency.components.levels'])->get();
+        // Helper functies
+        $grandTotal = FilledFormHelper::calcGrandTotal($filledForm);
+        $grade = FilledFormHelper::calcGrade($grandTotal);
+        $competencies = FilledFormHelper::mapCompetencies($filledForm);
 
-        return view('filled_forms.edit', compact('filledForm', 'forms', 'levels'));
+
+        return view('filled_forms.edit',
+            compact('filledForm',
+                'levels',
+                'grade',
+                'grandTotal',
+                'competencies',
+            ));
     }
 
 
