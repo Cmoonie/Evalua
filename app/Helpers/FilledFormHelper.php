@@ -79,50 +79,68 @@ class FilledFormHelper
             $zeroCount = 0;
 
             $components = $fc->competency->components->map(function ($component) use ($filledForm, &$total, &$zeroCount) {
-                // vind ingevulde data
                 $filled = $filledForm->filledComponents
                     ->firstWhere('component_id', $component->id);
 
-                // punten en counters
                 $points = optional($filled->gradeLevel)->points ?? 0;
                 $total += $points;
                 if ($points === 0) {
                     $zeroCount++;
                 }
 
-                // map alle mogelijke levels van dit component
                 $levels = $component
                     ->levels
                     ->map(fn($lvl) => [
-                        'id'          => $lvl->gradeLevel->id,
-                        'name'        => strtolower($lvl->gradeLevel->name),
+                        'id' => $lvl->gradeLevel->id,
+                        'name' => strtolower($lvl->gradeLevel->name),
                         'description' => $lvl->description,
-                        'points'      => $lvl->points,
+                        'points' => $lvl->points,
                     ])
                     ->toArray();
 
                 return [
-                    'id'           => $component->id,
-                    'name'         => $component->name,
-                    'description'  => $component->description,
-                    'points'       => $points,
+                    'id' => $component->id,
+                    'name' => $component->name,
+                    'description' => $component->description,
+                    'points' => $points,
                     'grade_level_id' => $filled->grade_level_id,
-                    'comment'      => $filled->comment ?? 'Geen',
-                    'levels'       => $levels,
+                    'comment' => $filled->comment ?? 'Geen',
+                    'levels' => $levels,
                 ];
             });
 
             $status = self::setStatus($zeroCount, $total);
 
             return [
-                'id'           => $fc->id,
-                'name'         => $fc->competency->name,
-                'components'   => $components,
-                'total'        => $total,
-                'zeroCount'    => $zeroCount,
-                'stateClass'   => $status['class'],
-                'statusText'   => $status['status'],
+                'id' => $fc->id,
+                'name' => $fc->competency->name,
+                'components' => $components,
+                'total' => $total,
+                'zeroCount' => $zeroCount,
+                'stateClass' => $status['class'],
+                'statusText' => $status['status'],
+                'failed' => ($zeroCount >= 2 || $total <= 14),
             ];
         })->toArray();
+    }
+
+    /**
+     * Berekent de eindstatus en het cijfer van het formulier,
+     * rekening houdend met het aantal failed competenties
+     */
+    public static function calcFinalGrade(array $competencies): float
+    {
+        $failedCount = collect($competencies)->filter(fn($comp) => $comp['failed'])->count();
+
+        // Als 2 of meer competenties failed zijn, altijd onvoldoende en 5.0
+        if ($failedCount >= 2) {
+            return 5.0;
+        }
+
+        // Anders totaalpunten optellen
+        $totalPoints = collect($competencies)->sum('total');
+
+        // Bereken het cijfer op basis van de punten, fallback naar 5.0
+        return self::calcGrade($totalPoints) ?? 5.0;
     }
 }

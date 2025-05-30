@@ -13,7 +13,7 @@
             <p class="mb-4"><strong>Datum aangepast:</strong> {{ $filledForm->updated_at->format('Y-m-d H:i') }}</p>
         @endif
         <p class="mb-4"><strong>Totaal aantal punten:</strong> {{ $grandTotal }}</p>
-        <p class="mb-4"><strong>Cijfer:</strong> {{ $grade }}</p>
+        <p class="mb-4"><strong>Cijfer:</strong> {{ $finalGrade }}</p>
 
         @foreach ($competencies as $comp)
             <div class="mb-6" x-data="{ open: false }">

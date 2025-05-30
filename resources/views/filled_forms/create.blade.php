@@ -51,7 +51,7 @@
                                     <tr class="border-t">
                                         <td class="p-2 text-left align-top">
                                             <div class="font-semibold">{{ $component->name }}</div>
-                                            <div class="text-sm italic text-gray-600">{{ $component->description }}</div>
+                                            <div class="text-xs italic text-gray-600">{{ $component->description }}</div>
                                         </td>
                                         @foreach(['onvoldoende','voldoende','goed'] as $grade)
                                             <td class="p-2">
@@ -65,7 +65,7 @@
                                                                 data-points="{{ $levels[$grade] }}"
                                                                 data-grade-name="{{ $grade }}"
                                                         >
-                                                            <span class="text-sm">{{ Str::limit($level->description, 30) }}</span>
+                                                            <span class="text-xs">{{ $level->description }}</span>
                                                         </button>
                                                     @endif
                                                 @endforeach

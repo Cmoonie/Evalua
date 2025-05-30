@@ -19,18 +19,21 @@ class FilledFormController extends Controller
      */
     public function index()
     {
-        $forms = Form::latest()->get(); // nieuwste eerst
-        // Haal alle formulieren op
-        $filledForms = FilledForm::with('form')
-            ->where('user_id', auth()->id()) // Je mag alleen de formulieren die bij jouw account horen zien
-            ->latest() // Nieuwste eerst
+        $forms = Form::latest()->get();
+
+        $filledForms = FilledForm::with([
+            'form.formCompetencies.competency.components.levels',
+            'filledComponents.gradeLevel'
+        ])
+            ->where('user_id', auth()->id())
+            ->latest()
             ->get()
-            ->map(function($filledForm) {
-            // We gaan meteen het cijfer tonen
-            $points             = FilledFormHelper::calcGrandTotal($filledForm);
-            $filledForm->grade  = FilledFormHelper::calcGrade($points);
-            return $filledForm;
-        });
+            ->map(fn($filledForm) => tap($filledForm, function($ff) {
+                $competencies = FilledFormHelper::mapCompetencies($ff);
+                $ff->finalGrade = FilledFormHelper::calcFinalGrade($competencies);
+                $ff->competencies = $competencies;
+                $ff->grade = FilledFormHelper::calcGrade(FilledFormHelper::calcGrandTotal($ff));
+            }));
 
         return view('filled_forms.index', compact('filledForms', 'forms'));
     }
@@ -94,16 +97,16 @@ class FilledFormController extends Controller
 
         // Helper!!
         $grandTotal = FilledFormHelper::calcGrandTotal($filledForm);
-        $grade = FilledFormHelper::calcGrade($grandTotal);
         $competencies = FilledFormHelper::mapCompetencies($filledForm);
+        $finalGrade = FilledFormHelper::calcFinalGrade($competencies);
 
 
         return view('filled_forms.show', compact(
             'filledForm',
             'gradeLevels',
-            'grade',
             'grandTotal',
             'competencies',
+            'finalGrade'
         ));
     }
 

@@ -41,7 +41,7 @@
                                 @foreach($filledForms as $filledForm)
                                     <x-info-card :title="$filledForm->student_name">
                                         <p class="text-gray-600 dark:text-gray-400 mb-1">
-                                            <strong>Cijfer:</strong> {{ $filledForm->grade ?? '–' }}
+                                            <strong>Cijfer:</strong> {{ $filledForm->finalGrade ?? '–' }}
                                         </p>
                                         <p class="text-gray-600 dark:text-gray-400 mb-1">
                                             <strong>Datum ingevuld:</strong> {{ $filledForm->created_at->format('Y-m-d H:i') }}

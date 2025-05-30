@@ -15,6 +15,28 @@ document.querySelectorAll('.grade-button').forEach(btn => {
     componentToCompetency[btn.dataset.componentId] = btn.dataset.competencyId;
 });
 
+function calculateGrade(points) {
+    const scoreMap = [
+        [72, 77, 5.5],
+        [78, 83, 6],
+        [84, 89, 6.5],
+        [90, 95, 7],
+        [96, 100, 7.5],
+        [101, 106, 8],
+        [107, 112, 8.5],
+        [113, 118, 9],
+        [119, 124, 9.5],
+        [125, 125, 10],
+    ];
+
+    for (const [min, max, grade] of scoreMap) {
+        if (points >= min && points <= max) {
+            return grade;
+        }
+    }
+    return null;
+}
+
 function updateTotals(compId, pts) {
     document.getElementById(`comp-points-${compId}`).textContent = pts;
     componentPoints[compId] = pts;
@@ -28,6 +50,11 @@ function updateTotals(compId, pts) {
     document.getElementById(`competency-points-${compCompId}`).textContent = sum + ' pts';
     const grand = Object.values(competencyPoints).reduce((a,b) => a + b, 0);
     totalDisplay.textContent = grand;
+
+    const gradeDisplay = document.getElementById('grade-display');
+    if (gradeDisplay) {
+        gradeDisplay.textContent = calculateGrade(grand);
+    }
 }
 
 document.querySelectorAll('.grade-button').forEach(btn => {
