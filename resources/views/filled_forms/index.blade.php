@@ -46,6 +46,11 @@
                                         <p class="text-gray-600 dark:text-gray-400 mb-1">
                                             <strong>Datum ingevuld:</strong> {{ $filledForm->created_at->format('Y-m-d H:i') }}
                                         </p>
+                                        @if($filledForm->created_at->ne($filledForm->updated_at))
+                                            <p class="text-gray-600 dark:text-gray-400 mb-1">
+                                                <strong>Datum aangepast:</strong> {{ $filledForm->updated_at->format('Y-m-d H:i') }}
+                                            </p>
+                                        @endif
                                         <a href="{{ route('filled_forms.show', $filledForm) }}">
                                             <x-primary-button>
                                                 Meer informatie

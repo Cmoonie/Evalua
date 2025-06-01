@@ -49,29 +49,66 @@ class FilledFormHelper
      */
     public static function setStatus(int $zeroCount, int $total): array
     {
-        // Bepaal of een competentie "failed" is: of er zijn meer dan 2 nullen, of het totaal punten is minder dan 11.
-        $failed = $zeroCount >= 2 || $total <= 10;
-
-        if ($failed) {
+        // Twee of meer onvoldoendes of minder dan 11 punten is een onvoldoende
+        if ($zeroCount >= 2 || $total < 11) {
             return [
-                'class' => 'bg-red-500 hover:bg-red-600',
+                'class'  => 'bg-red-500 hover:bg-red-600',
                 'status' => 'Onvoldoende',
                 'failed' => true,
             ];
-        } elseif ($total <= 16) {
+        }
+
+        // Bij een onvoldoende component kan je de competentie nog herstellen
+        if ($zeroCount === 1) {
             return [
-                'class' => 'bg-yellow-500 hover:bg-yellow-600',
-                'status' => 'Voldoende',
-                'failed' => false,
-            ];
-        } else {
-            return [
-                'class' => 'bg-green-500 hover:bg-green-600',
-                'status' => 'Goed',
+                'class'  => 'bg-yellow-500 hover:bg-yellow-600',
+                'status' => 'Herstel',
                 'failed' => false,
             ];
         }
+
+        // Geen onvoldoendes en totaal minder dan 16 punten is een voldoende!
+        if ($total <= 16) {
+            return [
+                'class'  => 'bg-lime-500 hover:bg-lime-600',
+                'status' => 'Voldoende',
+                'failed' => false,
+            ];
+        }
+
+        // Anders ben je goed
+        return [
+            'class'  => 'bg-green-500 hover:bg-green-600',
+            'status' => 'Goed',
+            'failed' => false,
+        ];
     }
+
+//    public static function setStatus(int $zeroCount, int $total): array
+//    {
+//        // Bepaal of een competentie "failed" is: of er zijn meer dan 2 nullen, of het totaal punten is minder dan 11.
+//        $failed = $zeroCount >= 2 || $total <= 10;
+//
+//        if ($failed) {
+//            return [
+//                'class' => 'bg-red-500 hover:bg-red-600',
+//                'status' => 'Onvoldoende',
+//                'failed' => true,
+//            ];
+//        } elseif ($total <= 16) {
+//            return [
+//                'class' => 'bg-yellow-500 hover:bg-yellow-600',
+//                'status' => 'Voldoende',
+//                'failed' => false,
+//            ];
+//        } else {
+//            return [
+//                'class' => 'bg-green-500 hover:bg-green-600',
+//                'status' => 'Goed',
+//                'failed' => false,
+//            ];
+//        }
+//    }
 
     /**
      * Map alle competenties van het formulier en voeg totalen en status toe
@@ -118,6 +155,11 @@ class FilledFormHelper
             return [
                 'id' => $fc->id,
                 'name' => $fc->competency->name,
+                'complexity' => $fc->competency->complexity,
+                'rating_scale' => $fc->competency->rating_scale,
+                'domain_description' => $fc->competency->domain_description,
+
+
                 'components' => $components,
                 'total' => $total,
                 'zeroCount' => $zeroCount,

@@ -178,14 +178,19 @@ class FilledFormController extends Controller
 
         // Helper functies
         $grandTotal = FilledFormHelper::calcGrandTotal($filledForm);
-        $grade = FilledFormHelper::calcGrade($grandTotal);
         $competencies = FilledFormHelper::mapCompetencies($filledForm);
+
+        // calcFinalGrade geeft nu een array ipv alleen een nummer
+        $finalResult  = FilledFormHelper::calcFinalGrade($competencies);
+        $finalGrade   = $finalResult['grade']; // Geef hier de variable naam zodat we dat straks makkelijk kunnen gebruiken
+        $finalStatus  = $finalResult['status'];
 
 
         return view('filled_forms.edit',
             compact('filledForm',
                 'levels',
-                'grade',
+                'finalGrade',
+                'finalStatus',
                 'grandTotal',
                 'competencies',
             ));

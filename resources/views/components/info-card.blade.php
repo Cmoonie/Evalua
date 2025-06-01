@@ -1,4 +1,4 @@
-<div class="bg-white dark:bg-dark shadow-lg rounded-lg p-8">
+<div class="bg-white dark:bg-dark shadow-lg rounded-lg p-8 w-full">
     <h2 class="text-2xl font-bold text-secondary dark:text-secondary mb-4">{{ $title }}</h2>
     {{ $slot }}
 </div>
