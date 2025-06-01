@@ -29,14 +29,40 @@ class FilledFormController extends Controller
             ->latest()
             ->get()
             ->map(fn($filledForm) => tap($filledForm, function($ff) {
+                // Bereken alle competenties en map ze
                 $competencies = FilledFormHelper::mapCompetencies($ff);
-                $ff->finalGrade = FilledFormHelper::calcFinalGrade($competencies);
                 $ff->competencies = $competencies;
-                $ff->grade = FilledFormHelper::calcGrade(FilledFormHelper::calcGrandTotal($ff));
+
+                // om het totale cijfer en status te laten zien in de lijst
+                $finalResult      = FilledFormHelper::calcFinalGrade($competencies);
+                $ff->finalGrade   = $finalResult['grade'];
+                $ff->finalStatus  = $finalResult['status'];
+
             }));
 
         return view('filled_forms.index', compact('filledForms', 'forms'));
     }
+
+//    public function index()
+//    {
+//        $forms = Form::latest()->get();
+//
+//        $filledForms = FilledForm::with([
+//            'form.formCompetencies.competency.components.levels',
+//            'filledComponents.gradeLevel'
+//        ])
+//            ->where('user_id', auth()->id())
+//            ->latest()
+//            ->get()
+//            ->map(fn($filledForm) => tap($filledForm, function($ff) {
+//                $competencies = FilledFormHelper::mapCompetencies($ff);
+//                $ff->finalGrade = FilledFormHelper::calcFinalGrade($competencies);
+//                $ff->competencies = $competencies;
+//                $ff->grade = FilledFormHelper::calcGrade(FilledFormHelper::calcGrandTotal($ff));
+//            }));
+//
+//        return view('filled_forms.index', compact('filledForms', 'forms'));
+//    }
 
     /**
      * Show the form for creating a new resource.
@@ -90,25 +116,52 @@ class FilledFormController extends Controller
     public function show(FilledForm $filledForm)
     {
         $gradeLevels = GradeLevel::all();
-        $filledForm->load([ // eager loading
+        $filledForm->load([
             'form.formCompetencies.competency.components.levels',
             'filledComponents.gradeLevel'
         ]);
 
-        // Helper!!
-        $grandTotal = FilledFormHelper::calcGrandTotal($filledForm);
+        // Helper!! totaal punten en competencies mappen
+        $grandTotal   = FilledFormHelper::calcGrandTotal($filledForm);
         $competencies = FilledFormHelper::mapCompetencies($filledForm);
-        $finalGrade = FilledFormHelper::calcFinalGrade($competencies);
 
+        // calcFinalGrade geeft nu een array ipv alleen een nummer
+        $finalResult  = FilledFormHelper::calcFinalGrade($competencies);
+        $finalGrade   = $finalResult['grade']; // Geef hier de variable naam zodat we dat straks makkelijk kunnen gebruiken
+        $finalStatus  = $finalResult['status'];
 
         return view('filled_forms.show', compact(
             'filledForm',
             'gradeLevels',
             'grandTotal',
             'competencies',
-            'finalGrade'
+            'finalGrade',
+            'finalStatus'
         ));
     }
+
+//    public function show(FilledForm $filledForm)
+//    {
+//        $gradeLevels = GradeLevel::all();
+//        $filledForm->load([ // eager loading
+//            'form.formCompetencies.competency.components.levels',
+//            'filledComponents.gradeLevel'
+//        ]);
+//
+//        // Helper!!
+//        $grandTotal = FilledFormHelper::calcGrandTotal($filledForm);
+//        $competencies = FilledFormHelper::mapCompetencies($filledForm);
+//        $finalGrade = FilledFormHelper::calcFinalGrade($competencies);
+//
+//
+//        return view('filled_forms.show', compact(
+//            'filledForm',
+//            'gradeLevels',
+//            'grandTotal',
+//            'competencies',
+//            'finalGrade'
+//        ));
+//    }
 
     /**
      * Show the form for editing the specified resource.

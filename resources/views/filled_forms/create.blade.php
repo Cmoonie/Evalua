@@ -88,8 +88,33 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                            <x-info-card :title="'Knock-out Criteria'">
+                                <label class="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        name="deliverables"
+                                        class="form-checkbox h-5 w-5 text-blue-600"
+                                    />
+                                    <span class="ml-2">Deliverables aanwezig</span>
+                                </label>
+                            </x-info-card>
+                            <x-info-card :title="'Beoordelingsschaal'">
+                                <p>
+                                {{ $formCompetency->competency->rating_scale }}
+                                </p>
+                            </x-info-card>
+                            <x-info-card :title="'Domeinbeschrijving'">
+                                <p>
+                                {{ $formCompetency->competency->domain_description }}
+                                </p>
+                            </x-info-card>
+                        </div>
+
                     </div>
                 </div>
+
             @endforeach
 
             <div class="mb-4 text-right text-lg font-semibold">

@@ -4,22 +4,59 @@
 
 @section('content')
     <div class="container mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-4">Beoordeling van {{ $filledForm->student_name }}</h1>
-        <p class="mb-4"><strong>Titel:</strong> {{ $filledForm->form->title }}</p>
-        <p class="mb-4"><strong>Vak:</strong> {{ $filledForm->form->subject }}</p>
-        <p class="mb-4"><strong>Beschrijving:</strong> {{ $filledForm->form->description }}</p>
-        <p class="mb-4"><strong>Datum ingevuld:</strong> {{ $filledForm->created_at->format('Y-m-d H:i') }}</p>
-        @if($filledForm->created_at->ne($filledForm->updated_at))
-            <p class="mb-4"><strong>Datum aangepast:</strong> {{ $filledForm->updated_at->format('Y-m-d H:i') }}</p>
-        @endif
-        <p class="mb-4"><strong>Totaal aantal punten:</strong> {{ $grandTotal }}</p>
-        <p class="mb-4"><strong>Cijfer:</strong> {{ $finalGrade }}</p>
+        <div class="flex flex-wrap justify-evenly lg:flex-nowrap -mx-4">
+            <div>
+                <h1 class="text-2xl font-bold mb-4">Beoordeling van {{ $filledForm->student_name }}</h1>
+                <p class="mb-4"><strong>Titel:</strong> {{ $filledForm->form->title }}</p>
+                <p class="mb-4"><strong>Vak:</strong> {{ $filledForm->form->subject }}</p>
+                <p class="mb-4"><strong>Beschrijving:</strong> {{ $filledForm->form->description }}</p>
+                <p class="mb-4"><strong>Datum ingevuld:</strong> {{ $filledForm->created_at->format('Y-m-d H:i') }}</p>
+                @if($filledForm->created_at->ne($filledForm->updated_at))
+                    <p class="mb-4"><strong>Datum aangepast:</strong> {{ $filledForm->updated_at->format('Y-m-d H:i') }}</p>
+                @endif
+                <p class="mb-4"><strong>Totaal aantal punten:</strong> {{ $grandTotal }}</p>
+                <p class="mb-4"><strong>Cijfer:</strong> {{ $finalGrade }}</p>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-2">Eindbeoordeling Overzicht</h2>
+                <table class=" table-auto border-collapse">
+                    <thead>
+                    <tr class="bg-gray-200 text-gray-800">
+                        <th class="p-2 text-left">Eindbeoordeling</th>
+                        <th class="p-2 text-center">Totaal te behalen punten</th>
+                        <th class="p-2 text-center">Behaald</th>
+                        <th class="p-2 text-center">Minimale punten eis</th>
+                        <th class="p-2 text-center">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($competencies as $comp)
+                        <tr class="border-b {{ $comp['stateClass'] }}">
+                            <td class="p-2">Comp. {{ $comp['name'] }}</td>
+                            <td class="p-2 text-center"> 25 </td>
+                            <td class="p-2 text-center"> {{ $comp['total'] }} </td>
+                            <td class="p-2 text-center">12</td>
+                            <td class="p-2 text-center"> {{ $comp['statusText'] }} </td>
+                        </tr>
+                    @endforeach
+                        <tr class="bg-gray-200 font-bold">
+                            <td class="p-2 text-start">Cijfer: {{ $finalGrade }}</td>
+                            <td class="p-2 text-center"> 150 </td>
+                            <td class="p-2 text-center"> {{ $grandTotal }} </td>
+                            <td class="p-2 text-center">72</td>
+                            <td class="p-2 text-center"> {{ $finalStatus }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         @foreach ($competencies as $comp)
             <div class="mb-6" x-data="{ open: false }">
                 <button
                     @click="open = !open"
-                    class="{{ $comp['stateClass'] }} py-2 px-4 text-xl font-bold text-white shadow-lg mb-2
+                    class="bg-primary hover:bg-secondary py-2 px-4 text-xl font-bold text-white shadow-lg mb-2
                            flex items-center justify-between w-full rounded-lg transition-colors duration-300">
                     <span>Competentie: {{ $comp['name'] }}</span>
                     <div class="flex items-center">

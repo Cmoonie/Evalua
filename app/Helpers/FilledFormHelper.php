@@ -49,22 +49,26 @@ class FilledFormHelper
      */
     public static function setStatus(int $zeroCount, int $total): array
     {
-        $failed = $zeroCount >= 2 || $total <= 14;
+        // Bepaal of een competentie "failed" is: of er zijn meer dan 2 nullen, of het totaal punten is minder dan 11.
+        $failed = $zeroCount >= 2 || $total <= 10;
 
         if ($failed) {
             return [
                 'class' => 'bg-red-500 hover:bg-red-600',
                 'status' => 'Onvoldoende',
+                'failed' => true,
             ];
-        } elseif ($total <= 20) {
+        } elseif ($total <= 16) {
             return [
                 'class' => 'bg-yellow-500 hover:bg-yellow-600',
                 'status' => 'Voldoende',
+                'failed' => false,
             ];
         } else {
             return [
                 'class' => 'bg-green-500 hover:bg-green-600',
                 'status' => 'Goed',
+                'failed' => false,
             ];
         }
     }
@@ -117,9 +121,13 @@ class FilledFormHelper
                 'components' => $components,
                 'total' => $total,
                 'zeroCount' => $zeroCount,
+
+                // Kleur voor tailwind en status-tekst
                 'stateClass' => $status['class'],
                 'statusText' => $status['status'],
-                'failed' => ($zeroCount >= 2 || $total <= 14),
+
+                // Hij pakt dit van eerder terug
+                'failed'     => $status['failed'],
             ];
         })->toArray();
     }
@@ -128,19 +136,47 @@ class FilledFormHelper
      * Berekent de eindstatus en het cijfer van het formulier,
      * rekening houdend met het aantal failed competenties
      */
-    public static function calcFinalGrade(array $competencies): float
+    public static function calcFinalGrade(array $competencies): array
     {
+        // Kijk hoeveel competencies failed zijn
         $failedCount = collect($competencies)->filter(fn($comp) => $comp['failed'])->count();
 
         // Als 2 of meer competenties failed zijn, altijd onvoldoende en 5.0
         if ($failedCount >= 2) {
-            return 5.0;
+            return [
+                'grade'  => 5.0,
+                'status' => 'Onvoldoende',
+            ];
         }
 
-        // Anders totaalpunten optellen
+        // Anders totaalpunten optellen en cijfer berekenen
         $totalPoints = collect($competencies)->sum('total');
+        $calculatedGrade = self::calcGrade($totalPoints) ?? 5.0;
 
-        // Bereken het cijfer op basis van de punten, fallback naar 5.0
-        return self::calcGrade($totalPoints) ?? 5.0;
+        // als cijfer hoger is dan 5.5, noem het ‘Gehaald!’, anders ‘Onvoldoende’
+        $statusText = $calculatedGrade >= 5.5
+            ? 'Gehaald!'
+            : 'Onvoldoende';
+
+        return [
+            'grade'  => $calculatedGrade,
+            'status' => $statusText,
+        ];
     }
+
+//    public static function calcFinalGrade(array $competencies): float
+//    {
+//        $failedCount = collect($competencies)->filter(fn($comp) => $comp['failed'])->count();
+//
+//        // Als 2 of meer competenties failed zijn, altijd onvoldoende en 5.0
+//        if ($failedCount >= 2) {
+//            return 5.0;
+//        }
+//
+//        // Anders totaalpunten optellen
+//        $totalPoints = collect($competencies)->sum('total');
+//
+//        // Bereken het cijfer op basis van de punten, fallback naar 5.0
+//        return self::calcGrade($totalPoints) ?? 5.0;
+//    }
 }
