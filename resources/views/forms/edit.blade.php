@@ -21,6 +21,11 @@
             </div>
 
             <div class="mb-6">
+                <label for="oe_code" class="block font-semibold mb-1">OE-code</label>
+                <input type="text" id="oe_code" name="oe_code" value="{{ old('description', $form->oe_code) }}" class="w-full p-2 border rounded" required>
+            </div>
+
+            <div class="mb-6">
                 <label for="description" class="block font-semibold mb-1">Beschrijving</label>
                 <textarea id="description" name="description" rows="3" class="w-full p-2 border rounded">{{ old('description', $form->description) }}</textarea>
             </div>

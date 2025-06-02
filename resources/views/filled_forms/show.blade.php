@@ -4,28 +4,16 @@
 
 @section('content')
     <div class="container mx-auto p-6">
+        <h1 class="text-2xl text-primary font-bold mb-4">
+            Beoordelingsformulier {{ $filledForm->form->title }}
+        </h1>
         <div class="flex flex-wrap justify-between lg:flex-nowrap ">
 
             <div>
-                <h1 class="text-2xl text-primary font-bold mb-4">
-                    Beoordelingsformulier {{ $filledForm->form->title }}
-                </h1>
-
                 <!-- Basisinformatie formulier -->
                 <p class="mb-4"><strong>Vak:</strong> {{ $filledForm->form->subject }}</p>
                 <p class="mb-4"><strong>OE-code:</strong> {{ $filledForm->form->oe_code }}</p>
                 <p class="mb-4"><strong>Beschrijving:</strong> {{ $filledForm->form->description }}</p>
-
-                <!-- Studentgegevens -->
-                <p class="mb-4"><strong>Studentnaam:</strong> {{ $filledForm->student_name }}</p>
-                <p class="mb-4"><strong>Studentnummer:</strong> {{ $filledForm->student_number }}</p>
-                <p class="mb-4"><strong>Titel opdracht:</strong> {{ $filledForm->assignment }}</p>
-                <p class="mb-4"><strong>Bedrijfsnaam:</strong> {{ $filledForm->business_name ?? '–' }}</p>
-                <p class="mb-4"><strong>Bedrijfslocatie:</strong> {{ $filledForm->business_location ?? '–' }}</p>
-                <p class="mb-4"><strong>Startdatum:</strong> {{ $filledForm->start_date ? $filledForm->start_date->format('Y-m-d') : '–' }}</p>
-                <p class="mb-4"><strong>Einddatum:</strong> {{ $filledForm->end_date ? $filledForm->end_date->format('Y-m-d') : '–' }}</p>
-
-                <!-- Datum informatie -->
                 <p class="mb-4">
                     <strong>Datum ingevuld:</strong>
                     {{ $filledForm->created_at->format('Y-m-d H:i') }}
@@ -36,6 +24,16 @@
                         {{ $filledForm->updated_at->format('Y-m-d H:i') }}
                     </p>
                 @endif
+            </div>
+            <div>
+                <!-- Studentgegevens -->
+                <p class="mb-4"><strong>Studentnaam:</strong> {{ $filledForm->student_name }}</p>
+                <p class="mb-4"><strong>Studentnummer:</strong> {{ $filledForm->student_number }}</p>
+                <p class="mb-4"><strong>Titel opdracht:</strong> {{ $filledForm->assignment }}</p>
+                <p class="mb-4"><strong>Bedrijfsnaam:</strong> {{ $filledForm->business_name ?? '–' }}</p>
+                <p class="mb-4"><strong>Bedrijfslocatie:</strong> {{ $filledForm->business_location ?? '–' }}</p>
+                <p class="mb-4"><strong>Startdatum:</strong> {{ $filledForm->start_date ? $filledForm->start_date->format('Y-m-d') : '–' }}</p>
+                <p class="mb-4"><strong>Einddatum:</strong> {{ $filledForm->end_date ? $filledForm->end_date->format('Y-m-d') : '–' }}</p>
             </div>
 
 
