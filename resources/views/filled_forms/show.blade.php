@@ -48,11 +48,9 @@
                 </table>
                 <p class="mb-4  text-sm text-primary">
                     <strong>Toelichting: </strong>
-                    <11 = Onvoldoende || 12 - 16 = Voldoende || 17 - 25 = Goed. Max 1 onvoldoende per competentie.
+                    <11 = Onvoldoende || 12 - 16 = Voldoende || 17 - 25 = Goed.
                     <br>
-                    Bij twee of meer onvoldoendes in één competentie wordt de competentie automatisch onvoldoende.
-                    <br>
-                    Bij twee onvoldoende competenties is het maximaal te behalen cijfer een 5,0.
+                    Voldoende alleen mogelijk mits alle activiteiten en competenties behaald zijn met een voldoende.
                 </p>
             </div>
         </div>
@@ -117,7 +115,7 @@
                     </div>
 
                     <div class="grid grid-cols-3 gap-6 mt-8">
-                        <x-info-card :title="'Complexiteit'">
+                        <x-info-card :title="'Knock-out Criteria & Deliverables'">
                             <p>
                                 {{ $comp['complexity'] }}
                             </p>

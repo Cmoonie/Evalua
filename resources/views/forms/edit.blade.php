@@ -39,11 +39,11 @@
                             <textarea name="competencies[{{ $cIndex }}][domain_description]" class="w-full border p-2 rounded">{{ $fc->competency->domain_description }}</textarea>
                         </div>
                         <div>
-                            <label class="block font-medium">Rating scale</label>
+                            <label class="block font-medium">Beoordelingsschaal</label>
                             <input type="text" name="competencies[{{ $cIndex }}][rating_scale]" value="{{ $fc->competency->rating_scale }}" class="w-full border p-2 rounded">
                         </div>
                         <div>
-                            <label class="block font-medium">Complexiteit</label>
+                            <label class="block font-medium">Knock-out Criteria & Deliverables</label>
                             <input type="text" name="competencies[{{ $cIndex }}][complexity]" value="{{ $fc->competency->complexity }}" class="w-full border p-2 rounded">
                         </div>
                     </div>

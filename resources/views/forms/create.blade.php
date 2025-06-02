@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="mb-2">
-                                    <label class="block font-medium">Complexiteit</label>
+                                    <label class="block font-medium">Knock-out Criteria & Deliverables</label>
                                     <input type="text" name="competencies[{{ $cIndex }}][complexity]" class="w-full border p-2 rounded">
                                 </div>
 

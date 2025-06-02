@@ -1,69 +1,72 @@
 @extends('layouts.app')
 
 @php
-    $header = 'Beoordelingen per vak';
+    $header = 'Beoordelingsformulieren';
 @endphp
 
 @section('content')
+    <div class="container mx-auto h-full p-6">
 
-    @if($forms->isEmpty())
-        <p class="text-primary">Geen formulieren gevonden. Tijd om er een te maken!</p>
-    @else
-            @foreach($forms as $form)
-                <div class="mb-8" x-data="{ open: false }">
-                    <button
-                        @click="open = !open"
-                        class="bg-primary py-2 px-4 text-2xl font-bold text-white shadow-lg hover:bg-secondary dark:hover:bg-darktext mb-4 flex items-center justify-between w-full rounded-lg transition-colors duration-300">
-                        <span>{{ $form->subject }}</span>
-                        <svg :class="{'transform rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 transition-transform duration-300">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
+        @if(session('success'))
+            <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+                {{ session('success') }}
+            </div>
+        @endif
 
-                    <div x-show="open">
-                        <x-primary-button>
-                            <a href="{{ route('filled_forms.create', $form) }}" class="px-4 py-2">Nieuwe beoordeling</a>
-                        </x-primary-button>
+        <div class="p-4 border border-gray-200 bg-white rounded-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-2xl font-bold text-primary">Beoordelingsformulieren</h1>
+                <a href="{{ route('forms.create') }}">
+                    <x-primary-button>
+                        Nieuw Formulier
+                    </x-primary-button>
+                </a>
+            </div>
 
-                        @if($form->filledForms->isEmpty())
-                            <x-info-card :title="'404'">
-                                <p class="text-gray-600 mb-1">
-                                    Geen beoordelingen gevonden. Tijd om er een te maken!
-                                </p>
-                                <a href="{{ route('filled_forms.create', $form) }}">
-                                    <x-primary-button>
-                                        Maak nieuwe beoordeling
-                                    </x-primary-button>
-                                </a>
-                            </x-info-card>
-                        @else
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                @foreach($form->filledForms as $filledForm)
-                                    <x-info-card :title="$filledForm->student_name">
-                                        <p class="text-gray-600 dark:text-gray-400 mb-1">
-                                            <strong>Status:</strong> {{ $filledForm->finalStatus ?? '–' }}
-                                        </p>
-                                        <p class="text-gray-600 dark:text-gray-400 mb-1">
-                                            <strong>Datum ingevuld:</strong> {{ $filledForm->created_at->format('Y-m-d H:i') }}
-                                        </p>
-                                        @if($filledForm->created_at->ne($filledForm->updated_at))
-                                            <p class="text-gray-600 dark:text-gray-400 mb-1">
-                                                <strong>Datum aangepast:</strong> {{ $filledForm->updated_at->format('Y-m-d H:i') }}
-                                            </p>
-                                        @endif
-                                        <a href="{{ route('filled_forms.show', $filledForm) }}">
-                                            <x-primary-button>
-                                                Meer informatie
-                                            </x-primary-button>
-                                        </a>
-                                    </x-info-card>
 
-                                @endforeach
-                            </div>
-                        @endif
-                    </div>
+            @if($forms->isEmpty())
+                <p class="text-primary">Geen formulieren gevonden. Tijd om er een te maken!</p>
+            @else
+                    <table class="w-full bg-white shadow rounded">
+                        <thead>
+                        <tr class="bg-gray-100 text-primary">
+                            <th class="p-3 text-left">Vak</th>
+                            <th class="p-3 text-left">Formulier Titel</th>
+                            <th class="p-3 text-left">Beschrijving</th>
+                            <th class="p-3 text-left">
+                                Aangemaakt op
+                            </th>
+                            <th class="p-3 text-left">Nieuwe Beoordeling</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($forms as $form)
+                            <tr class="border-t">
+                                <td class="p-3 text-lg font-semibold text-secondary">
+                                    {{ $form->subject }}
+                                </td>
+                                <td class="p-3">
+                                    {{ $form->title }}
+                                </td>
+                                <td>
+                                    {{ $form->description }}
+                                </td>
+                                <td class="p-3">
+                                    {{ $form->created_at->format('d-m-Y H:i') }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('filled_forms.create', $form) }}">
+                                        <x-primary-button>
+                                            Klik hier
+                                        </x-primary-button>
+                                    </a>
+                                </td>
 
-                </div>
-            @endforeach
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
     @endif
+        </div>
+    </div>
 @endsection

@@ -17,17 +17,18 @@ document.querySelectorAll('.grade-button').forEach(btn => {
 
 function calculateGrade(points) {
     const scoreMap = [
-        [72, 77, 5.5],
-        [78, 83, 6],
-        [84, 89, 6.5],
-        [90, 95, 7],
-        [96, 100, 7.5],
-        [101, 106, 8],
-        [107, 112, 8.5],
-        [113, 118, 9],
-        [119, 124, 9.5],
-        [125, 125, 10],
+        [72, 79, 5.5],
+        [80, 89, 6.0],
+        [90, 97, 6.5],
+        [98, 105, 7.0],
+        [106, 114, 7.5],
+        [115, 123, 8.0],
+        [124, 131, 8.5],
+        [132, 140, 9.0],
+        [141, 148, 9.5],
+        [149, 150, 10.0],
     ];
+
 
     for (const [min, max, grade] of scoreMap) {
         if (points >= min && points <= max) {
@@ -67,7 +68,7 @@ document.querySelectorAll('.grade-button').forEach(btn => {
         document.querySelectorAll(`.grade-button[data-component-id="${compId}"]`).forEach(b => {
             b.classList.remove(
                 'bg-green-200', 'border-green-400',
-                'bg-orange-200', 'border-orange-400',
+                'bg-lime-200', 'border-lime-400',
                 'bg-red-200', 'border-red-400'
             );
         });
@@ -78,8 +79,8 @@ document.querySelectorAll('.grade-button').forEach(btn => {
             bg = 'bg-green-200';
             bd = 'border-green-400';
         } else if (gradeName === 'voldoende') {
-            bg = 'bg-orange-200';
-            bd = 'border-orange-400';
+            bg = 'bg-lime-200';
+            bd = 'border-lime-400';
         } else if (gradeName === 'onvoldoende') {
             bg = 'bg-red-200';
             bd = 'border-red-400';

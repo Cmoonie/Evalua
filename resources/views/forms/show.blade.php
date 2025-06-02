@@ -93,10 +93,10 @@
                         <p><span class="bg-secondary text-white px-2 py-1 rounded font-semibold">Domeinbeschrijving:</span> <em>{{ $fc->competency->domain_description }}</em></p>
                     </div>
                     <div class="mb-3">
-                        <p><span class="bg-secondary text-white px-2 py-1 rounded font-semibold">Rating scale:</span> {{ $fc->competency->rating_scale }}</p>
+                        <p><span class="bg-secondary text-white px-2 py-1 rounded font-semibold">Beoordelingsschaal:</span> {{ $fc->competency->rating_scale }}</p>
                     </div>
                     <div class="mb-3">
-                        <p><span class="bg-secondary text-white px-2 py-1 rounded font-semibold">Complexiteit:</span> {{ $fc->competency->complexity }}</p>
+                        <p><span class="bg-secondary text-white px-2 py-1 rounded font-semibold">Knock-out Criteria & Deliverables:</span> {{ $fc->competency->complexity }}</p>
                     </div>
 
                     @foreach($fc->competency->components as $component)

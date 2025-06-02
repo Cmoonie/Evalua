@@ -26,7 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('components', ComponentController::class);
     Route::resource('forms', FormController::class);
     Route::resource('filled_forms', FilledFormController::class);
-    Route::resource('gradelevels', GradeLevelController::class);
+    Route::get('/gradelist', [FilledFormController::class, 'gradeList'])
+        ->name('filled_forms.gradelist');
     Route::get('filled_forms/create/{form}', [FilledFormController::class, 'create'])
         ->name('filled_forms.create');
 });

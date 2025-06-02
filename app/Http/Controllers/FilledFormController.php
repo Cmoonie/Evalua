@@ -205,4 +205,32 @@ class FilledFormController extends Controller
         }
     }
 
+
+    public function gradeList()
+    {
+        // Haal alle formulieren op, inclusief hun ingevulde formulieren
+        $forms = Form::latest()
+            ->with([
+                'filledForms' => fn($query) => $query->with([
+                    'form.formCompetencies.competency.components.levels',
+                    'filledComponents.gradeLevel'
+                ])
+                    ->where('user_id', auth()->id())
+                    ->latest()
+            ])
+            ->get();
+
+        // Helper methodes
+        foreach ($forms as $form) {
+            foreach ($form->filledForms as $ff) {
+                $competencies = FilledFormHelper::mapCompetencies($ff);
+                $ff->competencies  = $competencies;
+                $finalResult       = FilledFormHelper::calcFinalGrade($competencies);
+                $ff->finalGrade    = $finalResult['grade'];
+                $ff->finalStatus   = $finalResult['status'];
+            }
+        }
+
+        return view('filled_forms.gradelist', compact('forms'));
+    }
 }

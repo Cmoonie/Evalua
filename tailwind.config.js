@@ -14,6 +14,8 @@ export default {
         'hover:bg-red-600',
         'bg-yellow-500',
         'hover:bg-yellow-600',
+        'bg-lime-200',
+        'hover:bg-lime-400',
         'bg-lime-500',
         'hover:bg-lime-600',
         'bg-green-500',

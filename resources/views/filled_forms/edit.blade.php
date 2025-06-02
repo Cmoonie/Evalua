@@ -81,6 +81,28 @@
                        required>
             </div>
 
+            <div class="mb-6">
+                <x-info-card :title="'Globale Knock-out Criteria'">
+                    <label class="flex items-center">
+                        <input
+                            type="checkbox"
+                            name="brightspace"
+                            class="form-checkbox h-5 w-5 text-windy"
+                        />
+                        <span class="ml-2">Het projectarchief is compleet (op Brightspace) en voldoet aan de gestelde eisen</span>
+                    </label>
+                    <br>
+                    <label class="flex items-center">
+                        <input
+                            type="checkbox"
+                            name="onstage"
+                            class="form-checkbox h-5 w-5 text-windy"
+                        />
+                        <span class="ml-2">Studenten hebben alle stappen in OnStage afgerond</span>
+                    </label>
+                </x-info-card>
+            </div>
+
             @foreach($competencies as $competency)
                 <div class="mb-8" x-data="{ open: false }">
                     <button
@@ -99,7 +121,33 @@
                     </button>
 
                     <div x-show="open" x-collapse>
-                        <div class="p-4 border border-gray-200 rounded-lg">
+                        <div class="grid grid-cols-1 gap-6 mt-8">
+                            <x-info-card :title="'Competentie-specifieke Knock-out Criteria'">
+                                <p>
+                                    {{ $competency['complexity'] }}
+                                </p>
+                                <br>
+                                <label class="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        name="knockout"
+                                        class="form-checkbox h-5 w-5 text-windy"
+                                    />
+                                    <span class="ml-2">Voldoet aan de knock-out criteria</span>
+                                </label>
+                                <br>
+                                <label class="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        name="deliverables"
+                                        class="form-checkbox h-5 w-5 text-windy"
+                                    />
+                                    <span class="ml-2">Deliverables aanwezig</span>
+                                </label>
+                            </x-info-card>
+                        </div>
+
+                        <div class="p-4 border mt-8 border-gray-200 bg-white rounded-lg">
                             <table class="w-full table-auto text-center border-collapse">
                                 <thead>
                                 <tr class="bg-gray-50 font-semibold">
@@ -127,7 +175,7 @@
                                                             @if($component['grade_level_id'] == $level['id'])
                                                                 {{ $gradeName=='goed'?'bg-green-200 border-green-400'
                                                                 :($gradeName=='voldoende'
-                                                                ?'bg-orange-200 border-orange-400'
+                                                                ?'bg-lime-200 border-lime-400'
                                                                 :'bg-red-200 border-red-400') }}
                                                             @endif"
                                                                 data-component-id="{{ $component['id'] }}"
@@ -154,12 +202,30 @@
                                     <td class="p-2 text-left">Totaal punten</td>
                                     <td class="p-2" colspan="3"></td>
                                     <td class="p-2 text-center" id="comp-total-{{ $competency['id'] }}">{{ $competency['total'] }}</td>
-{{--                                    <td class="p-2 text-center">{{ $competency['statusText'] }}</td>--}}
                                     <td></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="grid grid-cols-3 gap-6 mt-8">
+                            <x-info-card :title="'Knock-out Criteria & Deliverables'">
+                                <p>
+                                    {{ $comp['complexity'] }}
+                                </p>
+                            </x-info-card>
+                            <x-info-card :title="'Beoordelingsschaal'">
+                                <p>
+                                    {{ $comp['rating_scale'] }}
+                                </p>
+                            </x-info-card>
+                            <x-info-card :title="'Domeinbeschrijving'">
+                                <p>
+                                    {{ $comp['domain_description'] }}
+                                </p>
+                            </x-info-card>
+                        </div>
+
                     </div>
                 </div>
             @endforeach

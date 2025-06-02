@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container mx-auto p-6">
-        <h1 class="text-3xl font-bold mb-6">Formulier invullen: {{ $form->title }}</h1>
+        <h1 class="text-3xl font-bold mb-6 text-primary">Formulier invullen: {{ $form->title }}</h1>
 
         <form action="{{ route('filled_forms.store') }}" method="POST">
             @csrf
@@ -57,7 +57,7 @@
 
                     <div x-show="open" x-transition>
                         <div class="grid grid-cols-1 gap-6 mt-8">
-                            <x-info-card :title="'Competentie-specifieke Knock-out Criteria'">
+                            <x-info-card :title="'Competentie-specifieke Knock-out Criteria & Deliverables'">
                                 <p>
                                     {{ $formCompetency->competency->complexity }}
                                 </p>
