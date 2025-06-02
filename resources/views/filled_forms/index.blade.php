@@ -25,7 +25,7 @@
                             <a href="{{ route('filled_forms.create', $form) }}" class="px-4 py-2">Nieuwe beoordeling</a>
                         </x-primary-button>
 
-                        @if($filledForms->isEmpty())
+                        @if($form->filledForms->isEmpty())
                             <x-info-card :title="'404'">
                                 <p class="text-gray-600 mb-1">
                                     Geen beoordelingen gevonden. Tijd om er een te maken!
@@ -38,7 +38,7 @@
                             </x-info-card>
                         @else
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                @foreach($filledForms as $filledForm)
+                                @foreach($form->filledForms as $filledForm)
                                     <x-info-card :title="$filledForm->student_name">
                                         <p class="text-gray-600 dark:text-gray-400 mb-1">
                                             <strong>Status:</strong> {{ $filledForm->finalStatus ?? '–' }}
