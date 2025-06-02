@@ -31,6 +31,4 @@ Route::middleware('auth')->group(function () {
         ->name('filled_forms.create');
 });
 
-
-
 require __DIR__.'/auth.php';
