@@ -11,6 +11,18 @@ class FilledForm extends Model
         'form_id',
         'user_id',
         'student_name',
+        'student_number',
+        'assignment',
+        'business_name',
+        'business_location',
+        'start_date',
+        'end_date',
+    ];
+
+    // Kut carbon
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date'   => 'date',
     ];
 
     // Een ingevuld formulier hoort bij maar 1 formulier, maar 1 formulier kan meerdere ingevulde formulieren hebben (veel-op-1 relatie)

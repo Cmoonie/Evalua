@@ -27,6 +27,7 @@ class StoreFormRequest extends FormRequest
             'title'       => ['required', 'string', 'max:32'],
             'subject'     => ['required', 'string', 'max:32'],
             'description' => ['required', 'string'],
+            'oe_code' => ['required', 'string', 'max:32'],
 
             // Competenties
             'competencies'                              => ['required', 'array'],

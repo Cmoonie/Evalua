@@ -17,7 +17,21 @@
 
                         <div class="mb-4">
                             <label for="subject" class="block font-semibold">Vak</label>
-                            <input type="text" id="subject" name="subject" class="w-full p-2 border rounded" required>
+                            <input type="text"
+                                   id="subject"
+                                   name="subject"
+                                   class="w-full p-2 border rounded"
+                                   required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="oe_code" class="block font-semibold">OE-code</label>
+                            <input
+                                type="text"
+                                name="oe_code"
+                                id="oe_code"
+                                class="w-full p-2 border rounded"
+                                required>
                         </div>
 
                         <div class="mb-4">
@@ -41,7 +55,7 @@
                                 </div>
 
                                 <div class="mb-2">
-                                    <label class="block font-medium">Rating scale</label>
+                                    <label class="block font-medium">Beoordelingsschaal</label>
                                     <input type="text" name="competencies[{{ $cIndex }}][rating_scale]" class="w-full border p-2 rounded">
                                 </div>
 

@@ -48,6 +48,7 @@ class FormController extends Controller
                 'title'       => $validatedData['title'],
                 'description' => $validatedData['description'],
                 'subject'     => $validatedData['subject'],
+                'oe_code'            => $validatedData['oe_code'],
             ]);
             // Stap 2: Helper methode gebruiken om de rest van de data op te slaan
             $this->saveData($form, $validatedData);
@@ -98,6 +99,7 @@ class FormController extends Controller
                 'title'       => $validatedData['title'],
                 'description' => $validatedData['description'],
                 'subject'     => $validatedData['subject'],
+                'oe_code'            => $validatedData['oe_code'],
             ]);
 
             // Stap 2: verwijder alle gelinkte data uit de tussentabel

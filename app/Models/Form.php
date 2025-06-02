@@ -15,6 +15,7 @@ class Form extends Model
         'user_id',
         'title',
         'subject',
+        'oe_code',
         'description',
     ];
 

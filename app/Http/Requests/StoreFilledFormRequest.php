@@ -26,6 +26,12 @@ class StoreFilledFormRequest extends FormRequest
             // De data die uit het formulier komt
             'form_id'      => ['required', Rule::exists('forms', 'id')],
             'student_name' => ['required', 'string', 'max:64'],
+            'student_number' => ['required', 'string', 'max:64'],
+            'assignment' => ['nullable', 'string', 'max:100'],
+            'business_name' => ['nullable', 'string', 'max:100'],
+            'business_location' => ['nullable', 'string', 'max:100'],
+            'start_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
 
             // Componenten
             'components'                   => ['required', 'array'],

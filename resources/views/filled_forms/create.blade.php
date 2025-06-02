@@ -12,10 +12,78 @@
             @csrf
             <input type="hidden" name="form_id" value="{{ $form->id }}">
 
+{{--            <div class="mb-6">--}}
+{{--                <label for="student_name" class="block text-lg font-semibold mb-2">Naam student</label>--}}
+{{--                <input type="text" name="student_name" id="student_name" class="max-w-80 border border-gray-300 rounded p-2" required>--}}
+{{--            </div>--}}
+
             <div class="mb-6">
+                <!-- Naam student -->
                 <label for="student_name" class="block text-lg font-semibold mb-2">Naam student</label>
-                <input type="text" name="student_name" id="student_name" class="max-w-80 border border-gray-300 rounded p-2" required>
+                <input
+                    type="text"
+                    name="student_name"
+                    id="student_name"
+                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
+                    required
+                >
+
+                <!-- Studentnummer -->
+                <label for="student_number" class="block text-lg font-semibold mb-2">Studentnummer</label>
+                <input
+                    type="text"
+                    name="student_number"
+                    id="student_number"
+                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
+                    required
+                >
+
+                <!-- Opdrachtnaam (optioneel) -->
+                <label for="assignment" class="block text-lg font-semibold mb-2">Titel opdracht (optioneel)</label>
+                <input
+                    type="text"
+                    name="assignment"
+                    id="assignment"
+                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
+                >
+
+                <!-- Bedrijfsnaam (optioneel) -->
+                <label for="business_name" class="block text-lg font-semibold mb-2">Bedrijfsnaam (optioneel)</label>
+                <input
+                    type="text"
+                    name="business_name"
+                    id="business_name"
+                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
+                >
+
+                <!-- Bedrijfslocatie (optioneel) -->
+                <label for="business_location" class="block text-lg font-semibold mb-2">Bedrijfslocatie (optioneel)</label>
+                <input
+                    type="text"
+                    name="business_location"
+                    id="business_location"
+                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
+                >
+
+                <!-- Startdatum (optioneel) -->
+                <label for="start_date" class="block text-lg font-semibold mb-2">Startdatum (optioneel)</label>
+                <input
+                    type="date"
+                    name="start_date"
+                    id="start_date"
+                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
+                >
+
+                <!-- Einddatum (optioneel) -->
+                <label for="end_date" class="block text-lg font-semibold mb-2">Einddatum (optioneel)</label>
+                <input
+                    type="date"
+                    name="end_date"
+                    id="end_date"
+                    class="max-w-80 border border-gray-300 rounded p-2 w-full"
+                >
             </div>
+
 
             <div class="mb-6">
                 <x-info-card :title="'Globale Knock-out Criteria'">

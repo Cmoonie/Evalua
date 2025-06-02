@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // De FK van user
             $table->string('title', 32); // De titel van het formulier
             $table->string('subject', 32); // Het vak waar het formulier over gaat
+            $table->string('oe_code', 32); // OE-code van het vak
             $table->text('description'); // Beschrijving van het formulier
             $table->timestamps(); // Datums etc
         });

@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => $user->id,
             'title' => 'Comakership',
             'subject' => 'Comakership 1',
+            'oe_code' => 'WFSDAD.CM1.01',
             'description' => 'ADSD Comakership Jaar 2025/2026',
         ]);
 
