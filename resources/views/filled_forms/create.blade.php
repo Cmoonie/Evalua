@@ -23,7 +23,7 @@
                         <input
                             type="checkbox"
                             name="brightspace"
-                            class="form-checkbox h-5 w-5 text-blue-600"
+                            class="form-checkbox h-5 w-5 text-windy"
                         />
                         <span class="ml-2">Het projectarchief is compleet (op Brightspace) en voldoet aan de gestelde eisen</span>
                     </label>
@@ -32,7 +32,7 @@
                         <input
                             type="checkbox"
                             name="onstage"
-                            class="form-checkbox h-5 w-5 text-blue-600"
+                            class="form-checkbox h-5 w-5 text-windy"
                         />
                         <span class="ml-2">Studenten hebben alle stappen in OnStage afgerond</span>
                     </label>
@@ -66,7 +66,7 @@
                                     <input
                                         type="checkbox"
                                         name="knockout"
-                                        class="form-checkbox h-5 w-5 text-blue-600"
+                                        class="form-checkbox h-5 w-5 text-windy"
                                     />
                                     <span class="ml-2">Voldoet aan de knock-out criteria</span>
                                 </label>
@@ -75,7 +75,7 @@
                                     <input
                                         type="checkbox"
                                         name="deliverables"
-                                        class="form-checkbox h-5 w-5 text-blue-600"
+                                        class="form-checkbox h-5 w-5 text-windy"
                                     />
                                     <span class="ml-2">Deliverables aanwezig</span>
                                 </label>
