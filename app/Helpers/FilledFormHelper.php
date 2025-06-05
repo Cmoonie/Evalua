@@ -23,6 +23,7 @@ class FilledFormHelper
     public static function calcGrade(int $points): ?float
     {
         $scoreMap = [
+            [0, 71, 5.0],
             [72, 79, 5.5],
             [80, 89, 6.0],
             [90, 97, 6.5],

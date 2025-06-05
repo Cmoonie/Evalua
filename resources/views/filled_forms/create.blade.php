@@ -12,78 +12,92 @@
             @csrf
             <input type="hidden" name="form_id" value="{{ $form->id }}">
 
-{{--            <div class="mb-6">--}}
-{{--                <label for="student_name" class="block text-lg font-semibold mb-2">Naam student</label>--}}
-{{--                <input type="text" name="student_name" id="student_name" class="max-w-80 border border-gray-300 rounded p-2" required>--}}
-{{--            </div>--}}
-
             <div class="mb-6">
-                <!-- Naam student -->
-                <label for="student_name" class="block text-lg font-semibold mb-2">Naam student</label>
-                <input
-                    type="text"
-                    name="student_name"
-                    id="student_name"
-                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
-                    required
-                >
+                <x-info-card :title="'Studentgegevens'">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label for="student_name" class="block text-primary text-lg font-semibold mb-2">Naam student</label>
+                            <input
+                                type="text"
+                                name="student_name"
+                                id="student_name"
+                                class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
+                                required>
+                        </div>
 
-                <!-- Studentnummer -->
-                <label for="student_number" class="block text-lg font-semibold mb-2">Studentnummer</label>
-                <input
-                    type="text"
-                    name="student_number"
-                    id="student_number"
-                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
-                    required
-                >
+                        <div>
+                            <label for="student_number" class="block text-primary text-lg font-semibold mb-2">Studentnummer</label>
+                            <input
+                                type="text"
+                                name="student_number"
+                                id="student_number"
+                                class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
+                                required>
+                        </div>
 
-                <!-- Opdrachtnaam (optioneel) -->
-                <label for="assignment" class="block text-lg font-semibold mb-2">Titel opdracht (optioneel)</label>
-                <input
-                    type="text"
-                    name="assignment"
-                    id="assignment"
-                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
-                >
+                        <div>
+                            <label for="assignment" class="block text-primary text-lg font-semibold mb-2">Titel opdracht</label>
+                            <input
+                                type="text"
+                                name="assignment"
+                                id="assignment"
+                                class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full">
+                        </div>
+                    </div>
 
-                <!-- Bedrijfsnaam (optioneel) -->
-                <label for="business_name" class="block text-lg font-semibold mb-2">Bedrijfsnaam (optioneel)</label>
-                <input
-                    type="text"
-                    name="business_name"
-                    id="business_name"
-                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
-                >
+                    <div class="mb-8" x-data="{ open: false }">
+                        <button
+                            @click.prevent="open = !open"
+                            class="bg-primary py-2 px-4 text-lg font-bold text-white shadow-lg hover:bg-secondary mb-4 w-full flex items-center justify-between rounded-lg transition-colors duration-300">
+                            <span>Optionele gegevens</span>
+                            <svg
+                                :class="{'transform rotate-180': open}"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                class="w-6 h-6 transition-transform duration-300 text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
 
-                <!-- Bedrijfslocatie (optioneel) -->
-                <label for="business_location" class="block text-lg font-semibold mb-2">Bedrijfslocatie (optioneel)</label>
-                <input
-                    type="text"
-                    name="business_location"
-                    id="business_location"
-                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
-                >
+                        <div x-show="open" x-transition>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="business_name" class="block text-primary text-lg font-semibold mb-2">Bedrijfsnaam</label>
+                                    <input
+                                        type="text"
+                                        name="business_name"
+                                        id="business_name"
+                                        class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full">
+                                    <label for="business_location" class="block text-primary text-lg font-semibold mb-2">Bedrijfslocatie</label>
+                                    <input
+                                        type="text"
+                                        name="business_location"
+                                        id="business_location"
+                                        class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full">
+                                </div>
 
-                <!-- Startdatum (optioneel) -->
-                <label for="start_date" class="block text-lg font-semibold mb-2">Startdatum (optioneel)</label>
-                <input
-                    type="date"
-                    name="start_date"
-                    id="start_date"
-                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
-                >
-
-                <!-- Einddatum (optioneel) -->
-                <label for="end_date" class="block text-lg font-semibold mb-2">Einddatum (optioneel)</label>
-                <input
-                    type="date"
-                    name="end_date"
-                    id="end_date"
-                    class="max-w-80 border border-gray-300 rounded p-2 w-full"
-                >
+                                <div>
+                                    <label for="start_date" class="block text-primary text-lg font-semibold mb-2">Startdatum</label>
+                                    <input
+                                        type="date"
+                                        name="start_date"
+                                        id="start_date"
+                                        class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full">
+                                    <label for="end_date" class="block text-primary text-lg font-semibold mb-2">Einddatum</label>
+                                    <input
+                                        type="date"
+                                        name="end_date"
+                                        id="end_date"
+                                        class="max-w-80 border border-gray-300 rounded p-2 w-full">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </x-info-card>
             </div>
-
 
             <div class="mb-6">
                 <x-info-card :title="'Globale Knock-out Criteria'">
@@ -91,18 +105,16 @@
                         <input
                             type="checkbox"
                             name="brightspace"
-                            class="form-checkbox h-5 w-5 text-windy"
-                        />
-                        <span class="ml-2">Het projectarchief is compleet (op Brightspace) en voldoet aan de gestelde eisen</span>
+                            class="form-checkbox h-5 w-5 text-windy"/>
+                        <span class="ml-2">Het projectarchief is compleet en voldoet aan de gestelde eisen</span>
                     </label>
                     <br>
                     <label class="flex items-center">
                         <input
                             type="checkbox"
                             name="onstage"
-                            class="form-checkbox h-5 w-5 text-windy"
-                        />
-                        <span class="ml-2">Studenten hebben alle stappen in OnStage afgerond</span>
+                            class="form-checkbox h-5 w-5 text-windy"/>
+                        <span class="ml-2">Alle stappen in OnStage zijn afgerond door de student(en)</span>
                     </label>
                 </x-info-card>
             </div>
@@ -220,18 +232,29 @@
                                 </p>
                             </x-info-card>
                         </div>
-
                     </div>
                 </div>
-
             @endforeach
 
             <div class="mb-4 text-right text-lg font-semibold">
-                Totaal punten (alle competenties): <span id="total-points">0</span>
+                Totaal punten (alle competenties): <span id="total-points"> - </span>
+                <p class="mb-4">
+                    <strong>Cijfer:</strong> <span id="grade-display"> - </span>
+                </p>
             </div>
 
+            {{-- Waarschuwing als nog niet alle knock-out-checkboxes aangevinkt zijn --}}
+            <p id="warning-checkboxes" class="text-red-600 text-right text-sm mb-4 hidden">
+                Aan alle knock-out criteria moet voldaan worden om verder te gaan.
+            </p>
+
+            {{-- Waarschuwing als er nog een component niet is beoordeeld --}}
+            <p id="warning-components" class="text-red-600 text-right text-sm mb-4 hidden">
+                Alle componenten moeten worden beoordeeld voordat je kunt verzenden.
+            </p>
+
             <div class="text-right">
-                <x-primary-button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Verzenden</x-primary-button>
+                <x-primary-button type="submit" id="form-submit" class="disabled:opacity-50 disabled:cursor-not-allowed" disabled>Verzenden</x-primary-button>
             </div>
         </form>
     </div>

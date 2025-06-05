@@ -27,7 +27,7 @@ class StoreFilledFormRequest extends FormRequest
             'form_id'      => ['required', Rule::exists('forms', 'id')],
             'student_name' => ['required', 'string', 'max:64'],
             'student_number' => ['required', 'string', 'max:64'],
-            'assignment' => ['nullable', 'string', 'max:100'],
+            'assignment' => ['required', 'string', 'max:100'],
             'business_name' => ['nullable', 'string', 'max:100'],
             'business_location' => ['nullable', 'string', 'max:100'],
             'start_date' => ['nullable', 'date'],
