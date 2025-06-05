@@ -6,7 +6,7 @@ use App\Models\ComponentLevel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ComponentLevel>
+ * @extends Factory<ComponentLevel>
  */
 class ComponentLevelFactory extends Factory
 {

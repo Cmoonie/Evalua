@@ -6,7 +6,7 @@ use App\Models\Form;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\form>
+ * @extends Factory<\App\Models\form>
  */
 class FormFactory extends Factory
 {

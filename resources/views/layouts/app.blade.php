@@ -32,7 +32,7 @@
                 </x-header>
             @endif
 
-            <main class="max-w-auto mx-auto px-4 py-6">
+            <main class="max-w-auto mx-auto px-4 py-6 ">
 
                 @yield('content')
             </main>

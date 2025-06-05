@@ -8,6 +8,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\FilledFormController;
 use App\Http\Controllers\GradeLevelController;
 
+
 Route::get('/', function () {
     return view('/auth/login');
 });

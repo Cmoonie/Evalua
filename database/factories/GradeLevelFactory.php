@@ -6,7 +6,7 @@ use App\Models\GradeLevel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\GradeLevel>
+ * @extends Factory<GradeLevel>
  */
 class GradeLevelFactory extends Factory
 {

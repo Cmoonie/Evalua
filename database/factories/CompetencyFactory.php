@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\competency>
+ * @extends Factory<\App\Models\competency>
  */
 class CompetencyFactory extends Factory
 {
