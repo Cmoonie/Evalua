@@ -7,10 +7,10 @@
         <h1 class="text-2xl text-primary font-bold mb-4">
             Beoordelingsformulier {{ $filledForm->form->title }}
         </h1>
-        <div class="flex flex-wrap justify-between lg:flex-nowrap ">
 
+        <div class="flex flex-wrap justify-between lg:flex-nowrap ">
             <div>
-                <!-- Basisinformatie formulier -->
+                {{--    Basisinformatie formulier--}}
                 <p class="mb-4"><strong>Vak:</strong> {{ $filledForm->form->subject }}</p>
                 <p class="mb-4"><strong>OE-code:</strong> {{ $filledForm->form->oe_code }}</p>
                 <p class="mb-4"><strong>Beschrijving:</strong> {{ $filledForm->form->description }}</p>
@@ -24,9 +24,19 @@
                         {{ $filledForm->updated_at->format('Y-m-d H:i') }}
                     </p>
                 @endif
+
+                <x-secondary-button>
+                    <a href="{{ route('filled_forms.edit', $filledForm) }}">Bewerk</a>
+                </x-secondary-button>
+
+                <form action="{{ route('filled_forms.destroy', $filledForm) }}" method="POST" class="inline"
+                      onsubmit="return confirm('Weet je het zeker?');">
+                    @csrf
+                    @method('DELETE')
+                    <x-secondary-button type="submit">Verwijder</x-secondary-button>
+                </form>
             </div>
             <div>
-                <!-- Studentgegevens -->
                 <p class="mb-4"><strong>Studentnaam:</strong> {{ $filledForm->student_name }}</p>
                 <p class="mb-4"><strong>Studentnummer:</strong> {{ $filledForm->student_number }}</p>
                 <p class="mb-4"><strong>Titel opdracht:</strong> {{ $filledForm->assignment }}</p>
@@ -35,8 +45,6 @@
                 <p class="mb-4"><strong>Startdatum:</strong> {{ $filledForm->start_date ? $filledForm->start_date->format('Y-m-d') : '–' }}</p>
                 <p class="mb-4"><strong>Einddatum:</strong> {{ $filledForm->end_date ? $filledForm->end_date->format('Y-m-d') : '–' }}</p>
             </div>
-
-
             <div class="mb-8">
                 <table class="mb-4 table-auto border-collapse">
                     <thead>
@@ -109,28 +117,28 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($comp['components'] as $c)
-                                <tr class="border-b">
-                                    <td class="p-2 text-secondary"><strong>{{ $c['name'] }}</strong>
-                                    </td>
-                                    <td class="p-2 font-bold text-xl text-red-500 text-center">
-                                        {{ $c['points'] === 0 ? '✗' : '' }}
-                                    </td>
-                                    <td class="p-2 font-bold text-xl text-yellow-500 text-center">
-                                        {{ $c['points'] === 3 ? '✓' : '' }}
-                                    </td>
-                                    <td class="p-2 font-bold text-xl text-green-500 text-center">
-                                        {{ $c['points'] === 5 ? '✓' : '' }}
-                                    </td>
-                                    <td class="p-2 text-center">{{ $c['points'] }}</td>
-                                    <td class="p-2 text-center">{{ $c['comment'] }}</td>
+                                @foreach ($comp['components'] as $c)
+                                    <tr class="border-b">
+                                        <td class="p-2 text-secondary"><strong>{{ $c['name'] }}</strong>
+                                        </td>
+                                        <td class="p-2 font-bold text-xl text-red-500 text-center">
+                                            {{ $c['points'] === 0 ? '✗' : '' }}
+                                        </td>
+                                        <td class="p-2 font-bold text-xl text-yellow-500 text-center">
+                                            {{ $c['points'] === 3 ? '✓' : '' }}
+                                        </td>
+                                        <td class="p-2 font-bold text-xl text-green-500 text-center">
+                                            {{ $c['points'] === 5 ? '✓' : '' }}
+                                        </td>
+                                        <td class="p-2 text-center">{{ $c['points'] }}</td>
+                                        <td class="p-2 text-center">{{ $c['comment'] }}</td>
+                                    </tr>
+                                @endforeach
+                                <tr class="bg-gray-100 text-primary font-bold">
+                                    <td colspan="4" class="p-2 text-right">Totaal</td>
+                                    <td class="p-2 text-center">{{ $comp['total'] }}</td>
+                                    <td class="p-2 text-center">{{ $comp['statusText'] }}</td>
                                 </tr>
-                            @endforeach
-                            <tr class="bg-gray-100 text-primary font-bold">
-                                <td colspan="4" class="p-2 text-right">Totaal</td>
-                                <td class="p-2 text-center">{{ $comp['total'] }}</td>
-                                <td class="p-2 text-center">{{ $comp['statusText'] }}</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -152,20 +160,12 @@
                             </p>
                         </x-info-card>
                     </div>
-
-                </div>
             </div>
         @endforeach
 
-        <x-primary-button>
-            <a href="{{ route('filled_forms.edit', $filledForm) }}">Bewerk</a>
-        </x-primary-button>
-
-        <form action="{{ route('filled_forms.destroy', $filledForm) }}" method="POST" class="inline"
-              onsubmit="return confirm('Weet je het zeker?');">
-            @csrf
-            @method('DELETE')
-            <x-primary-button type="submit">Verwijder</x-primary-button>
-        </form>
+        <a href="{{ route('forms.index') }}"><x-primary-button>
+                Terug naar lijst
+            </x-primary-button>
+        </a>
     </div>
 @endsection

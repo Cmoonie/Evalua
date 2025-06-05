@@ -93,9 +93,9 @@
                         @endforeach
 
                         {{-- Submit knop --}}
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        <x-primary-button type="submit">
                             Formulier opslaan
-                        </button>
+                        </x-primary-button>
                     </form>
                 </div>
 @endsection

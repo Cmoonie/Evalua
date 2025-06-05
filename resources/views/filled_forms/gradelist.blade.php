@@ -7,7 +7,7 @@
 @section('content')
     <div class="container mx-auto p-6">
         <div class="p-4 border border-gray-200 bg-white rounded-lg">
-            <h1 class="text-2xl text-primary font-bold mb-4">Cijferlijsten per vak</h1>
+            <h1 class="text-2xl text-primary font-bold mb-4">Overzicht Cijfers Per Vak</h1>
             @if($forms->isEmpty())
                 <p class="text-primary">Geen formulieren gevonden. Tijd om er een te maken!</p>
             @else

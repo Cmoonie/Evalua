@@ -7,13 +7,13 @@
         <p class="mb-4"><strong>Beschrijving:</strong> {{ $form->description }}</p>
 
         <div class="flex gap-4 mt-4">
-            <x-primary-button>
+            <x-secondary-button>
                 <a href="{{ route('forms.edit', $form) }}">Bewerk</a>
-            </x-primary-button>
+            </x-secondary-button>
             <form action="{{ route('forms.destroy', $form) }}" method="POST" class="inline" onsubmit="return confirm('Weet je het zeker?');">
                 @csrf
                 @method('DELETE')
-                <x-primary-button type="submit">Verwijder</x-primary-button>
+                <x-secondary-button type="submit">Verwijder</x-secondary-button>
             </form>
         </div>
 
@@ -56,7 +56,10 @@
             </div>
         @endforeach
 
-        <a href="{{ route('filled_forms.index') }}" class="mt-6 inline-block text-blue-500 hover:underline">Terug naar lijst</a>
+        <a href="{{ route('forms.index') }}"><x-primary-button>
+                Terug naar lijst
+            </x-primary-button>
+        </a>
     </div>
 @endsection
 

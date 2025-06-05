@@ -36,14 +36,14 @@
                             <th class="p-3 text-left">
                                 Aangemaakt op
                             </th>
-                            <th class="p-3 text-left">Nieuwe Beoordeling</th>
+                            <th class="p-3 text-left"></th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($forms as $form)
                             <tr class="border-t">
-                                <td class="p-3 text-lg font-semibold text-secondary">
-                                    {{ $form->subject }}
+                                <td class="p-3 text-lg font-semibold text-secondary hover:text-windy">
+                                    <a href="{{ route('forms.show', $form) }}"> {{ $form->subject }}</a>
                                 </td>
                                 <td class="p-3">
                                     {{ $form->title }}
@@ -57,7 +57,7 @@
                                 <td>
                                     <a href="{{ route('filled_forms.create', $form) }}">
                                         <x-primary-button>
-                                            Klik hier
+                                            Beoordeling maken
                                         </x-primary-button>
                                     </a>
                                 </td>
@@ -66,7 +66,7 @@
                         @endforeach
                         </tbody>
                     </table>
-    @endif
+            @endif
         </div>
     </div>
 @endsection
