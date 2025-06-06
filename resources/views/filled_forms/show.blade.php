@@ -84,26 +84,24 @@
         </div>
 
         @foreach ($competencies as $comp)
-            <div class="mb-6" x-data="{ open: false }">
+            <div class="mb-8" x-data="{ open: false }">
                 <button
                     @click="open = !open"
-                    class="bg-primary hover:bg-secondary py-2 px-4 text-xl font-bold text-white shadow-lg mb-2
+                    class="bg-primary hover:bg-secondary py-2 px-4 text-xl font-bold text-white shadow-lg mb-4
                            flex items-center justify-between w-full rounded-lg transition-colors duration-300">
                     <span>Competentie: {{ $comp['name'] }}</span>
                     <div class="flex items-center">
                         <span class="text-sm mr-2">{{ $comp['statusText'] }}: {{ $comp['total'] }} pts</span>
-                        <svg :class="{'transform rotate-180': open}"
-                             xmlns="http://www.w3.org/2000/svg" fill="none"
+                        <svg :class="{'transform rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor"
                              class="w-6 h-6 transition-transform duration-300">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M19 9l-7 7-7-7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </div>
                 </button>
 
                 <div x-show="open" x-transition">
-                    <div class="p-4 border border-gray-200 bg-white rounded-lg">
+                    <div class="p-4 border border-gray-200 bg-white rounded-lg mt-2 mb-6">
                         <table class="w-full table-auto border-collapse mb-2">
                             <thead>
                             <tr class="bg-gray-200 text-primary">
@@ -142,7 +140,7 @@
                         </table>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-6 mt-8">
+                    <div class="grid grid-cols-3 gap-6 mb-6">
                         <x-info-card :title="'Knock-out Criteria & Deliverables'">
                             <p>
                                 {{ $comp['complexity'] }}

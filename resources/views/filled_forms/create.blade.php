@@ -119,10 +119,10 @@
             </div>
 
             @foreach($form->formCompetencies as $formCompetency)
-                <div class="mb-8" x-data="{ open: false }">
+                <div x-data="{ open: false }">
                     <button
                         @click.prevent="open = !open"
-                        class="bg-primary py-2 px-4 text-xl font-bold text-white shadow-lg hover:bg-secondary mb-4 w-full flex items-center justify-between rounded-lg transition-colors duration-300">
+                        class="bg-primary py-2 px-4 text-xl font-bold text-white shadow-lg hover:bg-secondary mb-4 mt-4 w-full flex items-center justify-between rounded-lg transition-colors duration-300">
                         <span>Competentie: {{ $formCompetency->competency->name }}</span>
                         <div class="flex items-center">
                             <span class="text-sm mr-2" id="competency-points-{{ $formCompetency->competency->id }}">0 pts</span>
@@ -165,15 +165,15 @@
                             <h1 class="text-4xl text-primary mb-4">
                                 Competentie: {{ $formCompetency->competency->name }}
                             </h1>
-                            <table class="w-full table-auto text-center border-collapse">
+                            <table class="w-full table-fixed text-center border-collapse">
                                 <thead>
                                 <tr class="bg-gray-200 text-primary font-semibold">
-                                    <th class="p-2 text-left">Component</th>
-                                    <th class="p-2">Onvoldoende (0)</th>
-                                    <th class="p-2">Voldoende (3)</th>
-                                    <th class="p-2">Goed (5)</th>
-                                    <th class="p-2">Punten</th>
-                                    <th class="p-2 text-left">Opmerking</th>
+                                    <th class="w-1/6 p-2 text-left">Component</th>
+                                    <th class="w-1/6 p-2">Onvoldoende (0)</th>
+                                    <th class="w-1/6 p-2">Voldoende (3)</th>
+                                    <th class="w-1/6 p-2">Goed (5)</th>
+                                    <th class="w-1/12 p-2">Punten</th>
+                                    <th class="w-1/6 p-2 ">Opmerking</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -187,15 +187,17 @@
                                             <td class="p-2">
                                                 @foreach($component->levels as $level)
                                                     @if(strtolower($level->gradeLevel->name) === $grade)
-                                                        <button type="button"
-                                                                class="grade-button px-3 py-1 rounded-lg border mb-1 hover:opacity-85"
-                                                                data-component-id="{{ $component->id }}"
-                                                                data-competency-id="{{ $formCompetency->competency->id }}"
-                                                                data-grade-id="{{ $level->grade_level_id }}"
-                                                                data-points="{{ $levels[$grade] }}"
-                                                                data-grade-name="{{ $grade }}"
-                                                        >
-                                                            <span class="text-xs">{{ $level->description }}</span>
+                                                        <button
+                                                            type="button"
+                                                            class="grade-button group relative w-full h-24 border border-gray-300 rounded-lg p-2"
+                                                            data-component-id="{{ $component->id }}"
+                                                            data-competency-id="{{ $formCompetency->competency->id }}"
+                                                            data-grade-id="{{ $level->grade_level_id }}"
+                                                            data-points="{{ $levels[$grade] }}"
+                                                            data-grade-name="{{ $grade }}">
+                                                            <span class="text-xs block max-h-full overflow-hidden text-ellipsis group-hover:overflow-auto group-hover:whitespace-normal">
+                                                                {{ $level->description }}
+                                                            </span>
                                                         </button>
                                                     @endif
                                                 @endforeach
@@ -203,7 +205,7 @@
                                         @endforeach
                                         <td class="p-2" id="comp-points-{{ $component->id }}">0</td>
                                         <td class="p-2 align-top">
-                                            <textarea name="components[{{ $component->id }}][comment]" rows="5" class="w-full border border-gray-300 rounded p-1" placeholder="Typ een opmerking..."></textarea>
+                                            <textarea name="components[{{ $component->id }}][comment]" rows="4" class="w-full min-h-24 border border-gray-300 rounded p-1" placeholder="Typ een opmerking..."></textarea>
                                             <input type="hidden" name="components[{{ $component->id }}][grade_level_id]" id="grade-level-{{ $component->id }}" required>
                                             <input type="hidden" name="components[{{ $component->id }}][component_id]" value="{{ $component->id }}">
                                         </td>
