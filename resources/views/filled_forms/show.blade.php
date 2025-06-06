@@ -39,6 +39,8 @@
                 <p class="mb-4"><strong>Studentnaam:</strong> {{ $filledForm->student_name }}</p>
                 <p class="mb-4"><strong>Studentnummer:</strong> {{ $filledForm->student_number }}</p>
                 <p class="mb-4"><strong>Titel opdracht:</strong> {{ $filledForm->assignment }}</p>
+            </div>
+            <div>
                 <p class="mb-4"><strong>Bedrijfsnaam:</strong> {{ $filledForm->business_name ?? '–' }}</p>
                 <p class="mb-4"><strong>Bedrijfslocatie:</strong> {{ $filledForm->business_location ?? '–' }}</p>
                 <p class="mb-4"><strong>Startdatum:</strong> {{ $filledForm->start_date ? $filledForm->start_date->format('Y-m-d') : '–' }}</p>
@@ -101,7 +103,7 @@
                 </button>
 
                 <div x-show="open" x-transition">
-                    <div class="p-4 border border-gray-200 bg-white rounded-lg mt-2 mb-6">
+                    <div class="p-4 border border-gray-200 bg-white rounded-lg">
                         <table class="w-full table-auto border-collapse mb-2">
                             <thead>
                             <tr class="bg-gray-200 text-primary">
@@ -140,7 +142,7 @@
                         </table>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-6 mb-6">
+                    <div class="grid grid-cols-3 gap-6">
                         <x-info-card :title="'Knock-out Criteria & Deliverables'">
                             <p>
                                 {{ $comp['complexity'] }}

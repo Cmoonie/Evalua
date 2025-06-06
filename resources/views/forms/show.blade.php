@@ -36,7 +36,7 @@
                 </button>
 
                 <div x-show="open" x-transition>
-                    <div class="grid grid-cols-1 gap-6 mt-2 mb-6">
+                    <div class="grid grid-cols-1 gap-6">
                         <x-info-card :title="'Competentie-specifieke Knock-out Criteria & Deliverables'">
                             <p>
                                 {{ $formCompetency->competency->complexity }}

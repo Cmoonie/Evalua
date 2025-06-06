@@ -98,7 +98,6 @@
                 </x-info-card>
             </div>
 
-            <div class="mb-6">
                 <x-info-card :title="'Globale Knock-out Criteria'">
                     <label class="flex items-center">
                         <input
@@ -116,7 +115,6 @@
                         <span class="ml-2">Alle stappen in OnStage zijn afgerond door de student(en)</span>
                     </label>
                 </x-info-card>
-            </div>
 
             @foreach($form->formCompetencies as $formCompetency)
                 <div x-data="{ open: false }">
@@ -135,7 +133,7 @@
                     </button>
 
                     <div x-show="open" x-transition>
-                        <div class="grid grid-cols-1 gap-6 mt-8">
+                        <div class="grid grid-cols-1 gap-6">
                             <x-info-card :title="'Competentie-specifieke Knock-out Criteria & Deliverables'">
                                 <p>
                                     {{ $formCompetency->competency->complexity }}
@@ -161,7 +159,7 @@
                             </x-info-card>
                         </div>
 
-                        <div class="p-4 border mt-8 border-gray-200 bg-white rounded-lg">
+                        <div class="p-4 border border-gray-200 bg-white rounded-lg">
                             <h1 class="text-4xl text-primary mb-4">
                                 Competentie: {{ $formCompetency->competency->name }}
                             </h1>
@@ -221,7 +219,7 @@
                             </table>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-6 mt-8">
+                        <div class="grid grid-cols-2 gap-6">
                             <x-info-card :title="'Beoordelingsschaal'">
                                 <p class="break-words">
                                 {{ $formCompetency->competency->rating_scale }}

@@ -2,11 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ComponentController;
-use App\Http\Controllers\CompetencyController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\FilledFormController;
-use App\Http\Controllers\GradeLevelController;
 
 Route::get('/', function () {
     return view('/auth/login');
@@ -22,8 +19,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // CRUD routes voor onze controllers
-    Route::resource('competencies', CompetencyController::class);
-    Route::resource('components', ComponentController::class);
     Route::resource('forms', FormController::class);
     Route::resource('filled_forms', FilledFormController::class);
     Route::get('/gradelist', [FilledFormController::class, 'gradeList'])
