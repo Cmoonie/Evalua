@@ -35,17 +35,30 @@
                     <x-secondary-button type="submit">Verwijder</x-secondary-button>
                 </form>
             </div>
+
             <div>
                 <p class="mb-4"><strong>Studentnaam:</strong> {{ $filledForm->student_name }}</p>
                 <p class="mb-4"><strong>Studentnummer:</strong> {{ $filledForm->student_number }}</p>
                 <p class="mb-4"><strong>Titel opdracht:</strong> {{ $filledForm->assignment }}</p>
             </div>
             <div>
-                <p class="mb-4"><strong>Bedrijfsnaam:</strong> {{ $filledForm->business_name ?? '–' }}</p>
-                <p class="mb-4"><strong>Bedrijfslocatie:</strong> {{ $filledForm->business_location ?? '–' }}</p>
-                <p class="mb-4"><strong>Startdatum:</strong> {{ $filledForm->start_date ? $filledForm->start_date->format('Y-m-d') : '–' }}</p>
-                <p class="mb-4"><strong>Einddatum:</strong> {{ $filledForm->end_date ? $filledForm->end_date->format('Y-m-d') : '–' }}</p>
+                @if(!empty($filledForm->business_name))
+                    <p class="mb-4"><strong>Bedrijfsnaam:</strong> {{ $filledForm->business_name }}</p>
+                @endif
+
+                @if(!empty($filledForm->business_location))
+                    <p class="mb-4"><strong>Bedrijfslocatie:</strong> {{ $filledForm->business_location }}</p>
+                @endif
+
+                @if(!empty($filledForm->start_date))
+                    <p class="mb-4"><strong>Startdatum:</strong> {{ $filledForm->start_date->format('Y-m-d') }}</p>
+                @endif
+
+                @if(!empty($filledForm->end_date))
+                    <p class="mb-4"><strong>Einddatum:</strong> {{ $filledForm->end_date->format('Y-m-d') }}</p>
+                @endif
             </div>
+
             <div class="mb-8">
                 <table class="mb-4 table-auto border-collapse">
                     <thead>
@@ -76,7 +89,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="mb-4  text-sm text-primary">
+                <p class="  text-sm text-primary">
                     <strong>Toelichting: </strong>
                     <11 = Onvoldoende || 12 - 16 = Voldoende || 17 - 25 = Goed.
                     <br>

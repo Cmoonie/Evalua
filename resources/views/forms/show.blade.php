@@ -1,29 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-        <h1 class="text-2xl font-bold mb-4">{{ $form->title }}</h1>
-        <p class="mb-2"><strong>Onderwerp:</strong> {{ $form->subject }}</p>
-        <p class="mb-4"><strong>OE-code:</strong> {{ $form->oe_code }}</p>
-        <p class="mb-4"><strong>Beschrijving:</strong> {{ $form->description }}</p>
+        <h1 class="text-2xl text-primary font-bold mb-4">{{ $form->title }}</h1>
 
-        <div class="flex gap-4 mt-4">
-            <x-secondary-button>
-                <a href="{{ route('forms.edit', $form) }}">Bewerk</a>
-            </x-secondary-button>
-            <form action="{{ route('forms.destroy', $form) }}" method="POST" class="inline" onsubmit="return confirm('Weet je het zeker?');">
-                @csrf
-                @method('DELETE')
-                <x-secondary-button type="submit">Verwijder</x-secondary-button>
-            </form>
+        <div class="mt-4 mb-8">
+            <p class="mb-4"><strong>Onderwerp:</strong> {{ $form->subject }}</p>
+            <p class="mb-4"><strong>OE-code:</strong> {{ $form->oe_code }}</p>
+            <p class="mb-4"><strong>Beschrijving:</strong> {{ $form->description }}</p>
+                <div class="flex gap-4">
+                    <x-secondary-button>
+                        <a href="{{ route('forms.edit', $form) }}">Bewerk</a>
+                    </x-secondary-button>
+                    <form action="{{ route('forms.destroy', $form) }}" method="POST" class="inline" onsubmit="return confirm('Weet je het zeker?');">
+                        @csrf
+                        @method('DELETE')
+                        <x-secondary-button type="submit">Verwijder</x-secondary-button>
+                    </form>
+                </div>
         </div>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">Competenties</h2>
 
         @foreach($form->formCompetencies as $formCompetency)
             <div x-data="{ open: false }">
                 <button
                     @click.prevent="open = !open"
-                    class="bg-primary py-2 px-4 text-xl font-bold text-white shadow-lg hover:bg-secondary mb-4 w-full
+                    class="bg-primary py-2 px-4 text-xl font-bold text-white shadow-lg hover:bg-secondary mb-4 mt-4 w-full
                     flex items-center justify-between rounded-lg transition-colors duration-300">
                     <span>Competentie: {{ $formCompetency->competency->name }}</span>
                     <div class="flex items-center">
