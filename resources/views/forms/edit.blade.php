@@ -3,7 +3,7 @@
 @section('title', 'Formulier bewerken')
 
 @section('content')
-    <div class="container mx-auto p-6">
+
         <h1 class="text-3xl font-bold mb-6">Formulier bewerken</h1>
 
         <form action="{{ route('forms.update', $form) }}" method="POST">
@@ -94,7 +94,6 @@
                 </button>
             </div>
         </form>
-    </div>
 
     <script>
         const gradeLevels = @json($gradeLevels);

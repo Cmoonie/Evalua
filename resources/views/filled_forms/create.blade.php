@@ -5,7 +5,6 @@
 @endphp
 
 @section('content')
-    <div class="container mx-auto p-6">
         <h1 class="text-3xl font-bold mb-6 text-primary">Formulier invullen: {{ $form->title }}</h1>
 
         <form action="{{ route('filled_forms.store') }}" method="POST">
@@ -257,5 +256,5 @@
                 <x-primary-button type="submit" id="form-submit" class="disabled:opacity-50 disabled:cursor-not-allowed" disabled>Verzenden</x-primary-button>
             </div>
         </form>
-    </div>
+
 @endsection

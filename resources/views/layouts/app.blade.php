@@ -14,30 +14,27 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen flex flex-col bg-gray-100">
 
-            <!-- Navigatiebalk -->
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
             @if(isset($header))
                 <x-header>
                     {{ $header }}
                 </x-header>
             @endif
 
-            <main class="max-w-auto mx-auto px-4 py-6">
-
+            <main class="flex-1 container mx-auto px-8 py-8">
                 @yield('content')
             </main>
 
-            <!-- Footer -->
             @include('layouts.footer')
 
         </div>

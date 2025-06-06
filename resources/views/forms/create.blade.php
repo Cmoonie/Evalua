@@ -3,7 +3,6 @@
 @section('title', 'Nieuw formulier aanmaken')
 
 @section('content')
-    <div class="container mx-auto p-6">
         <h1 class="text-3xl font-bold mb-6">Nieuw beoordelingsformulier</h1>
 
         <form action="{{ route('forms.store') }}" method="POST">
@@ -97,6 +96,5 @@
                             Formulier opslaan
                         </x-primary-button>
                     </form>
-                </div>
 @endsection
 

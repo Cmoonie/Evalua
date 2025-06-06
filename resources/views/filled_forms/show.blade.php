@@ -3,7 +3,6 @@
 @php $header = 'Beoordeling bekijken'; @endphp
 
 @section('content')
-    <div class="container mx-auto p-6">
         <h1 class="text-2xl text-primary font-bold mb-4">
             Beoordelingsformulier {{ $filledForm->form->title }}
         </h1>
@@ -167,5 +166,4 @@
                 Terug naar lijst
             </x-primary-button>
         </a>
-    </div>
 @endsection

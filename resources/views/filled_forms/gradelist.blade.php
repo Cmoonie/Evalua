@@ -5,7 +5,6 @@
 @endphp
 
 @section('content')
-    <div class="container mx-auto p-6">
         <div class="p-4 border border-gray-200 bg-white rounded-lg">
             <h1 class="text-2xl text-primary font-bold mb-4">Overzicht Cijfers Per Vak</h1>
             @if($forms->isEmpty())
@@ -77,6 +76,5 @@
 
             @endif
         </div>
-    </div>
 @endsection
 

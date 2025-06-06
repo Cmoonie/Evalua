@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto p-6">
         <h1 class="text-2xl font-bold mb-4">{{ $form->title }}</h1>
         <p class="mb-2"><strong>Onderwerp:</strong> {{ $form->subject }}</p>
         <p class="mb-4"><strong>Beschrijving:</strong> {{ $form->description }}</p>
@@ -60,6 +59,5 @@
                 Terug naar lijst
             </x-primary-button>
         </a>
-    </div>
 @endsection
 

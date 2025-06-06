@@ -5,8 +5,6 @@
 @endphp
 
 @section('content')
-    <div class="container mx-auto h-full p-6">
-
         @if(session('success'))
             <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
                 {{ session('success') }}
@@ -68,5 +66,5 @@
                     </table>
             @endif
         </div>
-    </div>
+
 @endsection

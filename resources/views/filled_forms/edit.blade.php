@@ -5,80 +5,9 @@
 @endphp
 
 @section('content')
-    <div class="container mx-auto p-6">
         <h1 class="text-2xl text-primary font-bold mb-4">
             Beoordeling {{ $filledForm->form->title }} aanpassen
         </h1>
-{{--        <div class="flex flex-wrap justify-between lg:flex-nowrap ">--}}
-{{--            <div>--}}
-{{--                <!-- Basisinformatie formulier -->--}}
-{{--                <p class="mb-4"><strong>Vak:</strong> {{ $filledForm->form->subject }}</p>--}}
-{{--                <p class="mb-4"><strong>OE-code:</strong> {{ $filledForm->form->oe_code }}</p>--}}
-{{--                <p class="mb-4"><strong>Beschrijving:</strong> {{ $filledForm->form->description }}</p>--}}
-{{--                <p class="mb-4">--}}
-{{--                    <strong>Datum ingevuld:</strong>--}}
-{{--                    {{ $filledForm->created_at->format('Y-m-d H:i') }}--}}
-{{--                </p>--}}
-{{--                @if($filledForm->created_at->ne($filledForm->updated_at))--}}
-{{--                    <p class="mb-4">--}}
-{{--                        <strong>Datum aangepast:</strong>--}}
-{{--                        {{ $filledForm->updated_at->format('Y-m-d H:i') }}--}}
-{{--                    </p>--}}
-{{--                @endif--}}
-{{--            </div>--}}
-{{--            <div>--}}
-{{--                <!-- Studentgegevens -->--}}
-{{--                <p class="mb-4"><strong>Studentnaam:</strong> {{ $filledForm->student_name }}</p>--}}
-{{--                <p class="mb-4"><strong>Studentnummer:</strong> {{ $filledForm->student_number }}</p>--}}
-{{--                <p class="mb-4"><strong>Titel opdracht:</strong> {{ $filledForm->assignment ?? '–' }}</p>--}}
-{{--                <p class="mb-4"><strong>Bedrijfsnaam:</strong> {{ $filledForm->business_name ?? '–' }}</p>--}}
-{{--                <p class="mb-4"><strong>Bedrijfslocatie:</strong> {{ $filledForm->business_location ?? '–' }}</p>--}}
-{{--                <p class="mb-4"><strong>Startdatum:</strong> {{ $filledForm->start_date ? $filledForm->start_date->format('Y-m-d') : '–' }}</p>--}}
-{{--                <p class="mb-4"><strong>Einddatum:</strong> {{ $filledForm->end_date ? $filledForm->end_date->format('Y-m-d') : '–' }}</p>--}}
-{{--            </div>--}}
-
-{{--            <div class="mb-8">--}}
-{{--                <table class="mb-4 table-auto border-collapse">--}}
-{{--                    <thead>--}}
-{{--                    <tr class="bg-gray-200 text-primary">--}}
-{{--                        <th class="p-2 text-left">Eindbeoordeling</th>--}}
-{{--                        <th class="p-2 text-center">Totaal te behalen punten</th>--}}
-{{--                        <th class="p-2 text-center">Behaald</th>--}}
-{{--                        <th class="p-2 text-center">Minimale punten eis</th>--}}
-{{--                        <th class="p-2 text-center">Status</th>--}}
-{{--                    </tr>--}}
-{{--                    </thead>--}}
-{{--                    <tbody>--}}
-{{--                        @foreach ($competencies as $comp)--}}
-{{--                            <tr class="border-b {{ $comp['stateClass'] }}">--}}
-{{--                                <td class="p-2">Comp. {{ $comp['name'] }}</td>--}}
-{{--                                <td class="p-2 text-center"> 25 </td>--}}
-{{--                                <td class="p-2 text-center"> {{ $comp['total'] }} </td>--}}
-{{--                                <td class="p-2 text-center">12</td>--}}
-{{--                                <td class="p-2 text-center"> {{ $comp['statusText'] }} </td>--}}
-{{--                            </tr>--}}
-{{--                        @endforeach--}}
-{{--                        <tr class="bg-gray-200 font-semibold text-primary">--}}
-{{--                            <td class="p-2 text-start">Cijfer: {{ $finalGrade }}</td>--}}
-{{--                            <td class="p-2 text-center"> 150 </td>--}}
-{{--                            <td class="p-2 text-center"> {{ $grandTotal }} </td>--}}
-{{--                            <td class="p-2 text-center">72</td>--}}
-{{--                            <td class="p-2 text-center"> {{ $finalStatus }} </td>--}}
-{{--                        </tr>--}}
-{{--                    </tbody>--}}
-{{--                </table>--}}
-{{--                <p class="mb-4  text-sm text-primary">--}}
-{{--                    <strong>Toelichting: </strong>--}}
-{{--                    <11 = Onvoldoende || 12 - 16 = Voldoende || 17 - 25 = Goed. Max 1 onvoldoende per competentie.--}}
-{{--                    <br>--}}
-{{--                    Bij twee of meer onvoldoendes in één competentie wordt de competentie automatisch onvoldoende.--}}
-{{--                    <br>--}}
-{{--                    Bij twee onvoldoende competenties is het maximaal te behalen cijfer een 5,0.--}}
-{{--                </p>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-
 
         <form action="{{ route('filled_forms.update', $filledForm) }}" method="POST">
             @csrf
@@ -340,7 +269,7 @@
                 <x-primary-button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Opslaan</x-primary-button>
             </div>
         </form>
-    </div>
+
 @endsection
 
 
