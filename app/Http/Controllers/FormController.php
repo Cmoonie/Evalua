@@ -67,8 +67,9 @@ class FormController extends Controller
     {
         // We willen het formulier zien, maar ook alle sub informatie
         $form->load('formCompetencies.competency.components.levels'); // Eager loading!!
+        $levels = ['onvoldoende' => 0, 'voldoende' => 3, 'goed' => 5];
 
-        return view('forms.show', compact('form'));
+        return view('forms.show', compact('form', 'levels'));
     }
 
     /**
@@ -79,6 +80,7 @@ class FormController extends Controller
         // Deze data willen we laten zien als we het formulier aanpassen
         $gradeLevels  = GradeLevel::orderByDesc('points')->get(); // Net als bij de index()
         $competencies = Competency::orderBy('name')->get();
+
 
         // Net als bij show()
         $form->load('formCompetencies.competency.components.levels');
