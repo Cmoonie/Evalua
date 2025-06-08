@@ -6,7 +6,7 @@
 
 @section('content')
         <h1 class="text-2xl text-primary font-bold mb-4">
-            Beoordeling {{ $filledForm->form->title }} aanpassen
+            Beoordeling "{{ $filledForm->form->title }}" aanpassen
         </h1>
 
         <form action="{{ route('filled_forms.update', $filledForm) }}" method="POST">
@@ -132,10 +132,10 @@
             </div>
 
             @foreach($competencies as $comp)
-                <div class="mb-8" x-data="{ open: false }">
+                <div x-data="{ open: false }">
                     <button
                         @click.prevent="open = !open"
-                        class="bg-primary py-2 px-4 text-xl font-bold text-white shadow-lg hover:bg-secondary mb-4 w-full
+                        class="bg-primary py-2 px-4 text-xl font-bold text-white shadow-lg hover:bg-secondary mb-4 mt-4 w-full
                     flex items-center justify-between rounded-lg transition-colors duration-300">
                         <span>Competentie: {{ $comp['name'] }}</span>
                         <div class="flex items-center">
@@ -149,7 +149,7 @@
                     </button>
 
                     <div x-show="open" x-collapse>
-                        <div class="grid grid-cols-1 gap-6 mt-8">
+                        <div class="grid grid-cols-1 gap-6">
                             <x-info-card :title="'Competentie-specifieke Knock-out Criteria'">
                                 <p>
                                     {{ $comp['complexity'] }}
@@ -175,16 +175,16 @@
                             </x-info-card>
                         </div>
 
-                        <div class="p-4 border mt-8 border-gray-200 bg-white rounded-lg">
+                        <div class="p-4 border border-gray-200 bg-white rounded-lg">
                             <table class="w-full table-auto text-center border-collapse">
                                 <thead>
                                 <tr class="bg-gray-50 font-semibold">
-                                    <th class="p-2 text-left">Component</th>
+                                    <th class="w-1/6 p-2 text-left">Component</th>
                                     @foreach(['onvoldoende', 'voldoende', 'goed'] as $gradeName)
-                                        <th class="p-2">{{ ucfirst($gradeName) }}<br>({{ $levels[$gradeName] }})</th>
+                                        <th class="w-1/6 p-2">{{ ucfirst($gradeName) }}<br>({{ $levels[$gradeName] }})</th>
                                     @endforeach
-                                    <th class="p-2">Punten</th>
-                                    <th class="p-2 text-left">Opmerking</th>
+                                    <th class="w-1/12 p-2">Punten</th>
+                                    <th class="w-1/6 p-2 text-left">Opmerking</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -236,7 +236,7 @@
                             </table>
                         </div>
 
-                        <div class="grid grid-cols-3 gap-6 mt-8">
+                        <div class="grid grid-cols-3 gap-6">
                             <x-info-card :title="'Knock-out Criteria & Deliverables'">
                                 <p>
                                     {{ $comp['complexity'] }}

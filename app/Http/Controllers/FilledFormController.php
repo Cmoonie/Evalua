@@ -10,6 +10,7 @@ use App\Models\Form;
 use App\Http\Requests\StoreFilledFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\LaravelPdf\Facades\Pdf;
 use App\Helpers\FilledFormHelper;
 
 class FilledFormController extends Controller
@@ -204,6 +205,39 @@ class FilledFormController extends Controller
         return redirect()->route('filled_forms.index') // Terug naar de lijst van formulieren
             ->with('success', 'Invulling succesvol verwijderd!');
     }
+
+
+    // PDF
+    public function downloadPDF(FilledForm $filledForm)
+    {
+        $filledForm->load([
+            'form.formCompetencies.competency.components.levels',
+            'filledComponents.gradeLevel',
+        ]);
+
+        $levels = ['onvoldoende' => 0, 'voldoende' => 3, 'goed' => 5];
+
+        $grandTotal   = FilledFormHelper::calcGrandTotal($filledForm);
+        $competencies = FilledFormHelper::mapCompetencies($filledForm);
+        $finalResult  = FilledFormHelper::calcFinalGrade($competencies);
+
+        return Pdf::view('filled_forms.pdf', [
+            'filledForm'   => $filledForm,
+            'grandTotal'   => $grandTotal,
+            'competencies' => $competencies,
+            'finalGrade'   => $finalResult['grade'],
+            'finalStatus'  => $finalResult['status'],
+            'levels'       => $levels,
+        ])
+            ->format('a4')
+            ->landscape()
+            ->name("Beoordeling_{$filledForm->student_name}.pdf")
+            ->download();
+    }
+
+
+    // Geen crud maar wel controller dingen
+
 
     // Helper methode
     private function saveFilledData(FilledForm $filledForm, array $validatedData): void

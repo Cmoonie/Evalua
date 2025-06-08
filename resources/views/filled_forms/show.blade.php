@@ -3,11 +3,17 @@
 @php $header = 'Beoordeling bekijken'; @endphp
 
 @section('content')
+    <div class="flex flex-wrap justify-between">
         <h1 class="text-2xl text-primary font-bold mb-4">
             Beoordelingsformulier {{ $filledForm->form->title }}
         </h1>
 
-        <div class="flex flex-wrap justify-between lg:flex-nowrap ">
+        <a href="{{ route('filled_forms.pdf', $filledForm) }}" target="_blank">
+            <x-secondary-button>Download PDF</x-secondary-button>
+        </a>
+    </div>
+
+        <div class="flex flex-wrap justify-between lg:flex-nowrap gap-6">
             <div class="flex flex-col lg:flex-row space-x-6">
                 <!-- Tabel 1: Basisinformatie formulier -->
                 <div class="mb-6 lg:mb-0 lg:w-1/2">
@@ -58,10 +64,10 @@
 
                 <!-- Tabel 2: Studentinformatie -->
                 <div class="mb-6 lg:mb-0 lg:w-1/2">
-                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                    <table class="min-w-full bg-white border border-gray-200 text-left rounded-lg shadow-sm">
                         <thead>
                         <tr class="bg-gray-100">
-                            <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Studentinformatie</th>
+                            <th class="px-4 py-2 font-semibold text-left text-primary" colspan="2">Studentinformatie</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -81,7 +87,7 @@
                     </table>
 
                 <!-- Tabel 3: Bedrijfsinformatie -->
-                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm mt-2">
+                    <table class="min-w-full bg-white border border-gray-200 rtext-left ounded-lg shadow-sm mt-2">
                         <thead>
                         <tr class="bg-gray-100">
                             <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Bedrijfsinformatie</th>
@@ -116,57 +122,6 @@
                     </table>
                 </div>
             </div>
-
-            {{--            <div>--}}
-{{--                --}}{{--    Basisinformatie formulier--}}
-{{--                <p class="mb-4"><strong>Vak:</strong> {{ $filledForm->form->subject }}</p>--}}
-{{--                <p class="mb-4"><strong>OE-code:</strong> {{ $filledForm->form->oe_code }}</p>--}}
-{{--                <p class="mb-4"><strong>Beschrijving:</strong> {{ $filledForm->form->description }}</p>--}}
-{{--                <p class="mb-4">--}}
-{{--                    <strong>Datum ingevuld:</strong>--}}
-{{--                    {{ $filledForm->created_at->format('Y-m-d H:i') }}--}}
-{{--                </p>--}}
-{{--                @if($filledForm->created_at->ne($filledForm->updated_at))--}}
-{{--                    <p class="mb-4">--}}
-{{--                        <strong>Datum aangepast:</strong>--}}
-{{--                        {{ $filledForm->updated_at->format('Y-m-d H:i') }}--}}
-{{--                    </p>--}}
-{{--                @endif--}}
-
-{{--                <x-secondary-button>--}}
-{{--                    <a href="{{ route('filled_forms.edit', $filledForm) }}">Bewerk</a>--}}
-{{--                </x-secondary-button>--}}
-
-{{--                <form action="{{ route('filled_forms.destroy', $filledForm) }}" method="POST" class="inline"--}}
-{{--                      onsubmit="return confirm('Weet je het zeker?');">--}}
-{{--                    @csrf--}}
-{{--                    @method('DELETE')--}}
-{{--                    <x-secondary-button type="submit">Verwijder</x-secondary-button>--}}
-{{--                </form>--}}
-{{--            </div>--}}
-
-{{--            <div>--}}
-{{--                <p class="mb-4"><strong>Studentnaam:</strong> {{ $filledForm->student_name }}</p>--}}
-{{--                <p class="mb-4"><strong>Studentnummer:</strong> {{ $filledForm->student_number }}</p>--}}
-{{--                <p class="mb-4"><strong>Titel opdracht:</strong> {{ $filledForm->assignment }}</p>--}}
-{{--            </div>--}}
-{{--            <div>--}}
-{{--                @if(!empty($filledForm->business_name))--}}
-{{--                    <p class="mb-4"><strong>Bedrijfsnaam:</strong> {{ $filledForm->business_name }}</p>--}}
-{{--                @endif--}}
-
-{{--                @if(!empty($filledForm->business_location))--}}
-{{--                    <p class="mb-4"><strong>Bedrijfslocatie:</strong> {{ $filledForm->business_location }}</p>--}}
-{{--                @endif--}}
-
-{{--                @if(!empty($filledForm->start_date))--}}
-{{--                    <p class="mb-4"><strong>Startdatum:</strong> {{ $filledForm->start_date->format('Y-m-d') }}</p>--}}
-{{--                @endif--}}
-
-{{--                @if(!empty($filledForm->end_date))--}}
-{{--                    <p class="mb-4"><strong>Einddatum:</strong> {{ $filledForm->end_date->format('Y-m-d') }}</p>--}}
-{{--                @endif--}}
-{{--            </div>--}}
 
             <div class="mb-8">
                 <table class="mb-4 table-auto border-collapse">
@@ -208,24 +163,8 @@
         </div>
 
         @foreach ($competencies as $comp)
-            <div class="mb-8" x-data="{ open: false }">
-                <button
-                    @click="open = !open"
-                    class="bg-primary hover:bg-secondary py-2 px-4 text-xl font-bold text-white shadow-lg mb-4
-                           flex items-center justify-between w-full rounded-lg transition-colors duration-300">
-                    <span>Competentie: {{ $comp['name'] }}</span>
-                    <div class="flex items-center">
-                        <span class="text-sm mr-2">{{ $comp['statusText'] }}: {{ $comp['total'] }} pts</span>
-                        <svg :class="{'transform rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor"
-                             class="w-6 h-6 transition-transform duration-300">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </div>
-                </button>
-
-                <div x-show="open" x-transition">
-                    <div class="p-4 border border-gray-200 bg-white rounded-lg">
+            <div class="p-4 border border-gray-200 bg-white rounded-lg mb-4">
+                <h2 class="text-xl font-bold text-primary mb-2">Competentie: {{ $comp['name'] }}</h2>
                         <table class="w-full table-auto border-collapse mb-2">
                             <thead>
                             <tr class="bg-gray-200 text-primary">
@@ -262,9 +201,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+{{--                    </div>--}}
 
-                    <div class="grid grid-cols-3 gap-6">
+                    <div class="grid lg:grid-cols-3 grid-cols-1  gap-6">
                         <x-info-card :title="'Knock-out Criteria & Deliverables'">
                             <p>
                                 {{ $comp['complexity'] }}

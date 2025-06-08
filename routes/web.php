@@ -25,6 +25,10 @@ Route::middleware('auth')->group(function () {
         ->name('filled_forms.gradelist');
     Route::get('filled_forms/create/{form}', [FilledFormController::class, 'create'])
         ->name('filled_forms.create');
+
+    // PDF shit
+    Route::get('filled_forms/{filledForm}/pdf', [FilledFormController::class, 'downloadPDF']
+    )->name('filled_forms.pdf');
 });
 
 require __DIR__.'/auth.php';
