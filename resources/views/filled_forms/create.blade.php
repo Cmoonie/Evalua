@@ -249,7 +249,7 @@
 
             {{-- Waarschuwing als er nog een component niet is beoordeeld --}}
             <p id="warning-components" class="text-red-600 text-right text-sm mb-4 hidden">
-                Alle componenten moeten worden beoordeeld voordat je kunt verzenden.
+                Alle componenten moeten beoordeeld worden om verder te gaan.
             </p>
 
             <div class="text-right">

@@ -53,7 +53,7 @@ class FilledFormHelper
         // Twee of meer onvoldoendes of minder dan 11 punten is een onvoldoende
         if ($zeroCount >= 2 || $total < 11) {
             return [
-                'class'  => 'bg-red-500 hover:bg-red-600',
+                'class'  => 'bg-red-500',
                 'status' => 'Onvoldoende',
 
             ];
@@ -62,7 +62,7 @@ class FilledFormHelper
         // Bij 1 onvoldoende component kan je de competentie nog herstellen
         if ($zeroCount === 1) {
             return [
-                'class'  => 'bg-yellow-500 hover:bg-yellow-600',
+                'class'  => 'bg-yellow-500',
                 'status' => 'Herstel',
 
             ];
@@ -71,7 +71,7 @@ class FilledFormHelper
         // Geen onvoldoendes en totaal minder dan 16 punten (maar dus wel meer dan 11) is een voldoende!
         if ($total <= 16) {
             return [
-                'class'  => 'bg-lime-500 hover:bg-lime-600',
+                'class'  => 'bg-lime-500',
                 'status' => 'Voldoende',
 
             ];
@@ -79,7 +79,7 @@ class FilledFormHelper
 
         // Anders ben je goed
         return [
-            'class'  => 'bg-green-500 hover:bg-green-600',
+            'class'  => 'bg-green-500',
             'status' => 'Goed',
 
         ];

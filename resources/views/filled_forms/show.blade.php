@@ -8,56 +8,165 @@
         </h1>
 
         <div class="flex flex-wrap justify-between lg:flex-nowrap ">
-            <div>
-                {{--    Basisinformatie formulier--}}
-                <p class="mb-4"><strong>Vak:</strong> {{ $filledForm->form->subject }}</p>
-                <p class="mb-4"><strong>OE-code:</strong> {{ $filledForm->form->oe_code }}</p>
-                <p class="mb-4"><strong>Beschrijving:</strong> {{ $filledForm->form->description }}</p>
-                <p class="mb-4">
-                    <strong>Datum ingevuld:</strong>
-                    {{ $filledForm->created_at->format('Y-m-d H:i') }}
-                </p>
-                @if($filledForm->created_at->ne($filledForm->updated_at))
-                    <p class="mb-4">
-                        <strong>Datum aangepast:</strong>
-                        {{ $filledForm->updated_at->format('Y-m-d H:i') }}
-                    </p>
-                @endif
+            <div class="flex flex-col lg:flex-row space-x-6">
+                <!-- Tabel 1: Basisinformatie formulier -->
+                <div class="mb-6 lg:mb-0 lg:w-1/2">
+                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                        <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Basisinformatie formulier</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="border-t">
+                            <td class="px-4 py-2 font-medium text-gray-600">Vak</td>
+                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->form->subject }}</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-2 font-medium text-gray-600">OE-code</td>
+                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->form->oe_code }}</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-2 font-medium text-gray-600">Beschrijving</td>
+                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->form->description }}</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-2 font-medium text-gray-600">Datum ingevuld</td>
+                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->created_at->format('Y-m-d H:i') }}</td>
+                        </tr>
+                        @if($filledForm->created_at->ne($filledForm->updated_at))
+                            <tr class="border-t">
+                                <td class="px-4 py-2 font-medium text-gray-600">Datum aangepast</td>
+                                <td class="px-4 py-2 text-gray-800">{{ $filledForm->updated_at->format('Y-m-d H:i') }}</td>
+                            </tr>
+                        @endif
+                        <tr class="border-t">
+                            <td colspan="2" class="px-4 py-3 text-right space-x-2">
+                                <x-secondary-button>
+                                    <a href="{{ route('filled_forms.edit', $filledForm) }}">Bewerk</a>
+                                </x-secondary-button>
+                                <form action="{{ route('filled_forms.destroy', $filledForm) }}" method="POST" class="inline" onsubmit="return confirm('Weet je het zeker?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <x-secondary-button type="submit">Verwijder</x-secondary-button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                <x-secondary-button>
-                    <a href="{{ route('filled_forms.edit', $filledForm) }}">Bewerk</a>
-                </x-secondary-button>
+                <!-- Tabel 2: Studentinformatie -->
+                <div class="mb-6 lg:mb-0 lg:w-1/2">
+                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                        <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Studentinformatie</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="border-t">
+                            <td class="px-4 py-2 font-medium text-gray-600">Studentnaam</td>
+                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->student_name }}</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-2 font-medium text-gray-600">Studentnummer</td>
+                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->student_number }}</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-2 font-medium text-gray-600">Titel opdracht</td>
+                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->assignment }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                <form action="{{ route('filled_forms.destroy', $filledForm) }}" method="POST" class="inline"
-                      onsubmit="return confirm('Weet je het zeker?');">
-                    @csrf
-                    @method('DELETE')
-                    <x-secondary-button type="submit">Verwijder</x-secondary-button>
-                </form>
+                <!-- Tabel 3: Bedrijfsinformatie -->
+                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm mt-2">
+                        <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Bedrijfsinformatie</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if(!empty($filledForm->business_name))
+                            <tr class="border-t">
+                                <td class="px-4 py-2 font-medium text-gray-600">Bedrijfsnaam</td>
+                                <td class="px-4 py-2 text-gray-800">{{ $filledForm->business_name }}</td>
+                            </tr>
+                        @endif
+                        @if(!empty($filledForm->business_location))
+                            <tr class="border-t">
+                                <td class="px-4 py-2 font-medium text-gray-600">Bedrijfslocatie</td>
+                                <td class="px-4 py-2 text-gray-800">{{ $filledForm->business_location }}</td>
+                            </tr>
+                        @endif
+                        @if(!empty($filledForm->start_date))
+                            <tr class="border-t">
+                                <td class="px-4 py-2 font-medium text-gray-600">Startdatum</td>
+                                <td class="px-4 py-2 text-gray-800">{{ $filledForm->start_date->format('Y-m-d') }}</td>
+                            </tr>
+                        @endif
+                        @if(!empty($filledForm->end_date))
+                            <tr class="border-t">
+                                <td class="px-4 py-2 font-medium text-gray-600">Einddatum</td>
+                                <td class="px-4 py-2 text-gray-800">{{ $filledForm->end_date->format('Y-m-d') }}</td>
+                            </tr>
+                        @endif
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div>
-                <p class="mb-4"><strong>Studentnaam:</strong> {{ $filledForm->student_name }}</p>
-                <p class="mb-4"><strong>Studentnummer:</strong> {{ $filledForm->student_number }}</p>
-                <p class="mb-4"><strong>Titel opdracht:</strong> {{ $filledForm->assignment }}</p>
-            </div>
-            <div>
-                @if(!empty($filledForm->business_name))
-                    <p class="mb-4"><strong>Bedrijfsnaam:</strong> {{ $filledForm->business_name }}</p>
-                @endif
+            {{--            <div>--}}
+{{--                --}}{{--    Basisinformatie formulier--}}
+{{--                <p class="mb-4"><strong>Vak:</strong> {{ $filledForm->form->subject }}</p>--}}
+{{--                <p class="mb-4"><strong>OE-code:</strong> {{ $filledForm->form->oe_code }}</p>--}}
+{{--                <p class="mb-4"><strong>Beschrijving:</strong> {{ $filledForm->form->description }}</p>--}}
+{{--                <p class="mb-4">--}}
+{{--                    <strong>Datum ingevuld:</strong>--}}
+{{--                    {{ $filledForm->created_at->format('Y-m-d H:i') }}--}}
+{{--                </p>--}}
+{{--                @if($filledForm->created_at->ne($filledForm->updated_at))--}}
+{{--                    <p class="mb-4">--}}
+{{--                        <strong>Datum aangepast:</strong>--}}
+{{--                        {{ $filledForm->updated_at->format('Y-m-d H:i') }}--}}
+{{--                    </p>--}}
+{{--                @endif--}}
 
-                @if(!empty($filledForm->business_location))
-                    <p class="mb-4"><strong>Bedrijfslocatie:</strong> {{ $filledForm->business_location }}</p>
-                @endif
+{{--                <x-secondary-button>--}}
+{{--                    <a href="{{ route('filled_forms.edit', $filledForm) }}">Bewerk</a>--}}
+{{--                </x-secondary-button>--}}
 
-                @if(!empty($filledForm->start_date))
-                    <p class="mb-4"><strong>Startdatum:</strong> {{ $filledForm->start_date->format('Y-m-d') }}</p>
-                @endif
+{{--                <form action="{{ route('filled_forms.destroy', $filledForm) }}" method="POST" class="inline"--}}
+{{--                      onsubmit="return confirm('Weet je het zeker?');">--}}
+{{--                    @csrf--}}
+{{--                    @method('DELETE')--}}
+{{--                    <x-secondary-button type="submit">Verwijder</x-secondary-button>--}}
+{{--                </form>--}}
+{{--            </div>--}}
 
-                @if(!empty($filledForm->end_date))
-                    <p class="mb-4"><strong>Einddatum:</strong> {{ $filledForm->end_date->format('Y-m-d') }}</p>
-                @endif
-            </div>
+{{--            <div>--}}
+{{--                <p class="mb-4"><strong>Studentnaam:</strong> {{ $filledForm->student_name }}</p>--}}
+{{--                <p class="mb-4"><strong>Studentnummer:</strong> {{ $filledForm->student_number }}</p>--}}
+{{--                <p class="mb-4"><strong>Titel opdracht:</strong> {{ $filledForm->assignment }}</p>--}}
+{{--            </div>--}}
+{{--            <div>--}}
+{{--                @if(!empty($filledForm->business_name))--}}
+{{--                    <p class="mb-4"><strong>Bedrijfsnaam:</strong> {{ $filledForm->business_name }}</p>--}}
+{{--                @endif--}}
+
+{{--                @if(!empty($filledForm->business_location))--}}
+{{--                    <p class="mb-4"><strong>Bedrijfslocatie:</strong> {{ $filledForm->business_location }}</p>--}}
+{{--                @endif--}}
+
+{{--                @if(!empty($filledForm->start_date))--}}
+{{--                    <p class="mb-4"><strong>Startdatum:</strong> {{ $filledForm->start_date->format('Y-m-d') }}</p>--}}
+{{--                @endif--}}
+
+{{--                @if(!empty($filledForm->end_date))--}}
+{{--                    <p class="mb-4"><strong>Einddatum:</strong> {{ $filledForm->end_date->format('Y-m-d') }}</p>--}}
+{{--                @endif--}}
+{{--            </div>--}}
 
             <div class="mb-8">
                 <table class="mb-4 table-auto border-collapse">

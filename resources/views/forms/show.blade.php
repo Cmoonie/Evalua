@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
+@php
+    $header = 'Formulier bekijken';
+@endphp
+
 @section('content')
-        <h1 class="text-2xl text-primary font-bold mb-4">{{ $form->title }}</h1>
+        <h1 class="text-2xl text-primary font-bold mb-4">Formulier "{{ $form->title }}"</h1>
 
         <div class="mt-4 mb-8">
             <p class="mb-4"><strong>Onderwerp:</strong> {{ $form->subject }}</p>
@@ -36,15 +40,7 @@
                 </button>
 
                 <div x-show="open" x-transition>
-                    <div class="grid grid-cols-1 gap-6">
-                        <x-info-card :title="'Competentie-specifieke Knock-out Criteria & Deliverables'">
-                            <p>
-                                {{ $formCompetency->competency->complexity }}
-                            </p>
-                        </x-info-card>
-                    </div>
-
-                    <div class="p-4 border mt-8 border-gray-200 bg-white rounded-lg">
+                    <div class="p-4 border border-gray-200 bg-white rounded-lg">
                         <h1 class="text-4xl text-primary mb-4">
                             Competentie: {{ $formCompetency->competency->name }}
                         </h1>
@@ -89,14 +85,19 @@
                         </table>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-6 mt-6 mb-6">
+                    <div class="grid grid-cols-3 gap-6">
+                        <x-info-card :title="'Knock-out Criteria & Deliverables'">
+                            <p>
+                                {{ $formCompetency->competency->complexity }}
+                            </p>
+                        </x-info-card>
                         <x-info-card :title="'Beoordelingsschaal'">
-                            <p class="break-words">
+                            <p>
                                 {{ $formCompetency->competency->rating_scale }}
                             </p>
                         </x-info-card>
                         <x-info-card :title="'Domeinbeschrijving'">
-                            <p class="break-words">
+                            <p>
                                 {{ $formCompetency->competency->domain_description }}
                             </p>
                         </x-info-card>
