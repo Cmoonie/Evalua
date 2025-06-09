@@ -98,6 +98,7 @@
                 </x-info-card>
             </div>
 
+            <div class="flex flex-row justify-between gap-6">
                 <x-info-card :title="'Globale Knock-out Criteria'">
                     <label class="flex items-center">
                         <input
@@ -115,6 +116,15 @@
                         <span class="ml-2">Alle stappen in OnStage zijn afgerond door de student(en)</span>
                     </label>
                 </x-info-card>
+                <x-info-card :title="'Algemene opmerkingen'">
+                        <textarea
+                            id="comment"
+                            name="comment"
+                            rows="3"
+                            class="block text-sm w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 resize-none" placeholder="Algemene opmerkingen..."
+                        ></textarea>
+                </x-info-card>
+            </div>
 
             @foreach($form->formCompetencies as $formCompetency)
                 <div x-data="{ open: false }">

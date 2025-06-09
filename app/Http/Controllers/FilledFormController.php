@@ -77,11 +77,13 @@ class FilledFormController extends Controller
                 'user_id'      => auth()->id(),
                 'student_name' => $validatedData['student_name'],
                 'student_number'     => $validatedData['student_number'],
-                'assignment'      => $validatedData['assignment'] ?? null,
+                'assignment'         => $validatedData['assignment'] ?? null,
                 'business_name'      => $validatedData['business_name'] ?? null,
                 'business_location'  => $validatedData['business_location'] ?? null,
                 'start_date'         => $validatedData['start_date'] ?? null,
                 'end_date'           => $validatedData['end_date'] ?? null,
+                'examinator'         => $validatedData['examinator'] ?? null,
+                'comment'            => $validatedData['comment'] ?? null,
             ]);
 
             // Stap 2: Voeg de ingevulde componenten toe met helper methode
@@ -181,6 +183,8 @@ class FilledFormController extends Controller
                 'business_location'  => $validatedData['business_location'] ?? null,
                 'start_date'         => $validatedData['start_date'] ?? null,
                 'end_date'           => $validatedData['end_date'] ?? null,
+                'examinator'         => $validatedData['examinator'] ?? null,
+                'comment'            => $validatedData['comment'] ?? null,
             ]);
 
             // Stap 2: Verwijder oude componenten uit tussentabel

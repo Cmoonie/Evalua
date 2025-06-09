@@ -14,14 +14,16 @@ return new class extends Migration
         Schema::create('filled_forms', function (Blueprint $table) {
             $table->id(); // Primary Keyy :)
             $table->foreignId('form_id')->constrained()->onDelete('cascade'); // FK van formulier
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // FK van gebruiker
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // FK van gebruiker (eerste examinator)
             $table->string('student_name', 64); // 64 letters is hopelijk lang genoeg voor studentnaam
-            $table->string('student_number', 64);
-            $table->string('assignment', 100);
-            $table->string('business_name', 100)->nullable();
-            $table->string('business_location', 100)->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->string('student_number', 64); // Studentnummer
+            $table->string('assignment', 100); // Titel van de opdracht
+            $table->string('business_name', 100)->nullable(); // Bedrijfsnaam
+            $table->string('business_location', 100)->nullable(); // Bedrijfslocatie
+            $table->date('start_date')->nullable(); // Begindatum opdracht
+            $table->date('end_date')->nullable(); // Einddatum opdracht
+            $table->string('examinator', 64)->nullable(); // Tweede examinator
+            $table->string('comment')->nullable(); // Algemeen commentaar
             $table->timestamps(); // Datum, tijd, alles
         });
     }

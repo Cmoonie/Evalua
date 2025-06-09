@@ -32,6 +32,8 @@ class StoreFilledFormRequest extends FormRequest
             'business_location' => ['nullable', 'string', 'max:100'],
             'start_date' => ['nullable', 'date'],
             'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
+            'examinator' => ['nullable', 'string', 'max:64'],
+            'comment' => ['nullable', 'string'],
 
             // Componenten
             'components'                   => ['required', 'array'],

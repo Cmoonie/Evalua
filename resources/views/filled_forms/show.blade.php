@@ -13,14 +13,12 @@
         </a>
     </div>
 
-        <div class="flex flex-wrap justify-between lg:flex-nowrap gap-6">
-            <div class="flex flex-col lg:flex-row space-x-6">
+        <div class="flex flex-col lg:flex-row justify-between gap-6 mb-4">
                 <!-- Tabel 1: Basisinformatie formulier -->
-                <div class="mb-6 lg:mb-0 lg:w-1/2">
-                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                    <table class="w-full lg:w-1/2 bg-white border border-gray-200 shadow-sm">
                         <thead>
                         <tr class="bg-gray-100">
-                            <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Basisinformatie formulier</th>
+                            <th class="px-4 py-2 text-left text-primary" colspan="2">Basisinformatie formulier</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,7 +45,7 @@
                             </tr>
                         @endif
                         <tr class="border-t">
-                            <td colspan="2" class="px-4 py-3 text-right space-x-2">
+                            <td colspan="2" class="px-4 py-2 text-right space-x-2">
                                 <x-secondary-button>
                                     <a href="{{ route('filled_forms.edit', $filledForm) }}">Bewerk</a>
                                 </x-secondary-button>
@@ -60,107 +58,145 @@
                         </tr>
                         </tbody>
                     </table>
-                </div>
 
-                <!-- Tabel 2: Studentinformatie -->
-                <div class="mb-6 lg:mb-0 lg:w-1/2">
-                    <table class="min-w-full bg-white border border-gray-200 text-left rounded-lg shadow-sm">
-                        <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-4 py-2 font-semibold text-left text-primary" colspan="2">Studentinformatie</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="border-t">
-                            <td class="px-4 py-2 font-medium text-gray-600">Studentnaam</td>
-                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->student_name }}</td>
-                        </tr>
-                        <tr class="border-t">
-                            <td class="px-4 py-2 font-medium text-gray-600">Studentnummer</td>
-                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->student_number }}</td>
-                        </tr>
-                        <tr class="border-t">
-                            <td class="px-4 py-2 font-medium text-gray-600">Titel opdracht</td>
-                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->assignment }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                <!-- Tabel 3: Bedrijfsinformatie -->
-                    <table class="min-w-full bg-white border border-gray-200 rtext-left ounded-lg shadow-sm mt-2">
-                        <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Bedrijfsinformatie</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if(!empty($filledForm->business_name))
-                            <tr class="border-t">
-                                <td class="px-4 py-2 font-medium text-gray-600">Bedrijfsnaam</td>
-                                <td class="px-4 py-2 text-gray-800">{{ $filledForm->business_name }}</td>
-                            </tr>
-                        @endif
-                        @if(!empty($filledForm->business_location))
-                            <tr class="border-t">
-                                <td class="px-4 py-2 font-medium text-gray-600">Bedrijfslocatie</td>
-                                <td class="px-4 py-2 text-gray-800">{{ $filledForm->business_location }}</td>
-                            </tr>
-                        @endif
-                        @if(!empty($filledForm->start_date))
-                            <tr class="border-t">
-                                <td class="px-4 py-2 font-medium text-gray-600">Startdatum</td>
-                                <td class="px-4 py-2 text-gray-800">{{ $filledForm->start_date->format('Y-m-d') }}</td>
-                            </tr>
-                        @endif
-                        @if(!empty($filledForm->end_date))
-                            <tr class="border-t">
-                                <td class="px-4 py-2 font-medium text-gray-600">Einddatum</td>
-                                <td class="px-4 py-2 text-gray-800">{{ $filledForm->end_date->format('Y-m-d') }}</td>
-                            </tr>
-                        @endif
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="mb-8">
-                <table class="mb-4 table-auto border-collapse">
+                <table class="w-full lg:w-1/2 border border-gray-200 shadow-sm">
                     <thead>
-                    <tr class="bg-gray-200 text-primary">
-                        <th class="p-2 text-left">Eindbeoordeling</th>
-                        <th class="p-2 text-center">Totaal te behalen punten</th>
-                        <th class="p-2 text-center">Behaald</th>
-                        <th class="p-2 text-center">Minimale punten eis</th>
-                        <th class="p-2 text-center">Status</th>
-                    </tr>
+                        <tr class="bg-gray-100 text-primary">
+                            <th class="px-4 py-2 text-left">Eindbeoordeling</th>
+                            <th class="px-4 py-2 text-center">Totaal punten</th>
+                            <th class="px-4 py-2 text-center">Behaald</th>
+                            <th class="px-4 py-2 text-center">Minimale punten</th>
+                            <th class="px-4 py-2 text-center">Status</th>
+                        </tr>
                     </thead>
                     <tbody>
                     @foreach ($competencies as $comp)
                         <tr class="border-b {{ $comp['stateClass'] }}">
-                            <td class="p-2">Comp. {{ $comp['name'] }}</td>
-                            <td class="p-2 text-center"> 25 </td>
-                            <td class="p-2 text-center"> {{ $comp['total'] }} </td>
-                            <td class="p-2 text-center">12</td>
-                            <td class="p-2 text-center"> {{ $comp['statusText'] }} </td>
+                            <td class="px-4 py-2">{{ $comp['name'] }}</td>
+                            <td class="px-4 py-2 text-center"> 25 </td>
+                            <td class="px-4 py-2 text-center"> {{ $comp['total'] }} </td>
+                            <td class="px-4 py-2 text-center">12</td>
+                            <td class="px-4 py-2 text-center"> {{ $comp['statusText'] }} </td>
                         </tr>
                     @endforeach
-                        <tr class="bg-gray-200 font-semibold text-primary">
-                            <td class="p-2 text-start">Cijfer: {{ $finalGrade }}</td>
-                            <td class="p-2 text-center"> 150 </td>
-                            <td class="p-2 text-center"> {{ $grandTotal }} </td>
-                            <td class="p-2 text-center">72</td>
-                            <td class="p-2 text-center"> {{ $finalStatus }} </td>
-                        </tr>
+                    <tr class="bg-gray-100 font-semibold text-primary">
+                        <td class="px-4 py-2 text-start">Cijfer: {{ $finalGrade }}</td>
+                        <td class="px-4 py-2 text-center"> 150 </td>
+                        <td class="px-4 py-2 text-center"> {{ $grandTotal }} </td>
+                        <td class="px-4 py-2 text-center">72</td>
+                        <td class="px-4 py-2 text-center"> {{ $finalStatus }} </td>
+                    </tr>
+                    <tr class="bg-white text-xs text-primary">
+                        <td colspan="5">Toelichting:
+                        <11 = Onvoldoende || 12 - 16 = Voldoende || 17 - 25 = Goed.
+
+                        Voldoende alleen mogelijk mits alle activiteiten en competenties behaald zijn met een voldoende.
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
-                <p class="  text-sm text-primary">
-                    <strong>Toelichting: </strong>
-                    <11 = Onvoldoende || 12 - 16 = Voldoende || 17 - 25 = Goed.
-                    <br>
-                    Voldoende alleen mogelijk mits alle activiteiten en competenties behaald zijn met een voldoende.
-                </p>
-            </div>
         </div>
+
+    <!-- Tabel 2: Studentinformatie -->
+    <div class="flex flex-row justify-between gap-6 mb-4">
+        <table class="w-1/2 bg-white border border-gray-200 text-left shadow-sm">
+            <thead>
+            <tr class="bg-gray-100">
+                <th class="px-4 py-2 font-semibold text-left text-primary" colspan="2">Studentinformatie</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="border-t">
+                <td class="px-4 w-1/2 py-2 font-medium text-gray-600">Studentnaam</td>
+                <td class="px-4 py-2 text-gray-800">{{ $filledForm->student_name }}</td>
+            </tr>
+            <tr class="border-t">
+                <td class="px-4 w-1/2 py-2 font-medium text-gray-600">Studentnummer</td>
+                <td class="px-4 py-2 text-gray-800">{{ $filledForm->student_number }}</td>
+            </tr>
+            <tr class="border-t">
+                <td class="px-4 w-1/2 py-2 font-medium text-gray-600">Titel opdracht</td>
+                <td class="px-4 py-2 text-gray-800">{{ $filledForm->assignment }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Tabel 3: Bedrijfsinformatie -->
+        <table class="w-1/2 bg-white border border-gray-200 text-left shadow-sm">
+            <thead>
+            <tr class="bg-gray-100">
+                <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Bedrijfsinformatie</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if(!empty($filledForm->business_name))
+                <tr class="border-t">
+                    <td class="px-4 py-2 w-1/2 font-medium text-gray-600">Bedrijfsnaam</td>
+                    <td class="px-4 py-2 text-gray-800">{{ $filledForm->business_name }}</td>
+                </tr>
+            @endif
+            @if(!empty($filledForm->business_location))
+                <tr class="border-t">
+                    <td class="px-4 py-2 font-medium text-gray-600">Bedrijfslocatie</td>
+                    <td class="px-4 py-2 text-gray-800">{{ $filledForm->business_location }}</td>
+                </tr>
+            @endif
+            @if(!empty($filledForm->start_date))
+                <tr class="border-t">
+                    <td class="px-4 py-2 font-medium text-gray-600">Startdatum</td>
+                    <td class="px-4 py-2 text-gray-800">{{ $filledForm->start_date->format('Y-m-d') }}</td>
+                </tr>
+            @endif
+            @if(!empty($filledForm->end_date))
+                <tr class="border-t">
+                    <td class="px-4 py-2 font-medium text-gray-600">Einddatum</td>
+                    <td class="px-4 py-2 text-gray-800">{{ $filledForm->end_date->format('Y-m-d') }}</td>
+                </tr>
+            @endif
+            </tbody>
+        </table>
+    </div>
+
+    <div class="flex flex-row justify-between gap-6 mb-8">
+            <table class="w-1/2 bg-white border border-gray-200 shadow-sm">
+                <thead>
+                <tr class="bg-gray-100">
+                    <th class="w-1/2 px-4 py-2 text-left font-semibold text-primary">Rol</th>
+                    <th class="px-4 py-2 text-left font-semibold text-primary">Naam</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="border-t">
+                    <td class="px-4 py-2 font-medium text-gray-600">Eerste examinator</td>
+                    <td class="px-4 py-2 text-gray-800">{{ $filledForm->user->name }}</td>
+                </tr>
+
+                                        @if($filledForm->examinator)
+                                            <tr class="border-t">
+                                                <td class="px-4 py-2 font-medium text-gray-600">Tweede examinator</td>
+                                                <td class="px-4 py-2 text-gray-800">{{ $filledForm->examinator }}</td>
+                                            </tr>
+                                        @endif
+
+                </tbody>
+            </table>
+                <table class="w-1/2 bg-white border border-gray-200 shadow-sm">
+                    <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Algemene opmerkingen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    @if(!empty($filledForm->comment))
+                        <tr class="border-t">
+                            <td class="px-4 py-2 text-gray-800">{{ $filledForm->comment }}</td>
+                        </tr>
+                    @endif
+                    </tbody>
+                </table>
+    </div>
+
 
         @foreach ($competencies as $comp)
             <div class="p-4 border border-gray-200 bg-white rounded-lg mb-4">
@@ -201,7 +237,6 @@
                                 </tr>
                             </tbody>
                         </table>
-{{--                    </div>--}}
 
                     <div class="grid lg:grid-cols-3 grid-cols-1  gap-6">
                         <x-info-card :title="'Knock-out Criteria & Deliverables'">

@@ -17,6 +17,8 @@ class FilledForm extends Model
         'business_location',
         'start_date',
         'end_date',
+        'examinator',
+        'comment'
     ];
 
     // Kut carbon

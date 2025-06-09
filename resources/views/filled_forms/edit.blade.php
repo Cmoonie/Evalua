@@ -15,7 +15,7 @@
             <input type="hidden" name="form_id" value="{{ $filledForm->form_id }}">
 
 
-            <div class="mb-6">
+            <div class="mb-4">
                 <x-info-card :title="'Studentgegevens'">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
@@ -109,7 +109,7 @@
                 </x-info-card>
             </div>
 
-            <div class="mb-6">
+            <div class="flex flex-row justify-between gap-6 mb-4">
                 <x-info-card :title="'Globale Knock-out Criteria'">
                     <label class="flex items-center">
                         <input
@@ -128,6 +128,14 @@
                         />
                         <span class="ml-2">Studenten hebben alle stappen in OnStage afgerond</span>
                     </label>
+                </x-info-card>
+                <x-info-card :title="'Algemene opmerkingen'">
+                        <textarea
+                            id="comment"
+                            name="comment"
+                            rows="3"
+                            class="block text-sm w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 resize-none" placeholder="Algemene opmerkingen..."
+                        >{{ old('comment', $filledForm->comment) }}</textarea>
                 </x-info-card>
             </div>
 
@@ -257,6 +265,17 @@
                     </div>
                 </div>
             @endforeach
+
+            <div>
+                <label for="student_number" class="block text-primary text-lg font-semibold mb-2">Tweede examinator</label>
+                <input
+                    type="text"
+                    name="examinator"
+                    id="examinator"
+                    value="{{ old('examinator', $filledForm->examinator) }}"
+                    class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
+                    required>
+            </div>
 
             <div class="mb-4 text-right text-lg font-semibold">
                 Totaal aantal nieuwe punten (alle competenties): <span id="total-points">{{ $grandTotal }}</span>
