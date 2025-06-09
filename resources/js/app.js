@@ -2,6 +2,11 @@ import './bootstrap';
 
 import Alpine from 'alpinejs';
 
+import 'intro.js/introjs.css';
+import introJs from 'intro.js';
+
+window.introJs = introJs;
+
 window.Alpine = Alpine;
 
 Alpine.start();
@@ -109,5 +114,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.click(); // Simuleer gewoon de klik om kleur toe te passen en punten te tellen
             }
         }
+
     });
 });
+
+
+window.startIntroDashboard = () => {
+    introJs().setOptions({
+            nextLabel: 'Volgende',
+            prevLabel: 'Terug',
+            doneLabel: 'Klaar',
+        steps: [
+            {
+                element: document.querySelector('#forms-link'),
+                intro: "Hier kun je alle formulieren bekijken en aanmaken."
+            },
+            {
+                element: document.querySelector('#filledforms-link'),
+                intro: "Hier zie je alle beoordelingen terug."
+            }
+        ]
+    }).start();
+};
+
+window.startIntroForms = () => {
+    introJs().setOptions({
+        steps: [
+            {
+                element: document.querySelector('#new-form-button'),
+                intro: "Klik hier om een nieuw formulier aan te maken."
+            },
+            {
+                element: document.querySelector('#form-table'),
+                intro: "Hier zie je een overzicht van alle bestaande formulieren."
+            }
+        ]
+    }).start();
+};
+
+window.startIntroBeoordelingen = () => {
+    introJs().setOptions({
+        steps: [
+            {
+                element: document.querySelector('#beoordelingen-title'),
+                intro: "Op deze pagina zie je de beoordelingen die bij een vak horen."
+            },
+            {
+                element: document.querySelector('#vak-title'),
+                intro: "Hier zie je de naam van het vak. Klik erop om de beoordelingen te tonen."
+            },
+            {
+                element: document.querySelector('#new-beoordeling-btn'),
+                intro: "Klik hier om een nieuwe beoordeling te starten."
+            }
+        ]
+    }).start();
+};
+

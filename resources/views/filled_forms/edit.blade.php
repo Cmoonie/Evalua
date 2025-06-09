@@ -46,14 +46,7 @@
                         <td class="p-2 text-center">72</td>
                         <td class="p-2 text-center"> {{ $finalStatus }} </td>
                     </tr>
-{{--                    <tr class="bg-gray-200 font-semibold text-primary">--}}
-{{--                        <td class="p-2 text-start">--}}
-{{--                            Nieuw cijfer: <h1 id="grade-display">--}}
-{{--                                0--}}
-{{--                            </h1>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
-                    </tbody>
+
                 </table>
                 <p class="mb-4  text-sm text-primary">
                     <strong>Toelichting: </strong>

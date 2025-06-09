@@ -5,20 +5,28 @@
 @endphp
 
 @section('content')
-    <div class="container mx-auto p-6">
-        <div class="flex justify-between items-center mb-4">
-            <h1 class="text-2xl font-bold">Alle Formulieren</h1>
-            <a href="{{ route('forms.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Nieuw Formulier</a>
-        </div>
+    <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
+        <h1 class="text-2xl font-bold">Alle Formulieren</h1>
 
-        @if(session('success'))
+        <div class="flex gap-2">
+            <x-primary-button onclick="startIntroForms()">
+                Uitleg over deze pagina
+            </x-primary-button>
+            <x-link-button id="new-form-button" href="{{ route('forms.create') }}">
+                Nieuw Formulier
+            </x-link-button>
+        </div>
+    </div>
+
+
+    @if(session('success'))
             <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
                 {{ session('success') }}
             </div>
         @endif
 
         @if($forms->isEmpty())
-            <p>Geen formulieren gevonden. Tijd om er een te maken!</p>
+            <p>Geen formulieren gevonden. Tijd om er een te maken! </p>
         @else
             <table class="w-full bg-white shadow rounded">
                 <thead>
@@ -40,5 +48,23 @@
             </table>
         @endif
     </div>
-
 @endsection
+
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('startFormIntro') === 'true') {
+                sessionStorage.removeItem('startFormIntro'); // Eenmalig uitvoeren
+                setTimeout(() => {
+                    if (typeof window.startIntro === 'function') {
+                        window.startIntro();
+                    } else {
+                        console.warn("startIntro niet gevonden.");
+                    }
+                }, 300); // Kleine vertraging voor de zekerheid
+            }
+        });
+    </script>
+@endpush
+

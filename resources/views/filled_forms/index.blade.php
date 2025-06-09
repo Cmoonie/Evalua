@@ -5,6 +5,10 @@
 @endphp
 
 @section('content')
+        <x-primary-button onclick="startIntroBeoordelingen()">
+            Uitleg over deze pagina
+        </x-primary-button>
+
 
     @if($forms->isEmpty())
         <p class="text-primary">Geen formulieren gevonden. Tijd om er een te maken!</p>
@@ -22,7 +26,7 @@
 
                     <div x-show="open">
                         <x-primary-button>
-                            <a href="{{ route('filled_forms.create', $form) }}" class="px-4 py-2">Nieuwe beoordeling</a>
+                            <a id="new-beoordeling-btn" href="{{ route('filled_forms.create', $form) }}" class="px-4 py-2">Nieuwe beoordeling</a>
                         </x-primary-button>
 
                         @if($filledForms->isEmpty())

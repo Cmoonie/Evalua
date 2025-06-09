@@ -20,5 +20,16 @@
         @else
             <p class="text-gray-600">Dit is je eerste login.</p>
         @endif
+        <script>
+            function startIntro() {
+                // Zet in de sessie dat we de rondleiding moeten starten
+                sessionStorage.setItem('startFormIntro', 'true');
+                window.location.href = "{{ route('forms.index') }}";
+            }
+        </script>
+        <x-primary-button onclick="startIntroDashboard()">
+            Wat kan ik hier
+      </x-primary-button>
+
     </div>
 @endsection
