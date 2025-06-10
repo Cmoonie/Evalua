@@ -112,44 +112,155 @@ document.querySelectorAll('.grade-button').forEach(btn => {
         }
     });
 
+// Alles een variabele geven
 const submitButton        = document.getElementById('form-submit');
 const warningCheckboxes   = document.getElementById('warning-checkboxes');
 const warningComponents   = document.getElementById('warning-components');
 const knockoutCheckboxes  = document.querySelectorAll('.form-checkbox');
+const gradeInputs         = document.querySelectorAll('input[id^="grade-level-"]');
+const gradeButtons        = document.querySelectorAll('.grade-button'); // jouw buttons
 
 // updateSubmitState controleert twee condities
 function updateSubmitState() {
     // Zijn alle knock‐out checkboxes aangevinkt?
     const allKnockoutChecked = Array.from(knockoutCheckboxes).every(cb => cb.checked);
 
-    // Zijn alle component‐grades ingevuld?
-    const gradeInputs = document.querySelectorAll('input[id^="grade-level-"]');
-    const allGradesSet = Array.from(gradeInputs).every(input => input.value !== '');
+    // Zijn alle componenten ingevuld?
+    const allGradesSet       = Array.from(gradeInputs).every(input => input.value !== '');
 
-    // Button mag alleen als beide waar zijn
-    const canSubmit = allKnockoutChecked && allGradesSet;
+    // Mag alleen als je aan allebei voldoet
+    const canSubmit          = allKnockoutChecked && allGradesSet;
     submitButton.disabled = !canSubmit;
 
-    // Toon of verberg waarschuwingen
+    // Wanneer tonen we welke warning?
     if (!allKnockoutChecked) {
-        // niet alle checkboxes
+        // Als alle checkbixes gecheckt zijn
         warningCheckboxes.classList.remove('hidden');
         warningComponents.classList.add('hidden');
     } else if (!allGradesSet) {
-        // componenten missen
+        // als alle componenten beoordeeld zijn
         warningCheckboxes.classList.add('hidden');
         warningComponents.classList.remove('hidden');
     } else {
-        // Alles goed, dan beide verbergen
+        // alles goed
         warningCheckboxes.classList.add('hidden');
         warningComponents.classList.add('hidden');
     }
 }
 
-// Bind change‐event op alle knock‐out checkboxes
+// Bind de knock out checkbox events
 knockoutCheckboxes.forEach(cb => {
     cb.addEventListener('change', updateSubmitState);
 });
 
-// Roep de functie 1 keer aan voor init‐state yolo
+// Bind de hidden inputs
+gradeInputs.forEach(input => {
+    input.addEventListener('input', updateSubmitState);
+});
+
+// bind de grade buttons
+gradeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const compId  = btn.dataset.componentId;
+        const gradeId = btn.dataset.gradeId;
+        const points  = btn.dataset.points;
+
+        // zet de hidden input value
+        const hidden = document.getElementById(`grade-level-${compId}`);
+        hidden.value = gradeId;
+
+        // update de punten cell
+        document.getElementById(`comp-points-${compId}`).textContent = points;
+
+        // trigger de submit state check:
+        updateSubmitState();
+    });
+});
+
+// 6. Start‐state direct correct zetten
 updateSubmitState();
+
+
+// const submitButton        = document.getElementById('form-submit');
+// const warningCheckboxes   = document.getElementById('warning-checkboxes');
+// const warningComponents   = document.getElementById('warning-components');
+// const knockoutCheckboxes  = document.querySelectorAll('.form-checkbox');
+//
+// // Haal alle grade-inputs meteen op
+// const gradeInputs = document.querySelectorAll('input[id^="grade-level-"]');
+//
+// function updateSubmitState() {
+//     const allKnockoutChecked = Array.from(knockoutCheckboxes).every(cb => cb.checked);
+//     const allGradesSet       = Array.from(gradeInputs).every(input => input.value !== '');
+//     const canSubmit          = allKnockoutChecked && allGradesSet;
+//
+//     submitButton.disabled = !canSubmit;
+//
+//     if (!allKnockoutChecked) {
+//         warningCheckboxes.classList.remove('hidden');
+//         warningComponents.classList.add('hidden');
+//     } else if (!allGradesSet) {
+//         warningCheckboxes.classList.add('hidden');
+//         warningComponents.classList.remove('hidden');
+//     } else {
+//         warningCheckboxes.classList.add('hidden');
+//         warningComponents.classList.add('hidden');
+//     }
+// }
+//
+// // Bind change‐event op alle knock‐out checkboxes
+// knockoutCheckboxes.forEach(cb => {
+//     cb.addEventListener('change', updateSubmitState);
+// });
+//
+// // Bind input‐event op alle grade-inputs
+// gradeInputs.forEach(input => {
+//     input.addEventListener('input', updateSubmitState);
+// });
+//
+// // Initial run zodat de button meteen de juiste state heeft
+// updateSubmitState();
+
+
+
+// const submitButton        = document.getElementById('form-submit');
+// const warningCheckboxes   = document.getElementById('warning-checkboxes');
+// const warningComponents   = document.getElementById('warning-components');
+// const knockoutCheckboxes  = document.querySelectorAll('.form-checkbox');
+//
+// // updateSubmitState controleert twee condities
+// function updateSubmitState() {
+//     // Zijn alle knock‐out checkboxes aangevinkt?
+//     const allKnockoutChecked = Array.from(knockoutCheckboxes).every(cb => cb.checked);
+//
+//     // Zijn alle component‐grades ingevuld?
+//     const gradeInputs = document.querySelectorAll('input[id^="grade-level-"]');
+//     const allGradesSet = Array.from(gradeInputs).every(input => input.value !== '');
+//
+//     // Button mag alleen als beide waar zijn
+//     const canSubmit = allKnockoutChecked && allGradesSet;
+//     submitButton.disabled = !canSubmit;
+//
+//     // Toon of verberg waarschuwingen
+//     if (!allKnockoutChecked) {
+//         // niet alle checkboxes
+//         warningCheckboxes.classList.remove('hidden');
+//         warningComponents.classList.add('hidden');
+//     } else if (!allGradesSet) {
+//         // componenten missen
+//         warningCheckboxes.classList.add('hidden');
+//         warningComponents.classList.remove('hidden');
+//     } else {
+//         // Alles goed, dan beide verbergen
+//         warningCheckboxes.classList.add('hidden');
+//         warningComponents.classList.add('hidden');
+//     }
+// }
+//
+// // Bind change‐event op alle knock‐out checkboxes
+// knockoutCheckboxes.forEach(cb => {
+//     cb.addEventListener('change', updateSubmitState);
+// });
+//
+// // Roep de functie 1 keer aan voor init‐state yolo
+// updateSubmitState();

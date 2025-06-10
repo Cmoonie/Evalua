@@ -130,7 +130,7 @@
                 <div x-data="{ open: false }">
                     <button
                         @click.prevent="open = !open"
-                        class="bg-primary py-2 px-4 text-xl font-bold text-white shadow-lg hover:bg-secondary mb-4 mt-4 w-full flex items-center justify-between rounded-lg transition-colors duration-300">
+                        class="bg-primary py-2 px-4 text-xl font-bold text-white shadow-lg hover:bg-secondary mt-4 w-full flex items-center justify-between rounded-lg transition-colors duration-300">
                         <span>Competentie: {{ $formCompetency->competency->name }}</span>
                         <div class="flex items-center">
                             <span class="text-sm mr-2" id="competency-points-{{ $formCompetency->competency->id }}">0 pts</span>

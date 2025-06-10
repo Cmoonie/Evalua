@@ -152,6 +152,10 @@
                     <td class="px-4 py-2 font-medium text-gray-600">Einddatum</td>
                     <td class="px-4 py-2 text-gray-800">{{ $filledForm->end_date->format('Y-m-d') }}</td>
                 </tr>
+            @else
+                <tr class="border-t">
+                    <td class="px-4 py-2 font-medium text-gray-600" colspan="2">Niet ingevuld</td>
+                </tr>
             @endif
             </tbody>
         </table>
@@ -192,6 +196,10 @@
                         <tr class="border-t">
                             <td class="px-4 py-2 text-gray-800">{{ $filledForm->comment }}</td>
                         </tr>
+                    @else
+                        <tr class="border-t">
+                            <td class="px-4 py-2 font-medium text-gray-600" colspan="2">Niet ingevuld</td>
+                        </tr>
                     @endif
                     </tbody>
                 </table>
@@ -204,12 +212,12 @@
                         <table class="w-full table-auto border-collapse mb-2">
                             <thead>
                             <tr class="bg-gray-200 text-primary">
-                                <th class="p-2 text-left">Component</th>
-                                <th class="p-2 text-center">Onvoldoende (0)</th>
-                                <th class="p-2 text-center">Voldoende (3)</th>
-                                <th class="p-2 text-center">Goed (5)</th>
-                                <th class="p-2 text-center">Punten</th>
-                                <th class="p-2">Opmerking</th>
+                                <th class="w-1/6 p-2 text-left">Component</th>
+                                <th class="w-1/6 p-2 text-center">Onvoldoende (0)</th>
+                                <th class="w-1/6 p-2 text-center">Voldoende (3)</th>
+                                <th class="w-1/6 p-2 text-center">Goed (5)</th>
+                                <th class="w-1/12 p-2 text-center">Punten</th>
+                                <th class="w-1/6 p-2">Opmerking</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -227,7 +235,7 @@
                                             {{ $c['points'] === 5 ? '✓' : '' }}
                                         </td>
                                         <td class="p-2 text-center">{{ $c['points'] }}</td>
-                                        <td class="p-2 text-center">{{ $c['comment'] }}</td>
+                                        <td class="p-2 text-center break-words whitespace-normal">{{ $c['comment'] }}</td>
                                     </tr>
                                 @endforeach
                                 <tr class="bg-gray-100 text-primary font-bold">

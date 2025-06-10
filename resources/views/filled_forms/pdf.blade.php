@@ -5,10 +5,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            zoom: 85%;
+            zoom: 80%;
         }
         main {
-            zoom: 70%;
+            zoom: 80%;
         }
     </style>
     <title>{{ config('app.name', 'Evalua') }}</title>
@@ -147,12 +147,37 @@
                     <td class="px-4 py-2 font-medium text-gray-600">Einddatum</td>
                     <td class="px-4 py-2 text-gray-800">{{ $filledForm->end_date->format('Y-m-d') }}</td>
                 </tr>
+            @else
+                <tr class="border-t">
+                    <td class="px-4 py-2 font-medium text-gray-600" colspan="2">Niet ingevuld</td>
+                </tr>
             @endif
             </tbody>
         </table>
     </div>
 
-    <div class="flex flex-row justify-between gap-6 mb-8">
+    <div class="flex flex-row justify-between gap-6 mb-4">
+
+        <table class="w-1/2 bg-white border border-gray-200 shadow-sm">
+            <thead>
+            <tr class="bg-gray-100">
+                <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Algemene opmerkingen</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            @if(!empty($filledForm->comment))
+                <tr class="border-t">
+                    <td class="px-4 py-2 text-gray-800">{{ $filledForm->comment }}</td>
+                </tr>
+            @else
+                <tr class="border-t">
+                    <td class="px-4 py-2 font-medium text-gray-600" colspan="2">Niet ingevuld</td>
+                </tr>
+            @endif
+            </tbody>
+        </table>
+
         <table class="w-1/2 bg-white border border-gray-200 shadow-sm">
             <thead>
             <tr class="bg-gray-100">
@@ -174,21 +199,6 @@
                 </tr>
             @endif
 
-            </tbody>
-        </table>
-        <table class="w-1/2 bg-white border border-gray-200 shadow-sm">
-            <thead>
-            <tr class="bg-gray-100">
-                <th class="px-4 py-2 text-left font-semibold text-primary" colspan="2">Algemene opmerkingen</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            @if(!empty($filledForm->comment))
-                <tr class="border-t">
-                    <td class="px-4 py-2 text-gray-800">{{ $filledForm->comment }}</td>
-                </tr>
-            @endif
             </tbody>
         </table>
     </div>
