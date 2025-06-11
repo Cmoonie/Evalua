@@ -13,13 +13,39 @@
             Welkom terug, {{ Auth::user()->name }}!
         </h2>
 
-        @if(Auth::user()->last_login_at)
+{{--        @if(Auth::user()->last_login_at)--}}
+{{--            <p class="text-gray-600">--}}
+{{--                Laatste login: {{ \Carbon\Carbon::parse(Auth::user()->last_login_at)->format('d-m-Y H:i') }}--}}
+{{--            </p>--}}
+{{--        @else--}}
+
+{{--            <p class="text-gray-600">Dit is je eerste login.</p>--}}
+{{--        @endif--}}
+
+{{--        @if(Auth::user()->previous_login_at)--}}
+{{--            <p class="text-gray-600">--}}
+{{--                Laatste login: {{ \Carbon\Carbon::parse(Auth::user()->previous_login_at)->format('d-m-Y H:i') }}--}}
+{{--            </p>--}}
+{{--        @else--}}
+{{--            <p class="text-gray-600">--}}
+{{--                Welkom! Dit is je eerste login.--}}
+{{--            </p>--}}
+{{--        @endif--}}
+
+        @php
+            $user = \App\Models\User::find(auth()->id());
+        @endphp
+
+        @if($user->previous_login_at)
             <p class="text-gray-600">
-                Laatste login: {{ \Carbon\Carbon::parse(Auth::user()->last_login_at)->format('d-m-Y H:i') }}
+                Laatste login: {{ \Carbon\Carbon::parse($user->previous_login_at)->format('d-m-Y H:i') }}
             </p>
         @else
-            <p class="text-gray-600">Dit is je eerste login.</p>
+            <p class="text-gray-600">
+                Welkom! Dit is je eerste login.
+            </p>
         @endif
+
         <script>
             function startIntro() {
                 // Zet in de sessie dat we de rondleiding moeten starten

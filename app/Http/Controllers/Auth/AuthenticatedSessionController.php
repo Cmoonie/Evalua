@@ -25,11 +25,10 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
 
-        event(new \Illuminate\Auth\Events\Login('web', auth()->user(), false));
+//        event(new \Illuminate\Auth\Events\Login('web', auth()->user(), false));
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

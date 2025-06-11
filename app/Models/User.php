@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'last_login_at',
+        'previous_login_at',
     ];
 
     // Een gebruiker kan meerdere formulieren maken (1-op-veel relatie)

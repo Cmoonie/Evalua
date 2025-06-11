@@ -139,6 +139,9 @@ window.startIntroDashboard = () => {
 
 window.startIntroForms = () => {
     introJs().setOptions({
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Klaar',
         steps: [
             {
                 element: document.querySelector('#new-form-button'),
@@ -154,6 +157,9 @@ window.startIntroForms = () => {
 
 window.startIntroBeoordelingen = () => {
     introJs().setOptions({
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Klaar',
         steps: [
             {
                 element: document.querySelector('#beoordelingen-title'),
