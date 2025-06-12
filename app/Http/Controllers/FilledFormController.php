@@ -112,11 +112,19 @@ class FilledFormController extends Controller
         ]);
 
         // Helper!! totaal punten en competencies mappen
+        $mapped = FilledFormHelper::mapCompetencies($filledForm);
+        $competencies = $mapped['competencies'];
+        $numComponents = $mapped['numComponents'];
+        $numCompetencies = $mapped['numCompetencies'];
+
         $grandTotal   = FilledFormHelper::calcGrandTotal($filledForm);
-        $competencies = FilledFormHelper::mapCompetencies($filledForm);
+
+        $gradeData    = FilledFormHelper::calcGrade($grandTotal, $numComponents, $numCompetencies);
+        $mid         = $gradeData['mid'];
+        $max         = $gradeData['max'];
 
         // calcFinalGrade geeft nu een array ipv alleen een nummer
-        $finalResult  = FilledFormHelper::calcFinalGrade($competencies);
+        $finalResult = FilledFormHelper::calcFinalGrade($competencies, $numComponents, $numCompetencies);
         $finalGrade   = $finalResult['grade']; // Geef hier de variable naam zodat we dat straks makkelijk kunnen gebruiken
         $finalStatus  = $finalResult['status'];
 
@@ -126,7 +134,9 @@ class FilledFormController extends Controller
             'grandTotal',
             'competencies',
             'finalGrade',
-            'finalStatus'
+            'finalStatus',
+            'mid',
+            'max'
         ));
     }
 
@@ -144,11 +154,15 @@ class FilledFormController extends Controller
         $levels = ['onvoldoende' => 0, 'voldoende' => 3, 'goed' => 5];
 
         // Helper functies
+        $mapped = FilledFormHelper::mapCompetencies($filledForm);
+        $competencies = $mapped['competencies'];
+        $numComponents = $mapped['numComponents'];
+        $numCompetencies = $mapped['numCompetencies'];
+
         $grandTotal = FilledFormHelper::calcGrandTotal($filledForm);
-        $competencies = FilledFormHelper::mapCompetencies($filledForm);
 
         // calcFinalGrade geeft nu een array ipv alleen een nummer
-        $finalResult  = FilledFormHelper::calcFinalGrade($competencies);
+        $finalResult = FilledFormHelper::calcFinalGrade($competencies, $numComponents, $numCompetencies);
         $finalGrade   = $finalResult['grade']; // Geef hier de variable naam zodat we dat straks makkelijk kunnen gebruiken
         $finalStatus  = $finalResult['status'];
 
@@ -221,9 +235,21 @@ class FilledFormController extends Controller
 
         $levels = ['onvoldoende' => 0, 'voldoende' => 3, 'goed' => 5];
 
+        $mapped = FilledFormHelper::mapCompetencies($filledForm);
+        $competencies = $mapped['competencies'];
+        $numComponents = $mapped['numComponents'];
+        $numCompetencies = $mapped['numCompetencies'];
+
         $grandTotal   = FilledFormHelper::calcGrandTotal($filledForm);
-        $competencies = FilledFormHelper::mapCompetencies($filledForm);
-        $finalResult  = FilledFormHelper::calcFinalGrade($competencies);
+
+        $gradeData    = FilledFormHelper::calcGrade($grandTotal, $numComponents, $numCompetencies);
+        $mid         = $gradeData['mid'];
+        $max         = $gradeData['max'];
+
+        // calcFinalGrade geeft nu een array ipv alleen een nummer
+        $finalResult = FilledFormHelper::calcFinalGrade($competencies, $numComponents, $numCompetencies);
+        $finalGrade   = $finalResult['grade']; // Geef hier de variable naam zodat we dat straks makkelijk kunnen gebruiken
+        $finalStatus  = $finalResult['status'];
 
         return Pdf::view('filled_forms.pdf', [
             'filledForm'   => $filledForm,
@@ -232,6 +258,8 @@ class FilledFormController extends Controller
             'finalGrade'   => $finalResult['grade'],
             'finalStatus'  => $finalResult['status'],
             'levels'       => $levels,
+            'mid'         => $mid,
+            'max'         => $max,
         ])
             ->format('a4')
             ->landscape()
@@ -241,8 +269,6 @@ class FilledFormController extends Controller
 
 
     // Geen crud maar wel controller dingen
-
-
     // Helper methode
     private function saveFilledData(FilledForm $filledForm, array $validatedData): void
     {
@@ -273,14 +299,24 @@ class FilledFormController extends Controller
         // Helper methodes
         foreach ($forms as $form) {
             foreach ($form->filledForms as $ff) {
-                $competencies = FilledFormHelper::mapCompetencies($ff);
-                $ff->competencies  = $competencies;
-                $finalResult       = FilledFormHelper::calcFinalGrade($competencies);
-                $ff->finalGrade    = $finalResult['grade'];
-                $ff->finalStatus   = $finalResult['status'];
+                // Haal competencies en numComponents op uit mapCompetencies
+                $mapped = FilledFormHelper::mapCompetencies($ff);
+                $competencies = $mapped['competencies'];
+                $numComponents = $mapped['numComponents'];
+                $numCompetencies = $mapped['numCompetencies'];
+
+                // Bereken het eindcijfer met beide parameters
+                $finalResult = FilledFormHelper::calcFinalGrade($competencies, $numComponents, $numCompetencies);
+
+
+                // Zet properties om in het model voor gebruik in de view
+                $ff->competencies = $competencies;
+                $ff->finalGrade = $finalResult['grade'];
+                $ff->finalStatus = $finalResult['status'];
             }
         }
 
         return view('filled_forms.gradelist', compact('forms'));
     }
+
 }

@@ -73,24 +73,22 @@
                     @foreach ($competencies as $comp)
                         <tr class="border-b {{ $comp['stateClass'] }}">
                             <td class="px-4 py-2">{{ $comp['name'] }}</td>
-                            <td class="px-4 py-2 text-center"> 25 </td>
+                            <td class="px-4 py-2 text-center"> {{ $comp['maxPoints'] }} </td>
                             <td class="px-4 py-2 text-center"> {{ $comp['total'] }} </td>
-                            <td class="px-4 py-2 text-center">12</td>
+                            <td class="px-4 py-2 text-center"> {{ $comp['minPoints'] }} </td>
                             <td class="px-4 py-2 text-center"> {{ $comp['statusText'] }} </td>
                         </tr>
                     @endforeach
                     <tr class="bg-gray-100 font-semibold text-primary">
                         <td class="px-4 py-2 text-start">Cijfer: {{ $finalGrade }}</td>
-                        <td class="px-4 py-2 text-center"> 150 </td>
+                        <td class="px-4 py-2 text-center"> {{ $max }} </td>
                         <td class="px-4 py-2 text-center"> {{ $grandTotal }} </td>
-                        <td class="px-4 py-2 text-center">72</td>
+                        <td class="px-4 py-2 text-center"> {{ $mid }}</td>
                         <td class="px-4 py-2 text-center"> {{ $finalStatus }} </td>
                     </tr>
                     <tr class="bg-white text-xs text-primary">
-                        <td colspan="5">Toelichting:
-                        <11 = Onvoldoende || 12 - 16 = Voldoende || 17 - 25 = Goed.
-
-                        Voldoende alleen mogelijk mits alle activiteiten en competenties behaald zijn met een voldoende.
+                        <td class="px-4 py-2" colspan="5">Toelichting:
+                       Voldoende alleen mogelijk mits alle activiteiten en competenties behaald zijn met een voldoende.
                         </td>
                     </tr>
                     </tbody>
