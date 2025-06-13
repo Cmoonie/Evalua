@@ -5,17 +5,24 @@
 @endphp
 
 @section('content')
-        @if(session('success'))
+    @if(session('success'))
             <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
                 {{ session('success') }}
             </div>
         @endif
 
+    <x-primary-button id="help-forms-button">
+        Uitleg over deze pagina
+    </x-primary-button>
+
+    <x-secondary-button onclick="introJs().start()">Start rondleiding</x-secondary-button>
+
+
         <div class="p-4 border border-gray-200 bg-white rounded-lg">
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-bold text-primary">Alle Formulieren</h1>
                 <a href="{{ route('forms.create') }}">
-                    <x-primary-button>
+                    <x-primary-button id="new-form-button">
                         Nieuw Formulier
                     </x-primary-button>
                 </a>
@@ -25,7 +32,7 @@
             @if($forms->isEmpty())
                 <p class="text-primary">Geen formulieren gevonden. Tijd om er een te maken!</p>
             @else
-                <table class="w-full bg-white shadow rounded">
+                <table class="w-full bg-white shadow rounded" id="form-table">
                     <thead>
                         <tr class="bg-gray-100 text-primary">
                             <th class="p-3 text-left">Vak</th>
@@ -72,3 +79,22 @@
             @endif
         </div>
 @endsection
+
+
+{{--@push('scripts')--}}
+{{--    <script>--}}
+{{--        document.addEventListener('DOMContentLoaded', () => {--}}
+{{--            if (sessionStorage.getItem('startFormIntro') === 'true') {--}}
+{{--                sessionStorage.removeItem('startFormIntro'); // Eenmalig uitvoeren--}}
+{{--                setTimeout(() => {--}}
+{{--                    if (typeof window.startIntro === 'function') {--}}
+{{--                        window.startIntro();--}}
+{{--                    } else {--}}
+{{--                        console.warn("startIntro niet gevonden.");--}}
+{{--                    }--}}
+{{--                }, 300); // Kleine vertraging voor de zekerheid--}}
+{{--            }--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--@endpush--}}
+

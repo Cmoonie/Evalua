@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.introjs-tooltip {
+    border-radius: 1rem; /* afgeronde hoeken */
+    background-color: #e2e8f0 !important;
+    color: black !important;
+    padding: 1.5rem;
+    font-size: 1rem;
+    max-width: 350px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+/*    font-family: 'Roboto', sans-serif;*/
+}
+
+.introjs-tooltiptext {
+    font-family: 'Roboto', sans-serif;
+}
+
+.introjs-button {
+    background-color: #4594D3 !important;
+    color: white !important;
+    border-radius: 0.5rem;
+    padding: 0.25rem 1rem;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.introjs-button:hover {
+    background-color: #FFCB05 !important;
+}
+
+
+

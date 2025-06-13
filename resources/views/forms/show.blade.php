@@ -54,22 +54,6 @@
 
 
         @foreach($form->formCompetencies as $formCompetency)
-{{--            <div x-data="{ open: false }">--}}
-{{--                <button--}}
-{{--                    @click.prevent="open = !open"--}}
-{{--                    class="bg-primary py-2 px-4 text-xl font-bold text-white shadow-lg hover:bg-secondary mb-4 mt-4 w-full--}}
-{{--                    flex items-center justify-between rounded-lg transition-colors duration-300">--}}
-{{--                    <span>Competentie: {{ $formCompetency->competency->name }}</span>--}}
-{{--                    <div class="flex items-center">--}}
-{{--                        <svg :class="{'transform rotate-180': open}" xmlns="http://www.w3.org/2000/svg"--}}
-{{--                             fill="none" viewBox="0 0 24 24" stroke="currentColor"--}}
-{{--                             class="w-6 h-6 transition-transform duration-300 text-white">--}}
-{{--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>--}}
-{{--                        </svg>--}}
-{{--                    </div>--}}
-{{--                </button>--}}
-
-{{--                <div x-show="open" x-transition>--}}
                     <div class="p-4 border border-gray-200 bg-white rounded-lg mb-4">
                         <h1 class="text-4xl text-primary mb-4">
                             Competentie: {{ $formCompetency->competency->name }}
@@ -134,44 +118,6 @@
                 </div>
 
         @endforeach
-
-{{--        @foreach($form->formCompetencies as $index => $fc)--}}
-{{--            <div x-data="{ open: false }" class="mb-6 border rounded-lg shadow-sm">--}}
-{{--                <button--}}
-{{--                    @click="open = !open"--}}
-{{--                    class="w-full text-left bg-primary text-white px-4 py-3 rounded-t-lg font-semibold flex justify-between items-center">--}}
-{{--                    <span>Competentie {{ $index + 1 }}: {{ $fc->competency->name }}</span>--}}
-{{--                    <svg :class="{'rotate-180': open}" class="w-5 h-5 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
-{{--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />--}}
-{{--                    </svg>--}}
-{{--                </button>--}}
-
-{{--                <div x-show="open" class="p-4 bg-gray-50">--}}
-{{--                    <div class="mb-3">--}}
-{{--                        <p><span class="bg-secondary text-white px-2 py-1 rounded font-semibold">Domeinbeschrijving:</span> <em>{{ $fc->competency->domain_description }}</em></p>--}}
-{{--                    </div>--}}
-{{--                    <div class="mb-3">--}}
-{{--                        <p><span class="bg-secondary text-white px-2 py-1 rounded font-semibold">Beoordelingsschaal:</span> {{ $fc->competency->rating_scale }}</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="mb-3">--}}
-{{--                        <p><span class="bg-secondary text-white px-2 py-1 rounded font-semibold">Knock-out Criteria & Deliverables:</span> {{ $fc->competency->complexity }}</p>--}}
-{{--                    </div>--}}
-
-{{--                    @foreach($fc->competency->components as $component)--}}
-{{--                        <div class="pl-4 mb-4">--}}
-{{--                            <h4 class="mb-2 bg-windy text-white px-2 py-1 font-semibold">Component: {{ $component->name }}</h4>--}}
-{{--                            <p class=" bg-tertiary text-white px-2 ">Beschrijving : {{ $component->description }}</p>--}}
-{{--                            <ul class="list-disc list-inside mt-1">--}}
-{{--                                @foreach($component->levels as $level)--}}
-{{--                                    <li><strong>({{ $level->gradeLevel->points }} pts)</strong> {{ $level->description }}</li>--}}
-{{--                                @endforeach--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    @endforeach--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        @endforeach--}}
-
         <a href="{{ route('forms.index') }}"><x-primary-button>
                 Terug naar lijst
             </x-primary-button>

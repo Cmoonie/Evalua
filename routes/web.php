@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\FilledFormController;
 
+
 Route::get('/', function () {
     return view('/auth/login');
 });

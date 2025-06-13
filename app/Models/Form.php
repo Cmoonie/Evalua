@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Database\Factories\FormFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
 {
-    /** @use HasFactory<\Database\Factories\FormFactory> */
+    /** @use HasFactory<FormFactory> */
     use HasFactory;
 
     // Deze mogen ingevuld worden

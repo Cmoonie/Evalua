@@ -24,13 +24,6 @@
                     </x-nav-link>
                 </div>
 
-{{--                <!-- Navigatielink naar gemaakte formulier-overzichtspagina -->--}}
-{{--                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">--}}
-{{--                    <x-nav-link :href="route('filled_forms.index')" :active="request()->routeIs('filled_forms.index')">--}}
-{{--                        {{ __('Beoordelingen') }}--}}
-{{--                    </x-nav-link>--}}
-{{--                </div>--}}
-
                 <!-- Navigatielink naar cijferlijst-overzichtspagina -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('filled_forms.gradelist')" :active="request()->routeIs('filled_forms.gradelist')">

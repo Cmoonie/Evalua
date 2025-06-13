@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Database\Factories\CompetencyFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Competency extends Model
 {
-    /** @use HasFactory<\Database\Factories\CompetencyFactory> */
+    /** @use HasFactory<CompetencyFactory> */
     use HasFactory;
 
     // Deze mogen ingevuld worden

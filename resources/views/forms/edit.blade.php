@@ -64,6 +64,11 @@
 
             @foreach ($form->formCompetencies as $cIndex => $fc)
                 @php $competency = $fc->competency; @endphp
+                <div class="mb-8 border p-4 rounded bg-gray-50">
+                    <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-xl font-bold mb-4">Competentie {{ $cIndex + 1 }}</h2>
+                    <button type="button" class="text-red-700 hover:text-red-800 font-bold text-xl transition" @click="removeCompetency(cIndex)">✖</button>
+                    </div>
 
                 <div class="bg-white shadow-sm rounded-lg divide-y divide-gray-200">
                     <div class="px-6 py-4">
@@ -140,6 +145,24 @@
                                             </textarea>
                                         </div>
                                     </div>
+                    <div id="competency-{{ $cIndex }}-components">
+                        @foreach ($fc->competency->components as $compIndex => $component)
+                            <div class="pl-4 mt-6 mb-6 border-l-4 border-primary bg-white p-4 rounded">
+                                <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-semibold text-lg mb-2">Component {{ $compIndex + 1 }}</h3>
+                                <button type="button" class="text-red-700 hover:text-red-800 font-bold text-xl transition" @click="removeCompetency(cIndex)">✖</button>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block">Naam</label>
+                                        <input type="text" name="competencies[{{ $cIndex }}][components][{{ $compIndex }}][name]" value="{{ $component->name }}" class="w-full border p-2 rounded">
+                                    </div>
+                                    <div>
+                                        <label class="block">Beschrijving</label>
+                                        <textarea name="competencies[{{ $cIndex }}][components][{{ $compIndex }}][description]" class="w-full border p-2 rounded">{{ $component->description }}</textarea>
+                                    </div>
+                                </div>
 
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                         @foreach(['onvoldoende','voldoende','goed'] as $lIndex => $grade)
@@ -186,6 +209,11 @@
             <div class="pt-6">
                 <x-primary-button
                     type="submit">
+            <x-primary-button type="button" class="mb-6" @click="addCompetency()">
+                + Competentie toevoegen
+            </x-primary-button>
+            <div class="mt-8">
+                <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700">
                     Wijzigingen opslaan
                 </x-primary-button>
             </div>

@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Database\Factories\ComponentLevelFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 // TUSSENTABEL!!!
 class ComponentLevel extends Model
 {
-    /** @use HasFactory<\Database\Factories\ComponentLevelFactory> */
+    /** @use HasFactory<ComponentLevelFactory> */
     use HasFactory;
 
     // Om allemaal in te vullen

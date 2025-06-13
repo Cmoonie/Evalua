@@ -2,6 +2,12 @@ import './bootstrap';
 
 import Alpine from 'alpinejs';
 
+import introJs from 'intro.js';
+import 'intro.js/minified/introjs.min.css';
+
+window.introJs = introJs;
+
+
 window.Alpine = Alpine;
 
 Alpine.start();
@@ -42,7 +48,7 @@ function updateTotals(compId, pts) {
     document.getElementById(`comp-points-${compId}`).textContent = pts;
     componentPoints[compId] = pts;
 
-    // Recompute each competentie-total
+    // Opnieuw
     const compIdGroup = componentToCompetency[compId];
     let sum = 0;
     for (const [cId, p] of Object.entries(componentPoints)) {
@@ -60,7 +66,7 @@ function updateTotals(compId, pts) {
     hiddenGradeInput.value = dynamicGrade;
 }
 
-// bind clicks
+// bind kliks
 document.querySelectorAll('.grade-button').forEach(btn => {
     btn.addEventListener('click', () => {
         const compId    = btn.dataset.componentId;
@@ -174,3 +180,122 @@ gradeButtons.forEach(btn => {
 
 // Start‐state direct correct zetten
 updateSubmitState();
+
+
+
+
+// INTRO DOORLOOP ~~~~~~~~~~
+// VOOR HET DASHBOARD
+window.startIntroDashboard = () => {
+    introJs().setOptions({
+            nextLabel: 'Volgende',
+            prevLabel: 'Terug',
+            doneLabel: 'Klaar',
+        steps: [
+            {
+                element: document.querySelector('#forms-link'),
+                intro: "Hier kun je alle formulieren bekijken en aanmaken."
+            },
+            {
+                element: document.querySelector('#filledforms-link'),
+                intro: "Hier zie je alle beoordelingen terug."
+            }
+        ]
+    }).start();
+};
+
+// Bindbindbind
+document.querySelector('#help-dashboard-button')?.addEventListener('click', () => {
+    window.startIntroDashboard();
+});
+
+// VOOR DE FORMS PAGINA
+window.startIntroForms = () => {
+    introJs().setOptions({
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Klaar',
+        steps: [
+            {
+                element: document.querySelector('#new-form-button'),
+                intro: "Klik hier om een nieuw formulier aan te maken."
+            },
+            {
+                element: document.querySelector('#form-table'),
+                intro: "Hier zie je een overzicht van alle bestaande formulieren."
+            }
+        ]
+    }).start();
+};
+
+// Bind aan de button vast
+document.querySelector('#help-forms-button')?.addEventListener('click', () => {
+    window.startIntroForms();
+});
+
+// VOOR DE CIJFERLIJSTENPAGINA
+window.startIntroGradelist = () => {
+    introJs().setOptions({
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Klaar',
+        steps: [
+            {
+                element: document.querySelector('#beoordelingen-title'),
+                intro: "Op deze pagina zie je de beoordelingen die bij een vak horen."
+            },
+            {
+                element: document.querySelector('#vak-title'),
+                intro: "Hier zie je de naam van het vak. Klik erop om de beoordelingen te tonen."
+            },
+            {
+                element: document.querySelector('#new-beoordeling-btn'),
+                intro: "Klik hier om een nieuwe beoordeling te starten."
+            }
+        ]
+    }).start();
+};
+
+// Bind button
+document.querySelector('#help-gradelist-button')?.addEventListener('click', () => {
+    window.startIntroGradelist();
+});
+
+
+// Bepaal welke pagina we op zitten
+    function getIntroPageKey() {
+        const p = window.location.pathname;
+        if (p.includes('/dashboard')) return 'dashboard';
+        if (p.includes('/forms'))     return 'forms';
+        if (p.includes('/gradelist')) return 'gradelist';
+        return null;
+    }
+
+
+// Roep de juiste tour functie aan op basis van pageKey
+    function runIntroForPage(pageKey) {
+        const fnName = `startIntro${pageKey.charAt(0).toUpperCase() + pageKey.slice(1)}`;
+        const fn = window[fnName];
+        if (typeof fn === 'function') {
+            fn();
+        } else {
+            console.warn(`Intro-functie ${fnName} niet gevonden.`);
+        }
+    }
+
+// autorun als je voor het eerst op de pagina komt
+    (function autoRunIntro() {
+        const pageKey = getIntroPageKey();
+        if (!pageKey) return;  // geen tour op deze pagina
+
+        const storageKey = `startIntro_${pageKey}`;
+        if (sessionStorage.getItem(storageKey) === 'true') {
+            sessionStorage.removeItem(storageKey);  // eenmalig
+            runIntroForPage(pageKey);
+        }
+    })();
+
+
+
+
+

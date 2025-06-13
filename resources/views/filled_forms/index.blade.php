@@ -21,6 +21,10 @@
                 </a>
             </div>
 
+        <x-primary-button onclick="startIntroBeoordelingen()">
+            Uitleg over deze pagina
+        </x-primary-button>
+
 
             @if($forms->isEmpty())
                 <p class="text-primary">Geen formulieren gevonden. Tijd om er een te maken!</p>

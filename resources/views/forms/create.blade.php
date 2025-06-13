@@ -4,6 +4,9 @@
 
 @section('content')
         <h1 class="text-3xl font-bold mb-6">Nieuw beoordelingsformulier</h1>
+    @section('content')
+        <div class="container mx-auto p-6" x-data="formBuilder()">
+            <h1 class="text-3xl font-bold mb-6">Nieuw beoordelingsformulier</h1>
 
         <form action="{{ route('forms.store') }}" method="POST">
             @csrf
@@ -38,58 +41,75 @@
                             <textarea id="description" name="description" rows="3" class="w-full p-2 border rounded"></textarea>
                         </div>
 
-                        {{-- Competenties en componenten --}}
-                        @foreach (range(0, 1) as $cIndex)
-                            <div class="border p-4 rounded mb-6 bg-gray-50">
-                                <h2 class="text-xl font-semibold mb-2">Competentie {{ $cIndex + 1 }}</h2>
+                {{-- Dynamische competenties --}}
+                <template x-for="(competency, cIndex) in competencies" :key="competency.id">
+                    <div class="border p-4 rounded mb-6 bg-gray-50">
+                        <div class="flex justify-between items-center mb-2">
+                            <h2 class="text-xl font-semibold">Competentie <span x-text="cIndex + 1"></span></h2>
+                            <button type="button" class="text-red-700 hover:text-red-800 font-bold text-xl transition" @click="removeCompetency(cIndex)">✖</button>
+                        </div>
 
-                                <div class="mb-2">
-                                    <label class="block font-medium">Naam</label>
-                                    <input type="text" name="competencies[{{ $cIndex }}][name]" class="w-full border p-2 rounded">
-                                </div>
+                        <div class="mb-2">
+                            <label class="block font-medium">Naam</label>
+                            <input type="text" :name="`competencies[${cIndex}][name]`" class="w-full border p-2 rounded">
+                        </div>
 
-                                <div class="mb-2">
-                                    <label class="block font-medium">Domeinbeschrijving</label>
-                                    <textarea name="competencies[{{ $cIndex }}][domain_description]" class="w-full border p-2 rounded"></textarea>
-                                </div>
+                        <div class="mb-2">
+                            <label class="block font-medium">Domeinbeschrijving</label>
+                            <textarea :name="`competencies[${cIndex}][domain_description]`" class="w-full border p-2 rounded"></textarea>
+                        </div>
 
+                        <div class="mb-2">
+                            <label class="block font-medium">Rating scale</label>
+                            <input type="text" :name="`competencies[${cIndex}][rating_scale]`" class="w-full border p-2 rounded">
+                        </div>
                                 <div class="mb-2">
                                     <label class="block font-medium">Beoordelingsschaal</label>
                                     <input type="text" name="competencies[{{ $cIndex }}][rating_scale]" class="w-full border p-2 rounded">
                                 </div>
 
+                        <div class="mb-2">
+                            <label class="block font-medium">Complexiteit</label>
+                            <input type="text" :name="`competencies[${cIndex}][complexity]`" class="w-full border p-2 rounded">
+                        </div>
                                 <div class="mb-2">
                                     <label class="block font-medium">Knock-out Criteria & Deliverables</label>
                                     <input type="text" name="competencies[{{ $cIndex }}][complexity]" class="w-full border p-2 rounded">
                                 </div>
 
-                                {{-- Componenten --}}
-                                @foreach (range(0, 1) as $compIndex)
-                                    <div class="border-l-4 border-primary pl-4 mt-4 mb-4">
-                                        <h3 class="font-semibold">Component {{ $compIndex + 1 }}</h3>
+                        {{-- Componenten --}}
+                        <template x-for="(component, compIndex) in competency.components" :key="component.id">
+                            <div class="border-l-4 border-primary pl-4 mt-4 mb-4 bg-white p-4 rounded">
+                                <div class="flex justify-between items-center">
+                                    <h3 class="font-semibold mb-2">Component <span x-text="compIndex + 1"></span></h3>
+                                    <button type="button" class="text-red-500 font-bold" @click="removeComponent(cIndex, compIndex)">✖</button>
+                                </div>
 
-                                        <div class="mb-2">
-                                            <label class="block">Naam</label>
-                                            <input type="text" name="competencies[{{ $cIndex }}][components][{{ $compIndex }}][name]" class="w-full border p-2 rounded">
-                                        </div>
+                                <div class="mb-2">
+                                    <label class="block">Naam</label>
+                                    <input type="text" :name="`competencies[${cIndex}][components][${compIndex}][name]`" class="w-full border p-2 rounded">
+                                </div>
 
-                                        <div class="mb-2">
-                                            <label class="block">Beschrijving</label>
-                                            <textarea name="competencies[{{ $cIndex }}][components][{{ $compIndex }}][description]" class="w-full border p-2 rounded"></textarea>
-                                        </div>
+                                <div class="mb-2">
+                                    <label class="block">Beschrijving</label>
+                                    <textarea :name="`competencies[${cIndex}][components][${compIndex}][description]`" class="w-full border p-2 rounded"></textarea>
+                                </div>
 
-                                        {{-- Beoordelingsniveaus --}}
-                                        @foreach ($gradeLevels as $level)
-                                            <div class="mb-2 ml-4">
-                                                <label class="block font-medium">Beschrijving voor "{{ $level->name }}" ({{ $level->points }} pts)</label>
-                                                <input type="hidden" name="competencies[{{ $cIndex }}][components][{{ $compIndex }}][levels][{{ $loop->index }}][grade_level_id]" value="{{ $level->id }}">
-                                                <textarea name="competencies[{{ $cIndex }}][components][{{ $compIndex }}][levels][{{ $loop->index }}][description]" class="w-full border p-2 rounded"></textarea>
-                                            </div>
-                                        @endforeach
+                                @foreach ($gradeLevels as $level)
+                                    <div class="mb-2 ml-4">
+                                        <label class="block font-medium">Beschrijving voor "{{ $level->name }}" ({{ $level->points }} pts)</label>
+                                        <input type="hidden" :name="`competencies[${cIndex}][components][${compIndex}][levels][{{ $loop->index }}][grade_level_id]`" value="{{ $level->id }}">
+                                        <textarea :name="`competencies[${cIndex}][components][${compIndex}][levels][{{ $loop->index }}][description]`" class="w-full border p-2 rounded"></textarea>
                                     </div>
                                 @endforeach
                             </div>
-                        @endforeach
+                        </template>
+
+                        <x-primary-button type="button" class="mt-2" @click="addComponent(cIndex)">
+                            + Component toevoegen
+                        </x-primary-button>
+                    </div>
+                </template>
 
                         {{-- Submit knop --}}
                         <x-primary-button type="submit">
@@ -97,4 +117,56 @@
                         </x-primary-button>
                     </form>
 @endsection
+                <x-primary-button type="button" class="mb-6" @click="addCompetency()">
+                    + Competentie toevoegen
+                </x-primary-button>
+
+                <x-primary-button>
+                    Formulier opslaan
+                </x-primary-button>
+            </form>
+        </div>
+
+        <script>
+            function formBuilder() {
+                return {
+                    competencies: [
+                        {
+                            id: Date.now(),
+                            components: [
+                                { id: Date.now() + 1 },
+                                { id: Date.now() + 2 }
+                            ]
+                        },
+                        {
+                            id: Date.now() + 3,
+                            components: [
+                                { id: Date.now() + 4 },
+                                { id: Date.now() + 5 }
+                            ]
+                        }
+                    ],
+                    addCompetency() {
+                        this.competencies.push({
+                            id: Date.now() + Math.random(),
+                            components: [
+                                { id: Date.now() + Math.random() }
+                            ]
+                        });
+                    },
+                    removeCompetency(index) {
+                        this.competencies.splice(index, 1);
+                    },
+                    addComponent(competencyIndex) {
+                        this.competencies[competencyIndex].components.push({
+                            id: Date.now() + Math.random()
+                        });
+                    },
+                    removeComponent(competencyIndex, compIndex) {
+                        this.competencies[competencyIndex].components.splice(compIndex, 1);
+                    }
+                };
+            }
+        </script>
+    @endsection
 
