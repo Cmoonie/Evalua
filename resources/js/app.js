@@ -20,6 +20,78 @@ document.querySelector('#help-forms-button')?.addEventListener('click', () => {
     }).start();
 });
 
+document.querySelector('#help-dashboard-button')?.addEventListener('click', () => {
+    introJs().setOptions({
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Klaar',
+        steps: [
+            {
+                element: document.querySelector('#forms-link'),
+                intro: "Hier kun je formulieren aanmaken, bekijken en studenten beoordelen."
+            },
+            {
+                element: document.querySelector('#gradelist-link'),
+                intro: "Hier zie je alle ingevulde beoordelingen terug."
+            }
+        ]
+    }).start();
+});
+
+document.querySelector('#help-gradelist-button')?.addEventListener('click', () => {
+    introJs().setOptions({
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Klaar',
+        steps: [
+            {
+                element: document.querySelector('#beoordelingen-title'),
+                intro: "Op deze pagina zie je de beoordelingen die bij een vak horen."
+            },
+            {
+                element: document.querySelector('#vak-title'),
+                intro: "Hier zie je de naam van het vak. Klik erop om de beoordelingen te tonen."
+            },
+            {
+                element: document.querySelector('#new-beoordeling-btn'),
+                intro: "Klik hier om een nieuwe beoordeling te starten."
+            }
+        ]
+    }).start();
+});
+
+// // Bepaal welke pagina we op zitten
+//     function getIntroPageKey() {
+//         const p = window.location.pathname;
+//         if (p.includes('/dashboard')) return 'dashboard';
+//         if (p.includes('/forms'))     return 'forms';
+//         if (p.includes('/gradelist')) return 'gradelist';
+//         return null;
+//     }
+//
+//
+// // Roep de juiste tour functie aan op basis van pageKey
+//     function runIntroForPage(pageKey) {
+//         const fnName = `startIntro${pageKey.charAt(0).toUpperCase() + pageKey.slice(1)}`;
+//         const fn = window[fnName];
+//         if (typeof fn === 'function') {
+//             fn();
+//         } else {
+//             console.warn(`Intro-functie ${fnName} niet gevonden.`);
+//         }
+//     }
+//
+// // autorun als je voor het eerst op de pagina komt
+//     (function autoRunIntro() {
+//         const pageKey = getIntroPageKey();
+//         if (!pageKey) return;  // geen tour op deze pagina
+//
+//         const storageKey = `startIntro_${pageKey}`;
+//         if (sessionStorage.getItem(storageKey) === 'true') {
+//             sessionStorage.removeItem(storageKey);  // eenmalig
+//             runIntroForPage(pageKey);
+//         }
+//     })();
 
 import Alpine from 'alpinejs';
 window.Alpine = Alpine;
@@ -193,98 +265,6 @@ gradeButtons.forEach(btn => {
 
 // Start‐state direct correct zetten
 updateSubmitState();
-
-
-
-
-// INTRO DOORLOOP ~~~~~~~~~~
-// VOOR HET DASHBOARD
-window.startIntroDashboard = () => {
-    introJs().setOptions({
-            nextLabel: 'Volgende',
-            prevLabel: 'Terug',
-            doneLabel: 'Klaar',
-        steps: [
-            {
-                element: document.querySelector('#forms-link'),
-                intro: "Hier kun je alle formulieren bekijken en aanmaken."
-            },
-            {
-                element: document.querySelector('#filledforms-link'),
-                intro: "Hier zie je alle beoordelingen terug."
-            }
-        ]
-    }).start();
-};
-
-// Bindbindbind
-document.querySelector('#help-dashboard-button')?.addEventListener('click', () => {
-    window.startIntroDashboard();
-});
-
-
-
-// VOOR DE CIJFERLIJSTENPAGINA
-window.startIntroGradelist = () => {
-    introJs().setOptions({
-        nextLabel: 'Volgende',
-        prevLabel: 'Terug',
-        doneLabel: 'Klaar',
-        steps: [
-            {
-                element: document.querySelector('#beoordelingen-title'),
-                intro: "Op deze pagina zie je de beoordelingen die bij een vak horen."
-            },
-            {
-                element: document.querySelector('#vak-title'),
-                intro: "Hier zie je de naam van het vak. Klik erop om de beoordelingen te tonen."
-            },
-            {
-                element: document.querySelector('#new-beoordeling-btn'),
-                intro: "Klik hier om een nieuwe beoordeling te starten."
-            }
-        ]
-    }).start();
-};
-
-// Bind button
-document.querySelector('#help-gradelist-button')?.addEventListener('click', () => {
-    window.startIntroGradelist();
-});
-
-
-// // Bepaal welke pagina we op zitten
-//     function getIntroPageKey() {
-//         const p = window.location.pathname;
-//         if (p.includes('/dashboard')) return 'dashboard';
-//         if (p.includes('/forms'))     return 'forms';
-//         if (p.includes('/gradelist')) return 'gradelist';
-//         return null;
-//     }
-//
-//
-// // Roep de juiste tour functie aan op basis van pageKey
-//     function runIntroForPage(pageKey) {
-//         const fnName = `startIntro${pageKey.charAt(0).toUpperCase() + pageKey.slice(1)}`;
-//         const fn = window[fnName];
-//         if (typeof fn === 'function') {
-//             fn();
-//         } else {
-//             console.warn(`Intro-functie ${fnName} niet gevonden.`);
-//         }
-//     }
-//
-// // autorun als je voor het eerst op de pagina komt
-//     (function autoRunIntro() {
-//         const pageKey = getIntroPageKey();
-//         if (!pageKey) return;  // geen tour op deze pagina
-//
-//         const storageKey = `startIntro_${pageKey}`;
-//         if (sessionStorage.getItem(storageKey) === 'true') {
-//             sessionStorage.removeItem(storageKey);  // eenmalig
-//             runIntroForPage(pageKey);
-//         }
-//     })();
 
 
 
