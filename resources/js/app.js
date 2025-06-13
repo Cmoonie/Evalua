@@ -1,15 +1,28 @@
 import './bootstrap';
+import introJs from 'intro.js';
+import 'intro.js/introjs.css';
+
+document.querySelector('#help-forms-button')?.addEventListener('click', () => {
+    introJs().setOptions({
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Klaar',
+        steps: [
+            {
+                element: document.querySelector('#new-form-button'),
+                intro: "Klik hier om een nieuw formulier aan te maken."
+            },
+            {
+                element: document.querySelector('#form-table'),
+                intro: "Hier zie je een overzicht van alle bestaande formulieren."
+            }
+        ]
+    }).start();
+});
+
 
 import Alpine from 'alpinejs';
-
-import introJs from 'intro.js';
-import 'intro.js/minified/introjs.min.css';
-
-window.introJs = introJs;
-
-
 window.Alpine = Alpine;
-
 Alpine.start();
 
 // Bestaande mapieflappies
@@ -209,29 +222,7 @@ document.querySelector('#help-dashboard-button')?.addEventListener('click', () =
     window.startIntroDashboard();
 });
 
-// VOOR DE FORMS PAGINA
-window.startIntroForms = () => {
-    introJs().setOptions({
-        nextLabel: 'Volgende',
-        prevLabel: 'Terug',
-        doneLabel: 'Klaar',
-        steps: [
-            {
-                element: document.querySelector('#new-form-button'),
-                intro: "Klik hier om een nieuw formulier aan te maken."
-            },
-            {
-                element: document.querySelector('#form-table'),
-                intro: "Hier zie je een overzicht van alle bestaande formulieren."
-            }
-        ]
-    }).start();
-};
 
-// Bind aan de button vast
-document.querySelector('#help-forms-button')?.addEventListener('click', () => {
-    window.startIntroForms();
-});
 
 // VOOR DE CIJFERLIJSTENPAGINA
 window.startIntroGradelist = () => {
@@ -262,38 +253,38 @@ document.querySelector('#help-gradelist-button')?.addEventListener('click', () =
 });
 
 
-// Bepaal welke pagina we op zitten
-    function getIntroPageKey() {
-        const p = window.location.pathname;
-        if (p.includes('/dashboard')) return 'dashboard';
-        if (p.includes('/forms'))     return 'forms';
-        if (p.includes('/gradelist')) return 'gradelist';
-        return null;
-    }
-
-
-// Roep de juiste tour functie aan op basis van pageKey
-    function runIntroForPage(pageKey) {
-        const fnName = `startIntro${pageKey.charAt(0).toUpperCase() + pageKey.slice(1)}`;
-        const fn = window[fnName];
-        if (typeof fn === 'function') {
-            fn();
-        } else {
-            console.warn(`Intro-functie ${fnName} niet gevonden.`);
-        }
-    }
-
-// autorun als je voor het eerst op de pagina komt
-    (function autoRunIntro() {
-        const pageKey = getIntroPageKey();
-        if (!pageKey) return;  // geen tour op deze pagina
-
-        const storageKey = `startIntro_${pageKey}`;
-        if (sessionStorage.getItem(storageKey) === 'true') {
-            sessionStorage.removeItem(storageKey);  // eenmalig
-            runIntroForPage(pageKey);
-        }
-    })();
+// // Bepaal welke pagina we op zitten
+//     function getIntroPageKey() {
+//         const p = window.location.pathname;
+//         if (p.includes('/dashboard')) return 'dashboard';
+//         if (p.includes('/forms'))     return 'forms';
+//         if (p.includes('/gradelist')) return 'gradelist';
+//         return null;
+//     }
+//
+//
+// // Roep de juiste tour functie aan op basis van pageKey
+//     function runIntroForPage(pageKey) {
+//         const fnName = `startIntro${pageKey.charAt(0).toUpperCase() + pageKey.slice(1)}`;
+//         const fn = window[fnName];
+//         if (typeof fn === 'function') {
+//             fn();
+//         } else {
+//             console.warn(`Intro-functie ${fnName} niet gevonden.`);
+//         }
+//     }
+//
+// // autorun als je voor het eerst op de pagina komt
+//     (function autoRunIntro() {
+//         const pageKey = getIntroPageKey();
+//         if (!pageKey) return;  // geen tour op deze pagina
+//
+//         const storageKey = `startIntro_${pageKey}`;
+//         if (sessionStorage.getItem(storageKey) === 'true') {
+//             sessionStorage.removeItem(storageKey);  // eenmalig
+//             runIntroForPage(pageKey);
+//         }
+//     })();
 
 
 

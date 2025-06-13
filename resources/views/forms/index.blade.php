@@ -11,9 +11,9 @@
             </div>
         @endif
 
-    <x-primary-button id="help-forms-button">
+    <x-secondary-button id="help-forms-button">
         Uitleg over deze pagina
-    </x-primary-button>
+    </x-secondary-button>
 
     <x-secondary-button onclick="introJs().start()">Start rondleiding</x-secondary-button>
 
@@ -22,9 +22,9 @@
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-bold text-primary">Alle Formulieren</h1>
                 <a href="{{ route('forms.create') }}">
-                    <x-primary-button id="new-form-button">
+                    <x-secondary-button id="new-form-button">
                         Nieuw Formulier
-                    </x-primary-button>
+                    </x-secondary-button>
                 </a>
             </div>
 
