@@ -5,7 +5,11 @@
 @endphp
 
 @section('content')
-        <div class="p-4 border border-gray-200 bg-white rounded-lg">
+    <x-secondary-button id="help-gradelist-button">
+        Begin rondleiding
+    </x-secondary-button>
+
+        <div class="p-4 border border-gray-200 mt-2 bg-white rounded-lg" id="beoordelingen-title">
             <h1 class="text-2xl text-primary font-bold mb-4">Overzicht Cijfers Per Vak</h1>
             @if($forms->isEmpty())
                 <p class="text-primary">
@@ -21,6 +25,7 @@
                     @foreach($forms as $form)
                         <div x-data="{ open: false }">
                             <button
+                                id="vak-title"
                                 @click="open = !open"
                                 class="bg-primary py-2 px-4 text-2xl font-bold text-white shadow-lg hover:bg-secondary dark:hover:bg-darktext mb-4 mt-4 flex items-center justify-between w-full rounded-lg transition-colors duration-300">
                                 <span>{{ $form->subject }}</span>
@@ -30,7 +35,7 @@
                             </button>
 
                             <div x-show="open">
-                                <table class="w-full bg-white shadow rounded">
+                                <table class="w-full bg-white shadow rounded" id="cijferlijst">
                                     <thead>
                                     <tr class="bg-gray-100">
                                         <th class="p-3 text-left">Studentnaam</th>

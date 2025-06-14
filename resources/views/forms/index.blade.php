@@ -12,13 +12,11 @@
         @endif
 
     <x-secondary-button id="help-forms-button">
-        Uitleg over deze pagina
+        Begin rondleiding
     </x-secondary-button>
 
-    <x-secondary-button onclick="introJs().start()">Start rondleiding</x-secondary-button>
 
-
-        <div class="p-4 border border-gray-200 bg-white rounded-lg">
+        <div class="p-4 border border-gray-200 mt-2 bg-white rounded-lg">
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-bold text-primary">Alle Formulieren</h1>
                 <a href="{{ route('forms.create') }}">
@@ -46,7 +44,7 @@
                     <tbody>
                     @foreach($forms as $form)
                         <tr class="border-t">
-                            <td class="p-3 text-lg font-semibold text-secondary hover:text-windy">
+                            <td class="p-3 text-lg font-semibold text-secondary hover:text-windy" id="form-link">
                                 <a href="{{ route('forms.show', $form) }}"> {{ $form->subject }}</a>
                             </td>
                             <td class="p-3">
@@ -67,7 +65,7 @@
                             </td>
                             <td class="p-3 text-right">
                                 <a href="{{ route('filled_forms.create', $form) }}">
-                                    <x-secondary-button>
+                                    <x-secondary-button id="student-beoordelen">
                                         Student Beoordelen
                                     </x-secondary-button>
                                 </a>
