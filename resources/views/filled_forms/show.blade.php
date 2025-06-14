@@ -264,8 +264,8 @@
             </div>
         @endforeach
 
-        <a href="{{ route('forms.index') }}"><x-primary-button>
+        <a href="{{ route('forms.index') }}"><x-secondary-button>
                 Terug naar lijst
-            </x-primary-button>
+            </x-secondary-button>
         </a>
 @endsection
