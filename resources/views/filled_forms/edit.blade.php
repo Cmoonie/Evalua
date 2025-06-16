@@ -207,7 +207,7 @@
                                                 @foreach($component['levels'] as $level)
                                                     @if(strtolower($level['name']) === $gradeName)
                                                         <button type="button"
-                                                                class="grade-button px-3 py-1 rounded-lg border mb-1 hover:opacity-90
+                                                                class="grade-button group relative w-full h-24 border border-gray-300 rounded-lg p-2
                                                             @if($component['grade_level_id'] == $level['id'])
                                                                 {{ $gradeName=='goed'?'bg-green-200 border-green-400'
                                                                 :($gradeName=='voldoende'
@@ -220,7 +220,9 @@
                                                                 data-points="{{ $levels[$gradeName] }}"
                                                                 data-grade-name="{{ $gradeName }}"
                                                         >
-                                                            <span class="text-xs">{{ $level['description'] }}</span>
+                                                            <span class="text-xs block max-h-full overflow-hidden text-ellipsis group-hover:overflow-auto group-hover:whitespace-normal">
+                                                                {{ $level['description'] }}
+                                                            </span>
                                                         </button>
                                                     @endif
                                                 @endforeach
@@ -266,16 +268,40 @@
                 </div>
             @endforeach
 
-            <div>
-                <label for="student_number" class="block text-primary text-lg font-semibold mb-2">Tweede examinator</label>
-                <input
-                    type="text"
-                    name="examinator"
-                    id="examinator"
-                    value="{{ old('examinator', $filledForm->examinator) }}"
+            <div x-data="{ custom: {{ old('examinator', $filledForm->examinator) === 'anders' ? 'true' : 'false' }} }">
+                <label for="examinator" class="block text-primary text-lg font-semibold mb-2">Tweede examinator</label>
+
+                <select
+                    name="examinator_select"
+                    id="examinator_select"
+                    @change="custom = $event.target.value === 'anders'"
                     class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
-                    required>
+                >
+                    <option value="">-- Kies een examinator --</option>
+                    <option value="Wout de Folter" {{ old('examinator', $filledForm->examinator) === 'Wout de Folter' ? 'selected' : '' }}>Wout de Folter</option>
+                    <option value="Stephan Hoeksema" {{ old('examinator', $filledForm->examinator) === 'Stephan Hoeksema' ? 'selected' : '' }}>Stephan Hoeksema</option>
+                    <option value="Bram Tukker" {{ old('examinator', $filledForm->examinator) === 'Bram Tukker' ? 'selected' : '' }}>Bram Tukker</option>
+                    <option value="anders" {{ old('examinator', $filledForm->examinator) !== 'Docent1' && old('examinator', $filledForm->examinator) !== 'Docent2' && old('examinator', $filledForm->examinator) !== 'Docent3' ? 'selected' : '' }}>
+                        Anders, namelijk...
+                    </option>
+                </select>
+
+                <template x-if="custom">
+                    <input
+                        type="text"
+                        name="examinator"
+                        id="examinator"
+                        placeholder="Vul hier de naam in"
+                        class="max-w-80 border border-gray-300 rounded p-2 mb-4 w-full"
+                        value="{{ in_array(old('examinator', $filledForm->examinator), ['Docent1', 'Docent2', 'Docent3']) ? '' : old('examinator', $filledForm->examinator) }}"
+                    />
+                </template>
+
+                <template x-if="!custom">
+                    <input type="hidden" name="examinator" :value="document.getElementById('examinator_select').value" />
+                </template>
             </div>
+
 
             <div class="mb-4 text-right text-lg font-semibold">
                 Totaal aantal nieuwe punten (alle competenties): <span id="total-points">{{ $grandTotal }}</span>

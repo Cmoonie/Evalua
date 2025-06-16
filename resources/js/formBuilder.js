@@ -1,8 +1,6 @@
 export function formBuilder() {
     return {
         competencies: [
-            // { id: Date.now(), components: [{ id: Date.now() + 1 }, { id: Date.now() + 2 }] },
-            // { id: Date.now() + 3, components: [{ id: Date.now() + 4 }, { id: Date.now() + 5 }] }
             { id: Date.now(), components: [{ id: Date.now() + Math.random() }] }
         ],
 

@@ -9,7 +9,6 @@ import { formEditor } from "./formEditor.js";
 window.Alpine = Alpine;
 
 Alpine.data('formBuilder', formBuilder);
-Alpine.data('formEditor', formEditor);
 
 Alpine.start();
 
@@ -20,8 +19,7 @@ document.querySelector('#help-gradelist-button')?.addEventListener('click', star
 
 // Starten die handel
 gradeCalculator();
-
-// Starten
+formEditor();
 checkboxSubmit();
 
 

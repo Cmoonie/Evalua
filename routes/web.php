@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('filled_forms/create/{form}', [FilledFormController::class, 'create'])
         ->name('filled_forms.create');
 
-    // PDF shit
+    // PDF route
     Route::get('filled_forms/{filledForm}/pdf', [FilledFormController::class, 'downloadPDF']
     )->name('filled_forms.pdf');
 });

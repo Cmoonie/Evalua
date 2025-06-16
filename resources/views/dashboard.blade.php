@@ -3,6 +3,7 @@
 @php
     $header = 'Welkom op het Dashboard';
     use Illuminate\Support\Facades\Auth;
+    use Carbon\Carbon;
 @endphp
 
 
