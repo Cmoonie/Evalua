@@ -51,6 +51,7 @@ git clone https://github.com/Cmoonie/Evalua.git
 # 2. Installeer PHP- en JS-dependencies
 composer install
 npm install
+npm build
 
 # 3. Zet de database op en seed data
 php artisan migrate --seed
