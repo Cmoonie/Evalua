@@ -7,18 +7,6 @@ Dit project focust op het digitaliseren van beoordelingsmatrices die docenten ge
 
 Deze README biedt een compleet overzicht van het project, inclusief techniek, doelstellingen, documentatie en vervolgstappen. Ideaal voor docenten, stakeholders of toekomstige ontwikkelaars.
 
-
-## Doel van het project
-
-Het doel van de applicatie is het ontwikkelen van een digitale beoordelingsmatrix die geëxporteerd kan worden naar **PDF** en **Excel**.
-
-Uit interviews met vijf docenten kwamen de volgende knelpunten naar voren:
-
-- Overlap tussen leerdoelen en criteria zorgt voor verwarring
-- Holistisch beoordelen is wenselijk, maar vraagt ondersteuning
-- Beoordelen in Excel is foutgevoelig en tijdrovend
-- Grote verschillen tussen beoordelaars (geen standaardisatie)
-
 ---
 
 ## Functionaliteiten
