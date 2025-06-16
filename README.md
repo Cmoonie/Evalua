@@ -46,18 +46,40 @@ Volg onderstaande stappen om de applicatie lokaal te draaien:
 
 ```bash
 # 1. Clone de repository
-git clone https://github.com/Cmoonie/Evalua.git
+    git clone https://github.com/Cmoonie/Evalua.git
 
 # 2. cd naar de directory
-cd Evalua
+    cd Evalua
 
 # 3. Installeer PHP- en JS-dependencies
-composer install
-npm install
-npm run build
+    composer install
+    npm install
+    npm run build
 
-# 4. Zet de database op en seed data
-php artisan migrate --seed
+# 4. Open het bestaande .env bestand 
+Het .env bestand zou al aanwezig moeten zijn in het gedownloade project. Open dit bestand in een teksteditor.
+Mocht het bestand niet bestaan, maak het dan zo:
 
-# 5. Start de Laravel-server
-composer run dev
+    cp .env.example .env
+
+Pas de database-instellingen aan indien nodig, zoals een ander poortnummer of DB wachtwoord.
+
+# 5. Genereer de applicatiesleutel
+Voer het volgende commando uit om de applicatiesleutel van Laravel te genereren:
+
+    php artisan key:generate
+
+# 6. Maak de database aan
+Voordat je de migraties uitvoert, moet je ervoor zorgen dat de database bestaat. Dit kan handmatig via de MySQL CLI of phpMyAdmin:
+
+    mysql -u root -p
+    CREATE DATABASE evalua;
+    EXIT;
+
+Zorg ervoor dat de gegevens in de .env file overeen komen met jouw database instellingen.
+
+# 7. Zet de database op en seed data
+    php artisan migrate --seed
+
+# 8. Start de Laravel-server
+    composer run dev
