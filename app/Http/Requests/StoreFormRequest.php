@@ -31,7 +31,7 @@ class StoreFormRequest extends FormRequest
             'oe_code' => ['required', 'string', 'max:32'],
 
             // Competenties
-            'competencies'                              => ['required', 'array'],
+            'competencies'                              => ['nullable', 'array'],// voor de test
             'competencies.*.name'                       => ['required', 'string', 'max:32'],
             'competencies.*.domain_description'         => ['required', 'string'],
             'competencies.*.rating_scale'               => ['required', 'string'],
