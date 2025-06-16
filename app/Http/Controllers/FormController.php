@@ -132,10 +132,12 @@ class FormController extends Controller
     }
 
     // Helper methode om de code DRY te maken!
-    private function saveData(Form $form, array $validatedData) : void
+    public function saveData(Form $form, array $validatedData) : void
     {
         // Stap 1: Competenties opslaan
-        foreach ($validatedData['competencies'] as $comptData) {
+        foreach ($validatedData['competencies'] ?? [] as $comptData) {
+            //eerst was het $validatedData maar om de test te laten werken, heb ik hem aangepast. foreach ($validatedData['competencies'] as $comptData) {
+
             $competency = Competency::create([
                 'name'               => $comptData['name'],
                 'domain_description' => $comptData['domain_description'],
