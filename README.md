@@ -31,7 +31,7 @@ Deze README biedt een compleet overzicht van het project, inclusief techniek, do
 - **Tools:** PHPStorm, Composer, Git, GitHub
 
 **GitHub-repository:**  
-https://github.com/Cmoonie/Evalua](https://github.com/Cmoonie/Evalua)
+https://github.com/Cmoonie/Evalua
 
 
 **Testaccount:**
