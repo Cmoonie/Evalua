@@ -48,13 +48,16 @@ Volg onderstaande stappen om de applicatie lokaal te draaien:
 # 1. Clone de repository
 git clone https://github.com/Cmoonie/Evalua.git
 
-# 2. Installeer PHP- en JS-dependencies
+# 2. cd naar de directory
+cd Evalua
+
+# 3. Installeer PHP- en JS-dependencies
 composer install
 npm install
-npm build
+npm run build
 
-# 3. Zet de database op en seed data
+# 4. Zet de database op en seed data
 php artisan migrate --seed
 
-# 4. Start de Laravel-server
+# 5. Start de Laravel-server
 composer run dev
