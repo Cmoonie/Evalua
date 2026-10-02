@@ -62,4 +62,4 @@ RUN sed -ri 's/AllowOverride None/AllowOverride All/g' \
 EXPOSE 80
 
 # Eerst database-migraties, daarna Apache starten
-CMD php artisan migrate --force && apache2-foreground
+CMD php artisan migrate --force && php artisan db:seed --force && apache2-foreground
