@@ -39,7 +39,6 @@ COPY --from=frontend /app/public/build ./public/build
 
 # PHP dependencies installeren
 RUN composer install \
-    --no-dev \
     --no-interaction \
     --optimize-autoloader
 
